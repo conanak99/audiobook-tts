@@ -52,6 +52,17 @@ python3 -m viettts voice cut <id> --candidate 1 --candidate 4      # or --start 
 
 This writes `reference-1.wav`, `reference-2.wav` (48 kHz mono, cleaned) and a draft `voice.json`. If the clips add up to more than 30 s (`--max-total`), each is shortened to its share, ending inside a natural pause. Pass on any warnings: a clip under 10 s, a long pause, or a low speech ratio. A new cut replaces the voice's old references.
 
+**Volume match:** `cut` levels every reference to **−20 LUFS**, where the approved voices sit. It uses linear gain only, with no compression, and keeps the true peak at or below −2 dBTP. It prints each clip's loudness and the gain applied, and stores `lufs`, `peak_db` and `gain_db` per reference in `voice.json`. If a clip ends more than 1 LU under the target, the peak ceiling limited the gain: the source is spiky (shouts, laughter, plosives). Prefer another candidate over pushing it louder. Never boost a reference by hand with a fixed number of dB; measure it first.
+
+To match voices onboarded before this step:
+
+```sh
+python3 -m viettts voice level --all --dry-run      # measure only: LUFS, true peak, the gain it would apply
+python3 -m viettts voice level <id> [<id> ...]      # level in place (skips clips within 0.5 dB of the target)
+```
+
+A changed reference makes its samples outdated, so regenerate them with `voice samples <id>` and ask the user to listen again. Audiobook builds key their cache on the reference *paths*, not their contents, so a rebuild silently reuses chunks cloned from the old audio. Tell the user that only lines that aren't cached yet use the new reference. (Builds level every chunk's output anyway, so the finished book's loudness doesn't change; matched references mainly make cloning behave the same across voices.)
+
 ## 3. Transcribe and review (your job)
 
 The NanoGPT key comes from `NANOGPT_API_KEY` or `--key-file`. If neither is available, ask the user for the key with the secret tool, never in chat, and pass the saved file with `--key-file`. Never print the key.

@@ -63,6 +63,25 @@ class OnboardingSmokeTests(unittest.TestCase):
                     self.assertEqual(audio.getnchannels(), 1)
                     self.assertGreater(audio.getnframes(), 0)
 
+    def test_quiet_reference_is_leveled_to_the_target_without_clipping(self):
+        source = ROOT / 'references' / 'voices' / 'shirone-mika' / 'reference-1.wav'
+        with tempfile.TemporaryDirectory() as directory:
+            quiet = Path(directory) / 'quiet.wav'
+            onboard_voice.ffmpeg('-i', str(source), '-af', 'volume=-12dB', '-c:a', 'pcm_s16le', str(quiet))
+            gain, before, after = onboard_voice.level(quiet)
+            self.assertGreater(gain, 5)
+            self.assertLess(before, onboard_voice.TARGET_LUFS - 5)
+            self.assertAlmostEqual(after, onboard_voice.TARGET_LUFS, delta=1.0)
+            self.assertLessEqual(onboard_voice.loudness(quiet)[1], onboard_voice.PEAK_CEILING_DB + 0.3)
+
+
+class LevelGainTests(unittest.TestCase):
+    def test_gain_reaches_target_but_stops_at_the_peak_ceiling(self):
+        self.assertEqual(onboard_voice.level_gain(-26.0, -12.0), 6.0)
+        self.assertEqual(onboard_voice.level_gain(-26.0, -4.0), 2.0)  # ceiling -2 dBTP wins
+        self.assertEqual(onboard_voice.level_gain(-17.0, -1.0), -3.0)  # too loud is turned down
+        self.assertEqual(onboard_voice.level_gain(None, None), 0.0)
+
 
 class VoiceTableTests(unittest.TestCase):
     def test_table_uses_six_columns_and_keeps_notes_only_in_json(self):

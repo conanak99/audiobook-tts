@@ -1,75 +1,75 @@
 {
-  "id": "fuyuki-inari",
-  "status": "onboarded",
-  "transcript_reviewed": true,
-  "source": {
-    "input": "/Users/harry.pham/Downloads/fuyuki-inari-actor.ogg"
-  },
-  "references": [
-    {
-      "n": 1,
-      "file": "reference-1.wav",
-      "source_start": 54.93,
-      "transcript_reviewed": true,
-      "duration": 14.52,
-      "speech_pct": 93.5,
-      "longest_pause": 0.42,
-      "mean_db": -25.1,
-      "words_per_s": 4.2
-    },
-    {
-      "n": 2,
-      "file": "reference-2.wav",
-      "source_start": 194.95,
-      "transcript_reviewed": true,
-      "duration": 13.91,
-      "speech_pct": 91.8,
-      "longest_pause": 0.49,
-      "mean_db": -24.5,
-      "words_per_s": 5.03
-    }
-  ],
-  "samples": [
-    {
-      "file": "references/voices/fuyuki-inari/samples/sample-1.wav",
-      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
-      "duration": 7.06,
-      "speech_pct": 85.6,
-      "longest_pause": 0.33,
-      "mean_db": -22.1
-    },
-    {
-      "file": "references/voices/fuyuki-inari/samples/sample-2.wav",
-      "text": "Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!",
-      "duration": 5.48,
-      "speech_pct": 88.3,
-      "longest_pause": 0.34,
-      "mean_db": -21.4
-    },
-    {
-      "file": "references/voices/fuyuki-inari/samples/sample-3.wav",
-      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
-      "duration": 6.92,
-      "speech_pct": 74.7,
-      "longest_pause": 0.79,
-      "mean_db": -22.6
-    }
-  ],
-  "metrics": {
-    "duration": 28.43,
-    "longest_pause": 0.49
-  },
-  "name": "Fuyuki Inari",
-  "updated": "2026-11-16T22:46:50",
-  "sample_retries": 0,
-  "gender": "female",
-  "style": "Calm, a bit sassy",
-  "accent": "Southern",
-  "fits": "Calm or a bit sassy heroines",
-  "contact": "unknown — ask before publishing",
-  "approved": "2026-11-16T22:27:39",
-  "notes": [
-    "2026-11-16: new actor (2026-11-16), 2 references from fuyuki-inari-actor.ogg; first multi-reference voice; sample 2 runs slower (8.8 s)"
-  ],
-  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a"
+	"id": "fuyuki-inari",
+	"status": "onboarded",
+	"transcript_reviewed": true,
+	"source": {
+		"input": "/Users/harry.pham/Downloads/fuyuki-inari-actor.ogg"
+	},
+	"references": [
+		{
+			"n": 1,
+			"file": "reference-1.wav",
+			"source_start": 54.93,
+			"transcript_reviewed": true,
+			"duration": 14.52,
+			"speech_pct": 93.5,
+			"longest_pause": 0.42,
+			"mean_db": -25.1,
+			"words_per_s": 4.2
+		},
+		{
+			"n": 2,
+			"file": "reference-2.wav",
+			"source_start": 194.95,
+			"transcript_reviewed": true,
+			"duration": 13.91,
+			"speech_pct": 91.8,
+			"longest_pause": 0.49,
+			"mean_db": -24.5,
+			"words_per_s": 5.03
+		}
+	],
+	"samples": [
+		{
+			"file": "references/voices/fuyuki-inari/samples/sample-1.wav",
+			"text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+			"duration": 7.06,
+			"speech_pct": 85.6,
+			"longest_pause": 0.33,
+			"mean_db": -22.1
+		},
+		{
+			"file": "references/voices/fuyuki-inari/samples/sample-2.wav",
+			"text": "Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!",
+			"duration": 5.48,
+			"speech_pct": 88.3,
+			"longest_pause": 0.34,
+			"mean_db": -21.4
+		},
+		{
+			"file": "references/voices/fuyuki-inari/samples/sample-3.wav",
+			"text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+			"duration": 6.92,
+			"speech_pct": 74.7,
+			"longest_pause": 0.79,
+			"mean_db": -22.6
+		}
+	],
+	"metrics": {
+		"duration": 28.43,
+		"longest_pause": 0.49
+	},
+	"name": "Fuyuki Inari",
+	"updated": "2026-11-16T22:46:50",
+	"sample_retries": 0,
+	"gender": "female",
+	"style": "Calm, a bit sassy",
+	"accent": "Southern",
+	"fits": "Calm or a bit sassy heroines",
+	"contact": "unknown — ask before publishing",
+	"approved": "2026-11-16T22:27:39",
+	"notes": [
+		"2026-11-16: new actor (2026-11-16), 2 references from fuyuki-inari-actor.ogg; first multi-reference voice; sample 2 runs slower (8.8 s)"
+	],
+	"samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a"
 }

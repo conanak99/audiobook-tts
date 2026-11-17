@@ -34,6 +34,11 @@ BEGIN, END = (
     '<!-- END onboarded voices -->',
 )
 CLEAN = 'highpass=f=85,lowpass=f=14000,afftdn=nf=-25'
+# References are leveled to one loudness so every voice clones at the same level: the approved set sits
+# around -20 LUFS. The gain is linear (no compression) and never pushes the true peak above the ceiling.
+TARGET_LUFS = -20.0
+PEAK_CEILING_DB = -2.0
+LEVEL_TOLERANCE_DB = 0.5
 # Three ~5 s test lines: narration, playful xianxia dialogue, modern emotional dialogue.
 SAMPLE_LINES = [
     'Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.',
@@ -95,8 +100,40 @@ def silences(path, noise_db=-40, min_s=0.25):
     return list(zip(starts, ends + [None] * (len(starts) - len(ends))))
 
 
+def loudness(path):
+    """Integrated loudness (LUFS) and true peak (dBTP) from FFmpeg's EBU R128 meter."""
+    log = ffmpeg('-i', str(path), '-af', 'ebur128=peak=true', '-f', 'null', '-', capture=True)
+    summary = log[log.rfind('Summary:') :]
+    lufs = re.search(r'I:\s+(-?[\d.]+|-inf) LUFS', summary)
+    peak = re.search(r'Peak:\s+(-?[\d.]+|-inf) dBFS', summary)
+    as_float = lambda m: float(m[1]) if m and m[1] != '-inf' else None  # noqa: E731
+    return as_float(lufs), as_float(peak)
+
+
+def level_gain(lufs, peak, target=TARGET_LUFS, ceiling=PEAK_CEILING_DB):
+    """dB to add so the clip reaches `target` LUFS without its true peak going over `ceiling`."""
+    if lufs is None:
+        return 0.0
+    gain = target - lufs
+    if peak is not None:
+        gain = min(gain, ceiling - peak)
+    return round(gain, 2)
+
+
+def level(path, target=TARGET_LUFS, ceiling=PEAK_CEILING_DB):
+    """Level a reference in place; returns (gain applied in dB, LUFS before, LUFS after)."""
+    before, peak = loudness(path)
+    gain = level_gain(before, peak, target, ceiling)
+    if abs(gain) < LEVEL_TOLERANCE_DB:
+        return 0.0, before, before
+    tmp = path.with_name(path.stem + '.leveling.wav')
+    ffmpeg('-i', str(path), '-af', f'volume={gain}dB', '-c:a', 'pcm_s16le', str(tmp))
+    tmp.replace(path)
+    return gain, before, loudness(path)[0]
+
+
 def measure(path):
-    """Speech %, longest inner pause, mean volume, duration."""
+    """Speech %, longest inner pause, mean volume, loudness, duration."""
     total = seconds_of(path)
     gaps = [(s, e if e is not None else total) for s, e in silences(path, -40, 0.2)]
     inner = [e - s for s, e in gaps if s > 0.05 and e < total - 0.05]
@@ -104,11 +141,14 @@ def measure(path):
     mean = re.search(
         r'mean_volume: (-?[\d.]+) dB', ffmpeg('-i', str(path), '-af', 'volumedetect', '-f', 'null', '-', capture=True)
     )
+    lufs, peak = loudness(path)
     return dict(
         duration=round(total, 2),
         speech_pct=round(100 * (1 - silent / total), 1) if total else 0,
         longest_pause=round(max(inner, default=0), 2),
         mean_db=float(mean[1]) if mean else None,
+        lufs=lufs,
+        peak_db=peak,
     )
 
 
@@ -332,8 +372,16 @@ def cmd_cut(args):
             'pcm_s16le',
             str(ref),
         )
+        gain, _, _ = level(ref)
         refs.append(
-            dict(n=n, file=ref.name, source_start=round(p['source_time'], 2), transcript_reviewed=False, **measure(ref))
+            dict(
+                n=n,
+                file=ref.name,
+                source_start=round(p['source_time'], 2),
+                transcript_reviewed=False,
+                gain_db=gain,
+                **measure(ref),
+            )
         )
     meta = json.loads((d / 'voice.json').read_text(encoding='utf-8')) if (d / 'voice.json').is_file() else {}
     meta.update(
@@ -357,13 +405,43 @@ def cmd_cut(args):
             warn.append(f'a {r["longest_pause"]}s pause (Drama-3 copies long pauses)')
         if r['speech_pct'] < 70:
             warn.append(f'only {r["speech_pct"]}% speech')
+        if r['lufs'] is not None and r['lufs'] < TARGET_LUFS - 1:
+            warn.append(f'{r["lufs"]} LUFS after leveling: the peak ceiling limited the gain (spiky source)')
         print(
             f'reference-{r["n"]}.wav  from {clock(r["source_start"])}  {r["duration"]}s  speech {r["speech_pct"]}%  '
-            f'pause ≤{r["longest_pause"]}s' + ''.join(f'\n  warning: {w}' for w in warn)
+            f'pause ≤{r["longest_pause"]}s  {r["lufs"]} LUFS ({r["gain_db"]:+.1f} dB)'
+            + ''.join(f'\n  warning: {w}' for w in warn)
         )
     print(
         f'{len(refs)} reference(s), {meta["metrics"]["duration"]}s total. Next: python3 -m viettts voice transcribe {vid}'
     )
+
+
+# --- level -------------------------------------------------------------------------------------------------
+def cmd_level(args):
+    """Match existing references to TARGET_LUFS (the cut step already does this for new ones)."""
+    ids = [v['id'] for v in all_voices()] if args.all else [slugify(i) for i in args.ids]
+    if not ids:
+        raise SystemExit('Give voice ids or --all.')
+    for vid in ids:
+        meta = load(vid)
+        changed = False
+        for ref in meta.get('references', []):
+            path = voice_dir(vid) / ref['file']
+            if args.dry_run:
+                lufs, peak = loudness(path)
+                gain = level_gain(lufs, peak)
+                print(f'{vid}/{ref["file"]}  {lufs} LUFS  peak {peak} dBTP  -> would add {gain:+.1f} dB')
+                continue
+            gain, before, after = level(path)
+            if gain:
+                ref.update(measure(path), gain_db=round(ref.get('gain_db', 0) + gain, 2))
+                changed = True
+            print(f'{vid}/{ref["file"]}  {before} -> {after} LUFS  ({gain:+.1f} dB)')
+        if changed:
+            save(meta)
+            if meta.get('samples'):
+                print(f'  {vid}: references changed; regenerate its samples (voice samples {vid}) and re-audition.')
 
 
 # --- transcribe --------------------------------------------------------------------------------------------
@@ -593,6 +671,11 @@ def main(argv=None):
     s.add_argument('--duration', type=float)
     s.add_argument('--media', help='Source file (default: the one used by candidates)')
     s.set_defaults(func=cmd_cut)
+    s = sub.add_parser('level', help=f'Match existing references to {TARGET_LUFS:g} LUFS (cut does this already)')
+    s.add_argument('ids', nargs='*')
+    s.add_argument('--all', action='store_true', help='Every voice in references/voices')
+    s.add_argument('--dry-run', action='store_true', help='Only measure and print the gain')
+    s.set_defaults(func=cmd_level)
     s = sub.add_parser('transcribe', help='Transcribe each reference with 3 NanoGPT STT models + judges -> drafts')
     s.add_argument('id')
     s.add_argument('--ref', type=int, help='Only this reference')

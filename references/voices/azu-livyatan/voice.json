@@ -1,65 +1,65 @@
 {
-  "id": "azu-livyatan",
-  "name": "Azu Livyatan",
-  "gender": "female",
-  "status": "onboarded",
-  "style": "Soft, breathy, teasing young voice (≈ 225 Hz)",
-  "fits": "Teasing or seductive heroine",
-  "contact": "azulivyatan701@gmail.com | azulivyatan.wixsite.com/commission",
-  "source": {
-    "input": "https://www.youtube.com/watch?v=78POqLtMb3M"
-  },
-  "metrics": {
-    "duration": 14.82,
-    "longest_pause": 0
-  },
-  "transcript_reviewed": true,
-  "notes": [
-    "2026-11-16: Drama-3 V2, Ma Hoa (cold, flat, teasing alchemist sư tỷ): 412 chunks (pilot 36 + full 376), 0 retries, 0 repairs, no silence over 2.5 s. Mixed build with VieNeu Thiện Minh narrator, ~11.5 min for a 72-min book. User approved the fit.",
-    "2026-11-17: 2026-11-17: Ma Hoa rebuild with 81 enhanced lines (deadpan heroine, tags only where composure breaks): 149 chunks, a few frame-cap retries on breathless/moaning tags, 1 fallback (very short line 'Ở bên trong,' with [breathless]). Avoid tags on 2-3 word lines.",
-    "2026-11-17: 2026-11-17: Ma Hoa v2 (Ba Tháng Trưng Dụng), 435 Drama-3 chunks, 90 enhanced lines initially. Four tagged chunks fell back to plain: three short lines and one [breathing heavily] line; those entries were removed, leaving 86 reliable enhancements. No silence over 2.5 s; final 83.2 min."
-  ],
-  "updated": "2026-11-17T10:54:02",
-  "samples": [
-    {
-      "file": "references/voices/azu-livyatan/samples/sample-1.wav",
-      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
-      "duration": 6.78,
-      "speech_pct": 80.0,
-      "longest_pause": 0.48,
-      "mean_db": -21.8
-    },
-    {
-      "file": "references/voices/azu-livyatan/samples/sample-2.wav",
-      "text": "Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!",
-      "duration": 5.9,
-      "speech_pct": 78.9,
-      "longest_pause": 0.44,
-      "mean_db": -21.4
-    },
-    {
-      "file": "references/voices/azu-livyatan/samples/sample-3.wav",
-      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
-      "duration": 6.31,
-      "speech_pct": 68.0,
-      "longest_pause": 0.55,
-      "mean_db": -22.3
-    }
-  ],
-  "sample_retries": 0,
-  "references": [
-    {
-      "n": 1,
-      "file": "reference-1.wav",
-      "source_start": 1000.0,
-      "transcript_reviewed": true,
-      "words_per_s": 4.45,
-      "duration": 14.82,
-      "speech_pct": 100.0,
-      "longest_pause": 0,
-      "mean_db": -19.4
-    }
-  ],
-  "approved": "2026-11-16T22:27:39",
-  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a"
+	"id": "azu-livyatan",
+	"name": "Azu Livyatan",
+	"gender": "female",
+	"status": "onboarded",
+	"style": "Soft, breathy, teasing young voice (≈ 225 Hz)",
+	"fits": "Teasing or seductive heroine",
+	"contact": "azulivyatan701@gmail.com | azulivyatan.wixsite.com/commission",
+	"source": {
+		"input": "https://www.youtube.com/watch?v=78POqLtMb3M"
+	},
+	"metrics": {
+		"duration": 14.82,
+		"longest_pause": 0
+	},
+	"transcript_reviewed": true,
+	"notes": [
+		"2026-11-16: Drama-3 V2, Ma Hoa (cold, flat, teasing alchemist sư tỷ): 412 chunks (pilot 36 + full 376), 0 retries, 0 repairs, no silence over 2.5 s. Mixed build with VieNeu Thiện Minh narrator, ~11.5 min for a 72-min book. User approved the fit.",
+		"2026-11-17: 2026-11-17: Ma Hoa rebuild with 81 enhanced lines (deadpan heroine, tags only where composure breaks): 149 chunks, a few frame-cap retries on breathless/moaning tags, 1 fallback (very short line 'Ở bên trong,' with [breathless]). Avoid tags on 2-3 word lines.",
+		"2026-11-17: 2026-11-17: Ma Hoa v2 (Ba Tháng Trưng Dụng), 435 Drama-3 chunks, 90 enhanced lines initially. Four tagged chunks fell back to plain: three short lines and one [breathing heavily] line; those entries were removed, leaving 86 reliable enhancements. No silence over 2.5 s; final 83.2 min."
+	],
+	"updated": "2026-11-17T10:54:02",
+	"samples": [
+		{
+			"file": "references/voices/azu-livyatan/samples/sample-1.wav",
+			"text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+			"duration": 6.78,
+			"speech_pct": 80.0,
+			"longest_pause": 0.48,
+			"mean_db": -21.8
+		},
+		{
+			"file": "references/voices/azu-livyatan/samples/sample-2.wav",
+			"text": "Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!",
+			"duration": 5.9,
+			"speech_pct": 78.9,
+			"longest_pause": 0.44,
+			"mean_db": -21.4
+		},
+		{
+			"file": "references/voices/azu-livyatan/samples/sample-3.wav",
+			"text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+			"duration": 6.31,
+			"speech_pct": 68.0,
+			"longest_pause": 0.55,
+			"mean_db": -22.3
+		}
+	],
+	"sample_retries": 0,
+	"references": [
+		{
+			"n": 1,
+			"file": "reference-1.wav",
+			"source_start": 1000.0,
+			"transcript_reviewed": true,
+			"words_per_s": 4.45,
+			"duration": 14.82,
+			"speech_pct": 100.0,
+			"longest_pause": 0,
+			"mean_db": -19.4
+		}
+	],
+	"approved": "2026-11-16T22:27:39",
+	"samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a"
 }
