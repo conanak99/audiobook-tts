@@ -24,6 +24,7 @@ The table below is regenerated from `voice.json`; don't edit it by hand.
 | `lynasa` | Lynasa | female | Sweet, melodic (≈ 265 Hz); Southern | Southern characters, girlfriend roleplay | 1 × (17.5s) = 17.5s |
 | `nika-linh-lan` | Nika Linh Lan | female | Airy, youthful, quiet low-talk (≈ 225 Hz) | Shy or sleepy heroine | 1 × (18.62s) = 18.62s |
 | `nina-meowmeow` | Nina MeowMeow | female | Warm, soft, intimate (≈ 205 Hz) | Intimate, affectionate heroine | 1 × (17.5s) = 17.5s |
+| `nyan-mikuru` | Nyan Mikuru | female | soft-spoken, young, sweet light timbre; casual streamer delivery | young girlfriend / GFE heroines, sweet tender romance, intimate scenes | 2 × (13.28s, 13.24s) = 26.52s |
 | `shirone-mika` | Shirone Mika | female | High, sweet, gentle, soft-healing (F0 ≈ 330 Hz) | Innocent, playful heroine | 1 × (15.68s) = 15.68s |
 <!-- END onboarded voices -->
 

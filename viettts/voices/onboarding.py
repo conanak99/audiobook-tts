@@ -39,11 +39,14 @@ CLEAN = 'highpass=f=85,lowpass=f=14000,afftdn=nf=-25'
 TARGET_LUFS = -20.0
 PEAK_CEILING_DB = -2.0
 LEVEL_TOLERANCE_DB = 0.5
-# Three ~5 s test lines: narration, playful xianxia dialogue, modern emotional dialogue.
+# Five ~5 s test lines: narration, playful xianxia dialogue, modern emotional dialogue, then two with
+# Drama-3 tags (see viet-audiobook/references/enhance.md): an everyday acted line and an intimate one.
 SAMPLE_LINES = [
     'Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.',
     'Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!',
     'Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?',
+    '[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!',
+    '[low, sultry] Huynh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...',
 ]
 
 
@@ -573,7 +576,7 @@ def cmd_approve(args):
     if not meta.get('transcript_reviewed') or not all(r.get('transcript_reviewed') for r in meta.get('references', [])):
         raise SystemExit('Not every reference transcript is reviewed yet.')
     good = [x for x in meta.get('samples', []) if not x.get('failed')]
-    if len(good) < 3 and not args.no_samples and not args.accept_failed:
+    if (not good or len(good) < len(meta.get('samples', []))) and not args.no_samples and not args.accept_failed:
         raise SystemExit(
             f'Only {len(good)} of {len(meta.get("samples", []))} samples succeeded; regenerate, pick '
             f'another cut, or pass --accept-failed if the user approves anyway.'
@@ -690,7 +693,7 @@ def main(argv=None):
     s.add_argument('--text')
     s.add_argument('--file')
     s.set_defaults(func=cmd_set_transcript)
-    s = sub.add_parser('samples', help='Generate 3 ~5 s Drama-3 samples per voice for the user to audition')
+    s = sub.add_parser('samples', help='Generate 5 ~5 s Drama-3 samples per voice for the user to audition')
     s.add_argument('ids', nargs='+')
     s.add_argument('--line', action='append', help='Custom sample sentence (repeatable)')
     s.set_defaults(func=cmd_samples)

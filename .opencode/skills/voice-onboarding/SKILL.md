@@ -1,18 +1,18 @@
 ---
 name: Voice onboarding (Drama-3)
-description: Onboard a new voice for Drama-3 voice cloning from a video or audio file (or a YouTube/stream URL). It finds clean speech, cuts a reference clip, transcribes it with several NanoGPT speech-to-text models and judges, stores the reference and reviewed transcript, generates three ~5 s audition samples, and adds the voice to the audiobook voice list. Use when the user gives a video/audio/link and wants it as a voice, or asks to add, onboard, audition or re-transcribe a voice.
+description: Onboard a new voice for Drama-3 voice cloning from a video or audio file (or a YouTube/stream URL). It finds clean speech, cuts a reference clip, transcribes it with several NanoGPT speech-to-text models and judges, stores the reference and reviewed transcript, optionally removes background music and room echo, generates five ~5 s audition samples, and adds the voice to the audiobook voice list. Use when the user gives a video/audio/link and wants it as a voice, or asks to add, onboard, audition or re-transcribe a voice.
 ---
 
 # Voice onboarding
 
 Run everything from the vietTTS repository root with the system `python3`. The command is `python3 -m viettts voice`; its subcommands go in this order:
 
-**candidates → cut → transcribe → set-transcript → samples → approve.**
+**candidates → cut → (clean-up: music/echo removal, if the user wants it) → transcribe → set-transcript → samples → approve.**
 
 Each voice ends up in `references/voices/<id>/`:
 - `reference-1.wav`, `reference-2.wav`, …: the cleaned cuts
 - `reference-N.txt`: the reviewed transcript of each cut
-- `samples/`: three auditions
+- `samples/`: five auditions
 - `voice.json`: the source of truth
 
 **Reference guidance** (Fish Audio's voice-cloning guide, the Drama-3 tech report, and the MLX runtime limits):
@@ -41,7 +41,7 @@ python3 -m viettts voice candidates "<file or URL>" --id "<Name>" [--from 18:00 
 - For long sources (streams, hours long), ask the user for an approximate range first.
 - It analyses the waveform (speech vs. pauses) and prints **4 non-overlapping 15–20 s windows**. They are ranked by speech ratio, with no pause over 0.6 s inside. Each is cut, cleaned and saved to `outputs/voice-onboarding/<id>/candidate-N.wav`.
 - **The user decides by ear, not you.** Give them the candidate paths in a table (start, length, speech %, longest pause), then stop and ask them to listen and pick **two**, or one if only one is good. They should check that it's the right person, there's no music or other voices, and the tone is what they want. The metrics only rank the windows; they can't tell a wrong speaker or a bad mood.
-- If none is good, rerun with another range, `--max-pause 0.8`, or `--noise-db -35` for noisy sources.
+- If none is good, rerun with another range, `--max-pause 0.8`, or `--noise-db -35` for noisy sources. If music plays under all of them, see the source clean-up in step 2b.
 
 ## 2. Cut
 
@@ -61,6 +61,35 @@ python3 -m viettts voice level <id> [<id> ...]      # level in place (skips clip
 ```
 
 A changed reference makes its samples outdated, so regenerate them with `voice samples <id>` and ask the user to listen again. Audiobook builds key their cache on the reference *paths*, not their contents, so a rebuild silently reuses chunks cloned from the old audio. Tell the user that only lines that aren't cached yet use the new reference. (Builds level every chunk's output anyway, so the finished book's loudness doesn't change; matched references mainly make cloning behave the same across voices.)
+
+## 2b. Clean-up: remove music and echo (optional, ask the user)
+
+After the cut, **ask the user whether they want background music and/or room echo removed**. The question tool with a multiple-choice question is enough: "Remove background music", "Remove room echo", "Neither". Drama-3 clones everything in a reference: music underneath comes out as hiss or warble, and a room's echo comes out as echo. Cleaning the references once fixes every later build; post-processing the outputs would not.
+- Recommend **music** removal when the user hears music, or the source is a stream or video with BGM. A candidate with ~100% speech and 0 s pauses is a hint, because music fills the gaps.
+- Recommend **echo** removal for streams, room recordings or anything echoey, or when the user says the samples echo.
+
+```sh
+S=.opencode/skills/voice-onboarding/scripts/clean_refs.py
+python3 $S refs <id> --music --reverb --preview   # optional: cleaned clips in outputs/voice-onboarding/<id>/cleaned/ to listen to first
+python3 $S refs <id> --music --reverb             # replace the references (either flag alone is fine)
+```
+
+- Music removal keeps the vocals stem of the MelBand-Roformer vocals model (Kimberley Jensen, vocals SDR 12.6). If it leaves music in or eats words, try `--music-model model_bs_roformer_ep_317_sdr_12.9755.ckpt` (BS-Roformer Viperx).
+- Echo removal keeps the dry stem of the MelBand-Roformer de-reverb model (anvuew, SDR 19.2). If it sounds robotic or "underwater", use `--reverb-model dereverb_mel_band_roformer_less_aggressive_anvuew_sdr_18.8050.ckpt`.
+- With both flags, music is removed first and echo second. That's the order that works, because de-reverb models expect a voice alone.
+- Both run through `audio-separator` (UVR models). On first use, the script creates its own Python 3.12 venv with uv in `~/.cache/viettts/dereverb` (takes a few minutes; the system Python has no torch wheels). The models are downloaded and cached there too.
+- Each clip goes back to 48 kHz mono and is levelled to −20 LUFS. The script updates the measurements in `voice.json` (each reference gets `cleaned: [models]`) and clears the old samples.
+- Originals are kept in `outputs/voice-onboarding/<id>/orig-refs/`. Every run starts from them, so rerunning with other flags or models never stacks processing.
+- Transcripts stay valid, since the words don't change. It can run before or after `transcribe`.
+
+**Music playing throughout the source:** if every candidate has music under it, remove the music from the range *before* step 1, so the pause detection works on the voice alone:
+
+```sh
+python3 $S source "<file>" --id "<Name>" --from 1:51:00 --to 1:55:00   # → outputs/voice-onboarding/<id>/source-vocals.wav
+python3 -m viettts voice candidates outputs/voice-onboarding/<id>/source-vocals.wav --id "<Name>"
+```
+
+Candidate times are then relative to `--from`. CPU separation takes roughly 1–2× the length of the range, so keep the range to a few minutes.
 
 ## 3. Transcribe and review (your job)
 
@@ -94,12 +123,12 @@ If a word stays truly uncertain, tell the user which one, with the alternatives.
 python3 -m viettts voice samples <id> [<id2> ...]      # one Drama-3 run for all voices (~30 GB RAM, ~1–3 min)
 ```
 
-This makes three ~5 s lines per voice, cloned from all of its references together: narration, playful xianxia dialogue and modern emotional dialogue. A line that fails four times is recorded as failed instead of stopping the run. They're saved to `references/voices/<id>/samples/sample-1..3.wav`, and the retry count and longest pause are reported.
+This makes five ~5 s lines per voice, cloned from all of its references together: narration, playful xianxia dialogue, modern emotional dialogue, an everyday line with Drama-3 tags (`[bright, surprised]`, `[laughs]`, `<emphasis>`), and an intimate tagged line (`[low, sultry]`, `<soft>`, `[breathless]`). The tagged lines show how well the voice takes direction. If a tag is read aloud as words, or a tagged take fails, the voice needs lighter tags in books. A line that fails four times is recorded as failed instead of stopping the run. They're saved to `references/voices/<id>/samples/sample-1..5.wav`, and the retry count and longest pause are reported.
 - Run it in the background if several voices are queued.
 - The first Drama-3 chunk occasionally stalls for many minutes under memory pressure. That's not an error; wait for the notification.
 - Use `--line "<sentence>"` (repeatable) to audition lines closer to the user's book.
 
-Give the user the sample paths, then **stop and wait**. Ask whether the voice sounds like the source, is clear, has no odd pauses or breaths, and fits the character. If they don't like it, go back to step 1 or 2 and pick another cut. Report the **retries** too: the number of takes Drama-3 rejected (it hit the length cap or had a pause over 1.5 s) and regenerated. 0 is very stable; 5 or more over 3 lines means slower builds and more repairs in a real book.
+Give the user the sample paths, then **stop and wait**. Ask whether the voice sounds like the source, is clear, has no odd pauses or breaths, and fits the character. If they don't like it, go back to step 1 or 2 and pick another cut. Report the **retries** too: the number of takes Drama-3 rejected (it hit the length cap or had a pause over 1.5 s) and regenerated. 0 is very stable; 5 or more over 5 lines means slower builds and more repairs in a real book.
 
 ## 5. Approve
 

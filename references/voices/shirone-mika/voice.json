@@ -1,66 +1,67 @@
 {
-	"id": "shirone-mika",
-	"name": "Shirone Mika",
-	"gender": "female",
-	"status": "onboarded",
-	"style": "High, sweet, gentle, soft-healing (F0 ≈ 330 Hz)",
-	"fits": "Innocent, playful heroine",
-	"contact": "shironemika@gmail.com | shironemika.carrd.co",
-	"source": {
-		"input": "https://www.youtube.com/watch?v=hxZivfie3jc"
-	},
-	"metrics": {
-		"duration": 15.68,
-		"longest_pause": 0.32
-	},
-	"transcript_reviewed": true,
-	"notes": [
-		"2026-11-16: Sương Nguyệt Tập 1 heroine. Copies breathy pauses: 25/440 chunks needed repair, frequent retries; an accurate transcript did not reduce retries (6/31 in a pilot).",
-		"2026-11-16: Sương Nguyệt (shuangyue_v1, xianxia, playful heroine): 330 chunks / 17k chars in 8m10s, 0 silences >2.5s, no repair needed. User approved after pilot.",
-		"2026-11-17: Suong Nguyet (bratty xianxia sư muội, heavy tags on 202 lines): very clean. 288 chunks in 17 min, a few frame-cap retries; only a 2-word line with a 2-part direction ('[panting, dazed] Sao cơ?') failed every take. Keep tags on very short lines to one word or none.",
-		"2026-11-17: Suong Nguyet volume 2: 179 enhanced dialogue lines, 300 Drama-3 chunks synthesized in 8m18s; 2 frame-cap rejected takes recovered on retry, no plain fallbacks logged. Final 78.2-minute audiobook passed verification including no silence over 2.5 seconds. Acting not manually auditioned."
-	],
-	"updated": "2026-11-17T10:29:01",
-	"samples": [
-		{
-			"file": "references/voices/shirone-mika/samples/sample-1.wav",
-			"text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
-			"duration": 5.9,
-			"speech_pct": 87.1,
-			"longest_pause": 0.42,
-			"mean_db": -21.9
-		},
-		{
-			"file": "references/voices/shirone-mika/samples/sample-2.wav",
-			"text": "Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!",
-			"duration": 4.74,
-			"speech_pct": 82.3,
-			"longest_pause": 0.45,
-			"mean_db": -21.5
-		},
-		{
-			"file": "references/voices/shirone-mika/samples/sample-3.wav",
-			"text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
-			"duration": 4.83,
-			"speech_pct": 85.6,
-			"longest_pause": 0.48,
-			"mean_db": -21.6
-		}
-	],
-	"sample_retries": 0,
-	"references": [
-		{
-			"n": 1,
-			"file": "reference-1.wav",
-			"source_start": 1120.0,
-			"transcript_reviewed": true,
-			"words_per_s": 4.34,
-			"duration": 15.68,
-			"speech_pct": 86.0,
-			"longest_pause": 0.32,
-			"mean_db": -21.6
-		}
-	],
-	"approved": "2026-11-16T22:27:39",
-	"samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a"
+  "id": "shirone-mika",
+  "name": "Shirone Mika",
+  "gender": "female",
+  "status": "onboarded",
+  "style": "High, sweet, gentle, soft-healing (F0 ≈ 330 Hz)",
+  "fits": "Innocent, playful heroine",
+  "contact": "shironemika@gmail.com | shironemika.carrd.co",
+  "source": {
+    "input": "https://www.youtube.com/watch?v=hxZivfie3jc"
+  },
+  "metrics": {
+    "duration": 15.68,
+    "longest_pause": 0.32
+  },
+  "transcript_reviewed": true,
+  "notes": [
+    "2026-11-16: Sương Nguyệt Tập 1 heroine. Copies breathy pauses: 25/440 chunks needed repair, frequent retries; an accurate transcript did not reduce retries (6/31 in a pilot).",
+    "2026-11-16: Sương Nguyệt (shuangyue_v1, xianxia, playful heroine): 330 chunks / 17k chars in 8m10s, 0 silences >2.5s, no repair needed. User approved after pilot.",
+    "2026-11-17: Suong Nguyet (bratty xianxia sư muội, heavy tags on 202 lines): very clean. 288 chunks in 17 min, a few frame-cap retries; only a 2-word line with a 2-part direction ('[panting, dazed] Sao cơ?') failed every take. Keep tags on very short lines to one word or none.",
+    "2026-11-17: Suong Nguyet volume 2: 179 enhanced dialogue lines, 300 Drama-3 chunks synthesized in 8m18s; 2 frame-cap rejected takes recovered on retry, no plain fallbacks logged. Final 78.2-minute audiobook passed verification including no silence over 2.5 seconds. Acting not manually auditioned.",
+    "2026-11-17: Suong Nguyet volume 3 untagged baseline: 590 Drama-3 chunks / 33483 chars completed in 15m31s, zero rejected takes logged. Mixed build with GGUF VieNeu finished in 18m44s; 29 cached chunks. Final 118.5-minute, 12-chapter M4B passed technical verification, including no silence over 2.5s. No performance tags; not manually auditioned."
+  ],
+  "updated": "2026-11-17T19:43:24",
+  "samples": [
+    {
+      "file": "references/voices/shirone-mika/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+      "duration": 5.9,
+      "speech_pct": 87.1,
+      "longest_pause": 0.42,
+      "mean_db": -21.9
+    },
+    {
+      "file": "references/voices/shirone-mika/samples/sample-2.wav",
+      "text": "Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!",
+      "duration": 4.74,
+      "speech_pct": 82.3,
+      "longest_pause": 0.45,
+      "mean_db": -21.5
+    },
+    {
+      "file": "references/voices/shirone-mika/samples/sample-3.wav",
+      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+      "duration": 4.83,
+      "speech_pct": 85.6,
+      "longest_pause": 0.48,
+      "mean_db": -21.6
+    }
+  ],
+  "sample_retries": 0,
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source_start": 1120.0,
+      "transcript_reviewed": true,
+      "words_per_s": 4.34,
+      "duration": 15.68,
+      "speech_pct": 86.0,
+      "longest_pause": 0.32,
+      "mean_db": -21.6
+    }
+  ],
+  "approved": "2026-11-16T22:27:39",
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a"
 }
