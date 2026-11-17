@@ -82,7 +82,7 @@ The female voice:
 Only when the user asks for it:
 - `--separate-mc`: the MC's dialogue sounds different from the narration.
 - `--cast <json>`: per-speaker voices, for example a second woman with her own voice (`"Bạch Thanh Thanh": "nika-linh-lan"`, with onboarded ids only). `casts/mixed-example.json` is a template.
-- `--engine vieneu`: everyone on VieNeu, Ngọc Huyền for women. Fastest: with the default 4 parallel workers (`--workers`, ~2 GB RAM each), about 1 minute of compute per 18 minutes of audio.
+- `--engine vieneu`: everyone on VieNeu, Ngọc Huyền for women. Fastest: with the default 4 parallel workers (`--workers`) on the default GGUF backend. If `build.log` says `GGUF unavailable`, the build still works on ONNX; run `brew install audio-cpp` (from the `0xShug0/audio-cpp` tap) for the speedup.
 - `--engine drama3`: everyone on Drama-3, using male references made with `make-ref`.
 
 **Drama-3 costs:** about 30 GB of RAM and roughly 40 minutes per 100k characters it voices. In mixed mode it voices only the women's lines, so a full book takes about 15–30 minutes.

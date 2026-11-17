@@ -40,12 +40,20 @@ DEFAULT_VOICES = {
         'female': DEFAULT_FEMALE,
     },
 }
+# Manual picked
 VIENEU_VOICES = [
+    # male voices
     'Adam bựa',
     'Thiện Minh',
     'Hải Đăng',
+    'Đức Trí',
+    'Thái Sơn',
+    # female voices
     'Thùy Dung',
     'Ngọc Huyền',
+    'Kim Thanh',
+    'Mỹ Duyên',
+    'Thục Đoan',
 ]
 
 # Longer sentences are cut at commas (viettts.text.split_chunks). Drama-3 stays under mlx-audio's own 300-byte
@@ -598,8 +606,8 @@ def shard(jobs: list[dict[str, Any]], n: int) -> list[list[dict[str, Any]]]:
     return [p for p in parts if p]
 
 
-def run_workers(engine, jobs, cache, threads, workers, log):
-    """Synthesize jobs into cache with `workers` processes; True if all succeeded.
+def run_workers(engine, jobs, cache, threads, workers, log, backend='gguf'):
+    """Synthesize jobs into cache with `workers` processes; True if all succeeded. backend: VieNeu's gguf|onnx.
 
     With several workers, their per-chunk progress lines are merged into one combined line (at most every
     5 s); other lines are passed through tagged with the worker number. The first worker loads (and on a
@@ -609,14 +617,16 @@ def run_workers(engine, jobs, cache, threads, workers, log):
     def lines(js):
         return ''.join(json.dumps(j, ensure_ascii=False) + '\n' for j in js)
 
+    def worker_command(path):
+        extra = ['--backend', backend] if engine == 'vieneu' else []
+        return uv_command(engine, 'worker', engine, str(path), str(cache), '--threads', str(threads), *extra)
+
     (cache / 'jobs.jsonl').write_text(lines(jobs), encoding='utf-8')  # every job: scan/repair read it
     for old in cache.glob('jobs-*.jsonl'):
         old.unlink()
     shards = shard(jobs, max(1, workers)) if workers > 1 else [jobs]
     if len(shards) == 1:
-        command, env = uv_command(
-            engine, 'worker', engine, str(cache / 'jobs.jsonl'), str(cache), '--threads', str(threads)
-        )
+        command, env = worker_command(cache / 'jobs.jsonl')
         process = subprocess.Popen(
             command, cwd=ROOT, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8'
         )
@@ -633,7 +643,7 @@ def run_workers(engine, jobs, cache, threads, workers, log):
     def start(k):
         path = cache / f'jobs-{k + 1}.jsonl'
         path.write_text(lines(shards[k]), encoding='utf-8')
-        command, env = uv_command(engine, 'worker', engine, str(path), str(cache), '--threads', str(threads))
+        command, env = worker_command(path)
         process = subprocess.Popen(
             command, cwd=ROOT, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8'
         )
@@ -747,11 +757,13 @@ def cmd_build(args):
     for n, engine in enumerate(sorted(jobs, key=lambda e: e != 'vieneu'), 1):  # fast engine first
         cache = out / 'cache' / engine
         cache.mkdir(parents=True, exist_ok=True)
-        log(f'[2/4] Synthesizing with {engine} ({n}/{len(jobs)} engines; Ctrl-C is safe, rerun to resume)')
+        label = f'{engine} ({args.vieneu_backend})' if engine == 'vieneu' else engine
+        log(f'[2/4] Synthesizing with {label} ({n}/{len(jobs)} engines; Ctrl-C is safe, rerun to resume)')
         # Drama-3 needs ~26 GB of unified memory: one worker. VieNeu is latency-bound (more threads don't help),
-        # so it runs as several small processes instead.
+        # so it runs as several small processes instead, on GGUF as on ONNX.
         workers = args.workers if engine == 'vieneu' else 1
-        if not run_workers(engine, list(jobs[engine].values()), cache, args.threads, workers, log):
+        jobs_list = list(jobs[engine].values())
+        if not run_workers(engine, jobs_list, cache, args.threads, workers, log, args.vieneu_backend):
             raise SystemExit(f'{engine} worker failed; finished chunks are cached, rerun build to resume.')
     synth_seconds = time.perf_counter() - started
     # Assemble chapter WAVs (PCM16) with pauses, measuring chapter boundaries.
@@ -906,6 +918,7 @@ def cmd_build(args):
         script=str(script_path),
         preset=preset,
         voices={k: dict(engine=e, voice=v) for k, (e, v) in voices.items()},
+        vieneu_backend=args.vieneu_backend,
         chapters=len(marks),
         chunks_synthesized={e: len(j) for e, j in jobs.items()},
         synthesis_wall_seconds=synth_seconds,
@@ -1135,7 +1148,13 @@ def main(argv=None):
         '--workers',
         type=int,
         default=4,
-        help='Parallel VieNeu processes, ~2 GB RAM each (4: ~2x faster than 1; gains stop near 6-8)',
+        help='Parallel VieNeu processes (4: ~3.4x faster than ONNX on GGUF, ~2x faster than 1 worker on ONNX)',
+    )
+    s.add_argument(
+        '--vieneu-backend',
+        choices=['gguf', 'onnx'],
+        default='gguf',
+        help='VieNeu runtime: gguf (audio.cpp on Metal, default; ONNX for any chunk it fails on) or onnx (CPU)',
     )
     s.add_argument('--chapters', type=int, help='Only build the first N chapters (for a quick test)')
     s.add_argument(
@@ -1169,6 +1188,7 @@ def main(argv=None):
     s.add_argument('jobs', type=Path)
     s.add_argument('out', type=Path)
     s.add_argument('--threads', type=int, default=4)
+    s.add_argument('--backend', choices=['gguf', 'onnx'], default='gguf', help='VieNeu runtime; ONNX is the fallback')
     s.add_argument('--skip-failed', action='store_true', help='Report a failed chunk and continue (auditions)')
     s.set_defaults(func=cmd_worker)
     args = p.parse_args(argv)

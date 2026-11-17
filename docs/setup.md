@@ -7,7 +7,7 @@ Run commands from the repository root. Python 3.11+ runs the stdlib-only orchest
 - [uv](https://docs.astral.sh/uv/getting-started/installation/).
 - `ffmpeg` and `ffprobe` on `PATH` for reference preparation and M4B packaging.
 - `yt-dlp` on `PATH` if importing audio from a URL.
-- VieNeu runs on ONNX CPU. Drama-3's MLX runner requires macOS on Apple Silicon with Metal available.
+- VieNeu (audiobook builds and `speak --engine vieneu`) runs on GGUF with audio.cpp on Apple Silicon (`brew tap 0xShug0/audio-cpp && brew install audio-cpp`) and falls back to ONNX CPU without it. Drama-3's MLX runner requires macOS on Apple Silicon with Metal available.
 
 ```sh
 uv sync --locked --project engines/vieneu

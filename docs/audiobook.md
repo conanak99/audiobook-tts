@@ -80,7 +80,7 @@ Each voice picks its engine: a VieNeu voice name runs on VieNeu, and a reference
 - Change the heroine with `--female <voice id>`. The onboarded voices are listed in `.opencode/skills/viet-audiobook/references/voices.md`, or run `python3 -m viettts voice list`. Raw audio files are refused; onboard them first (see below).
 - Mixed chunks are resampled to one rate (VieNeu 48 kHz) and leveled to the same loudness.
 - `--engine vieneu` puts everyone on VieNeu (Ngọc Huyền for women); `--engine drama3` puts everyone on Drama-3.
-- The MC's own dialogue (`[ta]`/`[tôi]`) uses the narrator voice, since they are one person. `--separate-mc` gives the MC the male voice instead. A cast JSON can also give one speaker their own voice: `{"voices": {"Sương Nguyệt": "Trúc Ly"}}`.
+- The MC's own dialogue (`[ta]`/`[tôi]`) uses the narrator voice, since they are one person. `--separate-mc` gives the MC the male voice instead. A cast JSON can also give one speaker their own voice: `{"voices": {"Sương Nguyệt": "Thùy Dung"}}`.
 
 Each segment is split into one sentence per chunk and cached as `cache/<engine>/<sha1>.wav`. Chunks from both engines can sit side by side in one build. A crashed build resumes, and editing one line re-synthesizes only that line. The narrator reads the book title once, before chapter 1.
 
@@ -100,13 +100,15 @@ Drama-3 sometimes copies long pauses from its reference clip. A take with more t
 
 Progress goes to the terminal and to `build.log`. It shows the four stages (plan, synthesize, assemble, encode) with elapsed time, and during synthesis one line per chunk with percent done, ETA, and minutes of audio so far. With several VieNeu workers, their progress is merged into one line every 5 s.
 
-VieNeu runs as `--workers 4` parallel processes of `--threads 2` each, about 2 GB of RAM per worker. VieNeu generates one small audio frame at a time, so extra threads in a single process don't help: measured on this M5 Pro, RTF stayed at 0.11 from 2 to 8 threads. Separate processes do help: 2× faster with 4 workers, 2.3× with 6, and about 2.5× at most. Metal (PyTorch MPS) is not an option: one chunk at a time it was 8× slower than the CPU, and VieNeu's batched mode produced NaNs on MPS. int8 was only about 10% faster. Drama-3 always uses one worker (~26 GB).
+VieNeu runs as `--workers 4` parallel processes of `--threads 2` each. By default each worker runs the GGUF model on audio.cpp's Metal backend (`--vieneu-backend gguf`); without audio.cpp, or for a chunk it fails on, it uses ONNX on the CPU (see [engines](engines.md#gguf-backend-default)). On GGUF, 6 or 8 workers were no faster than 4: the GPU is then the limit.
+
+On ONNX each worker takes about 2 GB of RAM. VieNeu generates one small audio frame at a time, so extra threads in a single process don't help: measured on this M5 Pro, RTF stayed at 0.11 from 2 to 8 threads. Separate processes do help: 2× faster with 4 workers, 2.3× with 6, and about 2.5× at most. PyTorch MPS is not an option: one chunk at a time it was 8× slower than the CPU, and VieNeu's batched mode produced NaNs on MPS. int8 was only about 10% faster. Drama-3 always uses one worker (~26 GB).
 
 The output is AAC 64 kbps mono (`aac_at` on macOS), brand `M4B`, with a QuickTime chapter track, title/artist/album (series)/track (volume)/genre tags, `media_type=2` (audiobook) and the cover as an attached picture. `summary.json` records voices, timings and chapter marks.
 
 Measured here:
 - VieNeu built chapters 1–2 of Sương Nguyệt (10.4 min of audio, 167 chunks) in 76 s with one worker.
-- VieNeu, chapters 1–3 (16.3 min of audio, 247 chunks): synthesis took 1 min 49 s with 1 worker × 4 threads and 54 s with 4 workers × 2 threads.
+- VieNeu, chapters 1–3 (16.3 min of audio, 247 chunks): synthesis took 1 min 49 s with 1 worker × 4 threads and 54 s with 4 workers × 2 threads on ONNX, and 26 s with 4 workers on GGUF (55 s on ONNX in the same session).
 - Drama-3 built the full book: 1,406 chunks and 91.8 min of audio in 66 min, plus 4.5 min to repair 25 chunks that had long pauses (all in the Shirone Mika voice).
 
 ## Drama-3 performance tags (enhance.txt)

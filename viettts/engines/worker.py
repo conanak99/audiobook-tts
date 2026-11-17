@@ -1,8 +1,12 @@
 """Cached audiobook synthesis jobs, run inside the selected engine environment."""
 
+import atexit
 import json
 import os
+import shutil
+import tempfile
 import time
+from pathlib import Path
 
 from viettts.paths import ROOT
 
@@ -26,16 +30,53 @@ def cmd_worker(args):
     out = args.out
     started = time.perf_counter()
     if args.engine == 'vieneu':
-        from vieneu import Vieneu
+        onnx_model: list = []
 
-        tts = Vieneu(backend='onnx', device='cpu', precision='fp32', threads=args.threads)
+        def onnx_tts():
+            if not onnx_model:
+                from vieneu import Vieneu
 
-        def synth(job):
+                onnx_model.append(Vieneu(backend='onnx', device='cpu', precision='fp32', threads=args.threads))
+            return onnx_model[0]
+
+        def onnx(job):
+            tts = onnx_tts()
             tmp = out / f'{job["id"]}.tmp.wav'
             tts.save(tts.infer(job['text'], voice=job['voice']), str(tmp))
             samples, rate = sf.read(tmp, dtype='float32', always_2d=True)
             tmp.unlink()
             return samples[:, 0], rate
+
+        reason = None
+        if args.backend == 'gguf':
+            from . import vieneu_gguf
+
+            reason = vieneu_gguf.unavailable()
+            if reason is None:
+                try:
+                    vieneu_gguf.ensure_model()
+                except Exception as error:
+                    reason = f'could not get {vieneu_gguf.FILENAME} ({error})'
+        if args.backend == 'gguf' and reason is None:
+            scratch = Path(tempfile.mkdtemp(prefix='vieneu-gguf-'))
+            atexit.register(shutil.rmtree, scratch, True)
+            results = vieneu_gguf.synthesize(jobs, args.threads, scratch)
+            print('[vieneu] backend: GGUF q8_0 on audio.cpp Metal (ONNX for any chunk it fails on)', flush=True)
+
+            def gguf(job):
+                done, samples, rate, error = next(results)
+                assert done is job, 'GGUF results out of order'
+                if samples is not None:
+                    return samples, rate
+                print(f'[vieneu]   GGUF failed ({error}); using ONNX for: {job["text"][:60]}', flush=True)
+                return onnx(job)
+
+            synth = gguf
+        else:
+            if reason:
+                print(f'[vieneu] GGUF unavailable: {reason}; using ONNX', flush=True)
+            onnx_tts()
+            synth = onnx
     else:
         import mlx.core as mx
         from huggingface_hub import snapshot_download

@@ -7,13 +7,25 @@
 - Model: `pnnbao-ump/VieNeu-TTS-v3-Turbo`; codec: `OpenMOSS-Team/MOSS-Audio-Tokenizer-Nano-ONNX`.
 - The model bundle is approximately 475 MB, plus codec and voices. Tested snapshots are recorded in `model-revisions.json`; retain the cache to reproduce those model assets.
 
+### GGUF backend (default)
+
+Audiobook builds and `speak` run VieNeu as GGUF on [audio.cpp](https://github.com/0xShug0/audio.cpp)'s Metal backend (`--vieneu-backend gguf`, the default). It is the same v3 Turbo model as the ONNX path: `gguf/vieneu-v3-turbo-q8_0.gguf` from the same pinned revision (`61b85e3`), built by the model's author from the `update/` weights that `onnx_update/` also uses.
+
+- Install: `brew tap 0xShug0/audio-cpp && brew install audio-cpp` (provides `audiocpp_cli`).
+- Files: `models/vieneu-gguf/vieneu-v3-turbo-q8_0.gguf` (188 MB, downloaded on first use) and `models/vieneu-gguf/voices/<voice>/{ref_codes.txt,speaker.emb.txt}`, written on first use from the SDK's own preset voices, so they match the ONNX presets exactly.
+- The worker normalizes and phonemizes the text as `Vieneu.infer()` does, then runs one audio.cpp session per worker for its whole shard.
+- Fallback to ONNX: the whole worker uses ONNX when `audiocpp_cli` is missing, the machine is not Apple Silicon (on the CPU, GGUF is slower than ONNX) or the model can't be downloaded; `build.log` says why. A chunk audio.cpp fails on is made with ONNX, and the session restarts for the rest (`GGUF failed … using ONNX` in `build.log`).
+- `--vieneu-backend onnx` forces the CPU path. Both backends share `cache/vieneu/`, so switching reuses cached chunks.
+- Checked on an M5 Pro: every chunk of a 3-chapter build is closest to its own preset voice (speaker-encoder similarity). The 0.98 similarity to ONNX output was measured on a 35 s passage, not on every chunk. The GGUF path has no audio watermark (the Python SDK adds one).
+
 ```sh
 python3 -m viettts speak --engine vieneu --list-voices
 python3 -m viettts speak --engine vieneu --voice "Hải Đăng" --text "Xin chào!"
 python3 -m viettts speak --engine vieneu --runs 3 --warmup 1 --threads 4
+python3 -m viettts speak --engine vieneu --runs 3 --backend onnx   # force the CPU path
 ```
 
-Each run writes WAV files and `results.json` under `outputs/vieneu-<timestamp>/`, including load time, synthesis time, duration, and RTF (synthesis seconds/audio seconds; lower is faster). WAV checks reject empty, silent, or nonfinite audio; they do not establish pronunciation quality.
+`speak` uses the GGUF backend below by default, with the same ONNX fallback; one audio.cpp session serves the warm-up and every run. Each run writes WAV files and `results.json` under `outputs/vieneu-<timestamp>/`, including the backend of each run, load time, synthesis time, duration, and RTF (synthesis seconds/audio seconds; lower is faster). Measured on an M5 Pro with a 3.3 s sentence: RTF 0.079 on GGUF, 0.109 on ONNX. WAV checks reject empty, silent, or nonfinite audio; they do not establish pronunciation quality.
 
 ## Drama-3
 

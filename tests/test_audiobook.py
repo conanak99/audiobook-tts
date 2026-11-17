@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 
 from viettts.audiobook.build import (
     PAUSES_MS,
@@ -436,8 +437,106 @@ class ShardTests(unittest.TestCase):
         self.assertEqual(len(shard([dict(id='a', text='hi')], 4)), 1)
 
 
+class VieneuBackendTests(unittest.TestCase):
+    def test_requests_are_seeded_per_job_and_keep_the_pieces_whole(self):
+        from viettts.engines.vieneu_gguf import requests_for
+
+        job = dict(id='abc123', text='Một. Hai.', voice='Thiện Minh')
+        first = requests_for(7, job, ['mˈot.', 'hˈaːj.'], '/v/ref_codes.txt', '/v/speaker.emb.txt')
+        self.assertEqual([r['id'] for r in first], ['000007-0', '000007-1'])
+        self.assertEqual(first[0]['options']['reference_codes_file'], '/v/ref_codes.txt')
+        self.assertEqual(first[0]['options']['seed'], requests_for(9, job, ['x'], 'c', 'e')[0]['options']['seed'])
+        self.assertNotEqual(
+            first[0]['options']['seed'], requests_for(7, dict(job, id='other'), ['x'], 'c', 'e')[0]['options']['seed']
+        )
+        self.assertGreater(int(first[0]['options']['text_chunk_size']), 225 * 4)
+
+    def test_gguf_needs_apple_silicon_and_audio_cpp(self):
+        from viettts.engines import vieneu_gguf
+
+        with mock.patch.object(vieneu_gguf.platform, 'system', return_value='Linux'):
+            self.assertIn('Apple Silicon', vieneu_gguf.unavailable())
+        with (
+            mock.patch.object(vieneu_gguf.platform, 'system', return_value='Darwin'),
+            mock.patch.object(vieneu_gguf.platform, 'machine', return_value='arm64'),
+        ):
+            with mock.patch.object(vieneu_gguf.shutil, 'which', return_value=None):
+                self.assertIn('brew install audio-cpp', vieneu_gguf.unavailable())
+            with mock.patch.object(vieneu_gguf.shutil, 'which', return_value='/opt/homebrew/bin/audiocpp_cli'):
+                self.assertIsNone(vieneu_gguf.unavailable())
+
+    def test_only_vieneu_workers_get_the_backend(self):
+        import tempfile
+        from pathlib import Path
+
+        from viettts.audiobook import build
+
+        process = mock.Mock(stdout=iter([]), wait=mock.Mock(return_value=0))
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(build.subprocess, 'Popen', return_value=process):
+            for engine in ('vieneu', 'drama3'):
+                build.run_workers(engine, [dict(id='a', text='hi')], Path(tmp), 2, 1, mock.Mock(), 'onnx')
+            commands = [call.args[0] for call in build.subprocess.Popen.call_args_list]
+        self.assertEqual(commands[0][-2:], ['--backend', 'onnx'])
+        self.assertNotIn('--backend', commands[1])
+
+
 @unittest.skipIf(np is None, 'numpy is only installed in the engine environments')
 class AudioHelperTests(unittest.TestCase):
+    def test_gguf_results_stay_in_order_and_a_crash_skips_only_its_chunk(self):
+        import json
+        import sys
+        import tempfile
+        import types
+        from pathlib import Path
+
+        from viettts.engines import vieneu_gguf
+
+        sessions = []
+
+        def fake_cli(command, status):  # finishes the first request, then crashes on the second, once
+            sequence = json.loads(Path(command[command.index('--request-sequence') + 1]).read_text('utf-8'))
+            out = Path(command[command.index('--out-dir') + 1])
+            sessions.append([r['id'] for r in sequence['requests']])
+            for n, request in enumerate(sequence['requests']):
+                if len(sessions) == 1 and n == 1:
+                    yield 'GGML_ASSERT failed'
+                    status['code'] = 134
+                    return
+                (out / f'{request["id"]}.wav').touch()
+                yield f'audio_out={out / request["id"]}.wav'
+            status['code'] = 0
+
+        def normalize(text):
+            pieces = [p.strip() + '.' for p in text.split('.') if p.strip()]
+            return pieces, ['sentence'] * (len(pieces) - 1)
+
+        fakes = {
+            'soundfile': types.SimpleNamespace(read=lambda *a, **k: (np.ones((10, 2), np.float32), 48000)),
+            'vieneu_utils': types.ModuleType('vieneu_utils'),
+            'vieneu_utils.core_utils': types.SimpleNamespace(
+                gaps_to_silence=lambda gaps: [0.1] * len(gaps),
+                join_audio_chunks=lambda waves, rate, silence_ps: np.concatenate(waves),
+            ),
+            'vieneu_utils.phonemize_text': types.SimpleNamespace(
+                normalize_to_chunks_v3_with_gaps=normalize, phonemize_text_with_emotions=str.lower
+            ),
+        }
+        jobs = [dict(id=f'j{i}', text=t, voice='Thiện Minh') for i, t in enumerate(['A. B.', 'C.', '', 'D.'])]
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            mock.patch.dict(sys.modules, fakes),
+            mock.patch.object(vieneu_gguf, 'lines', fake_cli),
+            mock.patch.object(vieneu_gguf, 'ensure_model', return_value=Path('m.gguf')),
+            mock.patch.object(vieneu_gguf, 'voice_files', return_value=('c', 'e')),
+        ):
+            results = list(vieneu_gguf.synthesize(jobs, 2, Path(tmp)))
+        self.assertEqual([job['id'] for job, *_ in results], ['j0', 'j1', 'j2', 'j3'])
+        self.assertIn('134', results[0][3])  # both pieces of j0 are needed; its second one crashed
+        self.assertEqual(len(results[1][1]), 10)  # the next session resumes after the crashed job
+        self.assertIn('nothing to read', results[2][3])
+        self.assertIsNotNone(results[3][1])
+        self.assertEqual(sessions, [['000000-0', '000000-1', '000001-0', '000003-0'], ['000001-0', '000003-0']])
+
     def test_squeeze_shortens_only_long_inner_pauses(self):
         from viettts.audiobook.build import longest_silence, squeeze
 

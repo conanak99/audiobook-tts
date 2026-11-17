@@ -2,7 +2,7 @@
 
 Onboard Vietnamese voices and turn Markdown stories into reviewed, multi-voice **M4B audiobooks** for BookPlayer.
 
-- **VieNeu:** fast preset voices, ONNX CPU.
+- **VieNeu:** fast preset voices, GGUF on audio.cpp Metal (ONNX CPU fallback).
 - **Drama-3:** cloned voices and directed performances, MLX on Apple Silicon.
 
 [Setup](docs/setup.md) · [Audiobooks](docs/audiobook.md) · [Voice onboarding](docs/voices.md) · [Engines & troubleshooting](docs/engines.md)

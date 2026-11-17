@@ -37,7 +37,7 @@ The table below is regenerated from `voice.json`; don't edit it by hand.
 | **Thiện Minh** | Male, Northern, storytelling | `narrator`, which also voices the MC |
 | **Hải Đăng** | Male, Northern, natural | `male` (other men); the alternative narrator |
 
-Other VieNeu male voices: Thiền Tâm Đức, Thanh Bình (storytelling); Adam bựa, Phạm Tuyên, Xuân Vĩnh, Quốc Tuấn (natural); Quang Sơn (Central); Thái Sơn, Đức Trí (Southern).
+Builds accept only the VieNeu voices in `VIENEU_VOICES` (`viettts/audiobook/build.py`). To use another VieNeu preset, add its name to the list first; its GGUF voice files are created on first use.
 
 An all-Drama-3 build (`--engine drama3`) gives the men the synthetic references `references/vieneu-thien-minh.wav` and `references/vieneu-hai-dang.wav`.
 
