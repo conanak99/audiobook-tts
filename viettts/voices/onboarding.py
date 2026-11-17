@@ -43,10 +43,10 @@ LEVEL_TOLERANCE_DB = 0.5
 # Drama-3 tags (see viet-audiobook/references/enhance.md): an everyday acted line and an intimate one.
 SAMPLE_LINES = [
     'Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.',
-    'Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!',
+    'Đệ lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay tỷ có chuyện vui muốn kể cho đệ nghe!',
     'Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?',
     '[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!',
-    '[low, sultry] Huynh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...',
+    '[low, sultry] Anh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...',
 ]
 
 
