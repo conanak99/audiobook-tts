@@ -1,9 +1,0 @@
-{
-  "_note": "narrator = the narration AND the first-person MC (ta/tôi), almost always the same person, so one voice. male = other men only (elders, rivals, fathers). Add --separate-mc to build only if the MC should sound different.",
-  "engine": "drama3",
-  "voices": {
-    "narrator": "references/vieneu-thien-minh.wav",
-    "male": "references/vieneu-hai-dang.wav",
-    "female": "shirone-mika"
-  }
-}

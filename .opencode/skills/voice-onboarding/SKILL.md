@@ -112,7 +112,7 @@ python3 -m viettts voice approve <id> --name "<Name>" --gender female --style "<
 
 This marks the voice `onboarded` and regenerates the voices table. Add anything noteworthy with `python3 -m viettts voice note <id> "<text>"`; notes stay in `voice.json` and are not included in the table. Use `python3 -m viettts voice list` to see every voice and its status.
 
-Tell the user the id. They can use it with the viet-audiobook skill (`--female <id>`).
+Tell the user the id. They can use it with the viet-audiobook skill, in the book's cast (`"female": "<id>"` in `cast.json`).
 
 ## After a Drama-3 model change
 

@@ -9,7 +9,7 @@ Run every command from the vietTTS repository root (the directory containing `vi
 
 Typical request: the user gives a story (`story_vn.md`) and a **female voice**: either an onboarded voice (see `references/voices.md`) or a new video/audio file. Drama-3 works only with **onboarded** voices, so onboard a new file first with the **voice-onboarding** skill. Everything else has a default; don't ask about engines or male voices unless the user brings them up.
 
-Pipeline: **parse → you review speakers → check → voices → you enhance the Drama-3 lines → pilot: build chapter 1 → the user listens and approves → full volume (background) → verify.** The rules attribute ~93% of quotes; you, the agent, are the reviewer for the rest, and the director of the heroine's performance. Never hand either job to a local LLM: a 4B model scored 54% (chance) on speakers.
+Pipeline: **parse → you review speakers → check → voices (you write `cast.json`) → you enhance the Drama-3 lines → pilot: build chapter 1 → the user listens and approves → full volume (background) → verify.** The rules attribute ~93% of quotes; you, the agent, are the reviewer for the rest, and the director of the heroine's performance. Never hand either job to a local LLM: a 4B model scored 54% (chance) on speakers.
 
 ## 1. Parse
 
@@ -66,24 +66,63 @@ You may also edit `script.txt` directly. Keep the `[speaker] text` format and ne
 
 ## 4. Voices
 
-Use the **mixed** preset, which is the CLI default (no `--engine` flag). The men run on fast VieNeu and the heroine is cloned with Drama-3. A **VieNeu voice name** runs on VieNeu, and an **onboarded voice id** (`lynasa`) runs on Drama-3; the builder resamples and levels so the two blend. Raw audio files are refused: every Drama-3 voice must be onboarded, meaning it has a clean cut, a reviewed transcript and auditioned samples. That is what keeps retries and odd pauses low.
+All voices go in **one cast file**: write `<audiobook dir>/cast.json` next to `script.txt` and build with `--cast <audiobook dir>/cast.json`. There are no separate voice flags. The book keeps its own choices, so reruns and pilots use the same voices. Start from `casts/mixed.json` (the default preset): the men run on fast VieNeu and the heroine is cloned with Drama-3. A **VieNeu voice name** runs on VieNeu, and an **onboarded voice id** (`lynasa`) runs on Drama-3; the builder resamples and levels so the two blend. Raw audio files are refused: every Drama-3 voice must be onboarded, meaning it has a clean cut, a reviewed transcript and auditioned samples. That is what keeps retries and odd pauses low.
 
-| Role | Default | Notes |
+```json
+{"engine": "mixed", "voices": {"narrator": "Thiện Minh", "male": "Hải Đăng", "female": "lynasa"}}
+```
+
+| Key in `voices` | Default | Notes |
 |---|---|---|
 | `narrator` | VieNeu **Thiện Minh** | Narration **and** the first-person MC (`ta`/`tôi`): one person, one voice. **Hải Đăng** is the alternative if the user asks. |
 | `male` | VieNeu **Hải Đăng** | Other men only. Use Thiện Minh if Hải Đăng is the narrator. |
-| `female` | the user's choice → `--female <voice id>` | See below. |
+| `female` | the user's choice | See below. |
+| `mc` | not set (the narrator voice) | Only when the user wants the MC's dialogue to sound different from the narration. |
+| `<speaker id>` | not set | A speaker from `script.txt` with their own voice, e.g. a second woman `"Bạch Thanh Thanh": "nika-linh-lan"`. |
 
 The female voice:
-- **An onboarded voice** (the user names it, e.g. "Lynasa"): use its id from the table in `references/voices.md`, e.g. `--female lynasa`. Check that its status is onboarded with `python3 -m viettts voice list`.
-- **A new file or link** (video, audio, YouTube, stream): run the **voice-onboarding** skill first. That means cutting a clean clip, transcribing and reviewing it, auditioning samples with the user, and approving. Then use the new id. Never pass a raw file to `--female`; the build refuses it.
+- **An onboarded voice** (the user names it, e.g. "Lynasa"): use its id from the table in `references/voices.md`, e.g. `"female": "lynasa"`. Check that its status is onboarded with `python3 -m viettts voice list`.
+- **A new file or link** (video, audio, YouTube, stream): run the **voice-onboarding** skill first. That means cutting a clean clip, transcribing and reviewing it, auditioning samples with the user, and approving. Then use the new id. Never put a raw file in the cast; the build refuses it.
 - **Nothing given:** suggest 2–3 onboarded voices whose `fits`/`style` suit the heroine, give the user their `samples/` paths to listen to, and let them pick. If they don't care, use the default (`shirone-mika`).
 
-Only when the user asks for it:
-- `--separate-mc`: the MC's dialogue sounds different from the narration.
-- `--cast <json>`: per-speaker voices, for example a second woman with her own voice (`"Bạch Thanh Thanh": "nika-linh-lan"`, with onboarded ids only). `casts/mixed-example.json` is a template.
-- `--engine vieneu`: everyone on VieNeu, Ngọc Huyền for women. Fastest: with the default 4 parallel workers (`--workers`) on the default GGUF backend. If `build.log` says `GGUF unavailable`, the build still works on ONNX; run `brew install audio-cpp` (from the `0xShug0/audio-cpp` tap) for the speedup.
-- `--engine drama3`: everyone on Drama-3, using male references made with `make-ref`.
+Only when the user asks for it, set `"engine"`:
+- `"vieneu"`: everyone on VieNeu, Ngọc Huyền for women (`casts/vieneu.json`). Fastest: with the default 4 parallel workers (`--workers`) on the default GGUF backend. If `build.log` says `GGUF unavailable`, the build still works on ONNX; run `brew install audio-cpp` (from the `0xShug0/audio-cpp` tap) for the speedup.
+- `"drama3"`: everyone on Drama-3, using male references made with `make-ref` (`casts/drama3.json`).
+
+### Write the cast file
+
+Do this after step 3, once every speaker has a gender, and before the pilot.
+
+1. **Reuse first.** If `<audiobook dir>/cast.json` already exists (a rebuild), keep it and change only what the user asks for. For the next volume of a series, copy the previous volume's `cast.json`, so the heroine and narrator keep their voices across volumes. Then redo steps 2–4 below: speaker ids can differ between volumes.
+2. **List the speakers and their lines** in `script.txt`. Ids, genders and the MC (marked `narrator`) are on the `@speaker` lines:
+   ```sh
+   grep '^@speaker' <script.txt>
+   grep -o '^\[[^]]*\]' <script.txt> | sort | uniq -c | sort -rn
+   ```
+   Example: `@speaker ta male narrator` (the MC), `@speaker Khả Khả female`, and counts like `404 [narrator]`, `291 [Khả Khả]`, `91 [ta]`.
+3. **Decide who gets which voice.**
+   - Start from the four roles in the table above. With one heroine, `female` already covers every woman, so no speaker keys are needed.
+   - When two women with many lines share scenes, they sound like one person under `female`. Suggest a second onboarded voice for the second woman, and add her speaker key only after the user agrees. The same goes for a major male character, with a VieNeu male voice.
+   - `mc` only on request, as in the table.
+4. **Write the file** with the exact ids from `@speaker`, including diacritics and capitals: `"Sương Nguyệt"`, not `"Suong Nguyet"`. A key that isn't a role or a speaker is ignored. If a generic `male`/`female` id is really one named person, `RELABEL` it in step 2 first, so the cast can name them.
+   ```json
+   {
+     "engine": "mixed",
+     "voices": {
+       "narrator": "Thiện Minh",
+       "male": "Hải Đăng",
+       "female": "lynasa",
+       "Bạch Thanh Thanh": "nika-linh-lan"
+     }
+   }
+   ```
+   - Voices are VieNeu names from `references/voices.md` (only the names in `VIENEU_VOICES`) or onboarded ids (`python3 -m viettts voice list`).
+   - Leave out the keys you don't change, or spell out the defaults so the file documents the book. Both build the same.
+5. **Check it.** The build checks the cast before it synthesizes anything. An unknown voice or `engine` stops it with a message naming the bad value. Then read the start of `build.log`:
+   - `[1/4] Planning … MC "ta" uses the narrator voice: narrator=…, male=…, female=…` lists every voice and which one the MC uses.
+   - `warning: cast key "…" is not a role … or a speaker` means a typo or an id from another volume. The build doesn't stop: that speaker is read with the default voice. Stop it, fix the key and rerun. Only that speaker's lines are made again.
+
+Changing a voice later re-synthesizes only that voice's lines; everything else comes from the cache.
 
 **Drama-3 costs:** about 30 GB of RAM and roughly 40 minutes per 100k characters it voices. In mixed mode it voices only the women's lines, so a full book takes about 15–30 minutes.
 
@@ -119,7 +158,7 @@ The build uses an entry only for a line that Drama-3 voices (VieNeu would read t
 Build only chapter 1 first, verify it, and **ask the user to listen before going further**:
 
 ```sh
-python3 -m viettts audiobook build <script.txt> --female <voice id> --author "…" --chapters 1
+python3 -m viettts audiobook build <script.txt> --cast <audiobook dir>/cast.json --author "…" --chapters 1
 python3 -m viettts audiobook verify <script.txt> --partial
 ```
 
@@ -130,14 +169,14 @@ The pilot is saved as `… (thử 1 chương).m4b`, so it never overwrites the f
 - the heroine's acting: emotions that fit the scene, and any tag that sounds wrong (a misplaced laugh or sigh, an odd whisper, or a tag spoken as words)
 - any line read by the wrong person (ask for the sentence; you can find its line number in `script.txt`)
 
-Then **stop and wait for their answer.** Apply what they say: fix speakers with an answers file, change voices, or fix `enhance.txt` entries (then `check`). Run another pilot if voices or tags changed; only the changed lines are synthesized again. Start the full build only after an explicit OK. Chunks from the pilot are cached, so chapter 1 costs nothing again in the full build.
+Then **stop and wait for their answer.** Apply what they say: fix speakers with an answers file, change voices in `cast.json`, or fix `enhance.txt` entries (then `check`). Run another pilot if voices or tags changed; only the changed lines are synthesized again. Start the full build only after an explicit OK. Chunks from the pilot are cached, so chapter 1 costs nothing again in the full build.
 
 ## 7. Full volume
 
 Before starting, go through the remaining chapters for lines worth enhancing (step 5), then run `check`. Then run the same command without `--chapters` as a **background** command, and do not poll it; you will be notified when it finishes.
 
 ```sh
-python3 -m viettts audiobook build <script.txt> --female <voice id> --author "…"
+python3 -m viettts audiobook build <script.txt> --cast <audiobook dir>/cast.json --author "…"
 ```
 
 - The volume comes from the story's folder name (`meimei_v2` → 2), and the series from the `@title` part before the first dash. So the book is named `<Series> vN - <Subtitle>.m4b`, e.g. `Mị Mị v2 - Khi Ngọn Núi Biết Lắng Nghe.m4b`. Pass `--volume N` only when the folder has no `_vN`, and `--series "…"` only to override the album tag.

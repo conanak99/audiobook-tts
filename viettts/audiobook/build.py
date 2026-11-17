@@ -26,9 +26,9 @@ from viettts.voices import registry
 
 from .script import NARRATION, UNKNOWN, read_script
 
-# Presets by --engine / cast "engine". A VieNeu voice name runs on VieNeu; an onboarded voice id
+# Presets by the cast's "engine" (default mixed). A VieNeu voice name runs on VieNeu; an onboarded voice id
 # (references/voices/<id>/, see viettts.voices.onboarding) runs on Drama-3. "mixed": fast VieNeu men and
-# a Drama-3 cloned heroine.
+# a Drama-3 cloned heroine. A cast may add "mc" (the first-person MC, else the narrator voice) and any speaker.
 VOICES_DIR = ROOT / 'references' / 'voices'
 DEFAULT_FEMALE = 'shirone-mika'
 DEFAULT_VOICES = {
@@ -391,14 +391,24 @@ def cmd_verify(args):
 
 # --- build -------------------------------------------------------------------------------------------
 def load_cast(args):
-    """Returns (preset, {role or speaker: (engine, voice)}); voice is a VieNeu name or a Drama-3 ref dict."""
+    """Returns (preset, {role or speaker: (engine, voice)}) from --cast, the only place voices are chosen.
+
+    Roles: narrator, mc, male, female; any other key is a speaker id from the script. A voice is a VieNeu
+    name or an onboarded Drama-3 voice id."""
     cast = json.loads(args.cast.read_text(encoding='utf-8')) if args.cast else {}
-    preset = args.engine or cast.get('engine', 'mixed')
+    preset = cast.get('engine', 'mixed')
+    if preset not in DEFAULT_VOICES:
+        raise SystemExit(f'{args.cast}: "engine" must be one of {", ".join(DEFAULT_VOICES)}, not "{preset}".')
     specs = {**DEFAULT_VOICES[preset], **cast.get('voices', {})}
-    for role in ('narrator', 'male', 'female'):
-        if getattr(args, role, None):
-            specs[role] = getattr(args, role)
     return preset, {key: resolve_voice(spec) for key, spec in specs.items()}
+
+
+ROLES = ('narrator', 'mc', 'male', 'female')
+
+
+def unmatched_cast_keys(voices, script):
+    """Cast keys that are neither a role nor a speaker id in the script (a typo keeps the default voice)."""
+    return [key for key in voices if key not in ROLES and key not in script.speakers]
 
 
 def onboarded_voices():
@@ -470,15 +480,15 @@ def drama3_voice(spec):
     return {'ref_audio': str(audio), 'ref_text': text}
 
 
-def voice_for(label, speakers, voices, unknown, narrator=None, separate_mc=False):
-    """Voice key for a script label. The first-person MC (the narrator's own id) speaks with the
-    narrator voice unless separate_mc is set or the cast maps the MC to a voice of their own."""
+def voice_for(label, speakers, voices, unknown, narrator=None):
+    """Voice key for a script label. The first-person MC (the narrator's own id) speaks with the cast's
+    "mc" voice (or a voice mapped to the MC's id), else with the narrator voice: usually one person."""
     if label == NARRATION:
         return 'narrator'
     if label in voices:
         return label
-    if label == narrator and not separate_mc:
-        return 'narrator'
+    if label == narrator:
+        return 'mc' if 'mc' in voices else 'narrator'
     gender = speakers.get(label, 'male' if label == 'male' else 'female' if label == 'female' else '?')
     if gender in ('male', 'female'):
         return gender
@@ -490,7 +500,7 @@ def voice_for(label, speakers, voices, unknown, narrator=None, separate_mc=False
     )
 
 
-def plan_units(script, voices, unknown, title_text=True, separate_mc=False, enhanced=None):
+def plan_units(script, voices, unknown, title_text=True, enhanced=None):
     """Chapters as lists of (voice_key, text, pause_after_ms).
 
     enhanced: {line number: tagged text}, used for lines whose voice runs on Drama-3 (voices[key] is an
@@ -512,7 +522,7 @@ def plan_units(script, voices, unknown, title_text=True, separate_mc=False, enha
                 text = spoken(line.text)
                 if not text:
                     continue
-                key = voice_for(line.speaker, script.speakers, voices, unknown, script.narrator, separate_mc)
+                key = voice_for(line.speaker, script.speakers, voices, unknown, script.narrator)
                 tagged = spoken(enhanced.get(line.number, ''))
                 if tagged and tagged != text and isinstance(voices[key], tuple) and voices[key][0] == 'drama3':
                     text = TaggedText(tagged)
@@ -698,17 +708,22 @@ def cmd_build(args):
     preset, voices = load_cast(args)
     out = script_path.parent
     log = Log(out / 'build.log')
+    mc = voice_for(script.narrator, script.speakers, voices, 'narrator', script.narrator)
     log(
-        f'[1/4] Planning {script_path.name} ({preset}); MC "{script.narrator}" uses the '
-        f'{"male" if args.separate_mc else "narrator"} voice: '
-        + ', '.join(f'{k}={voice_label(*v)}' for k, v in voices.items())
+        f'[1/4] Planning {script_path.name} ({preset}{", cast " + args.cast.name if args.cast else ""}); '
+        f'MC "{script.narrator}" uses the {mc} voice: ' + ', '.join(f'{k}={voice_label(*v)}' for k, v in voices.items())
     )
+    for key in unmatched_cast_keys(voices, script):
+        log(
+            f'      warning: cast key "{key}" is not a role ({", ".join(ROLES)}) or a speaker in '
+            f'{script_path.name}, so it is unused; speakers: {", ".join(script.speakers)}'
+        )
     enhanced, problems = check_enhance(script_path, script)
     if problems:
         raise SystemExit(
             'enhance.txt has problems; fix them (run check):\n' + '\n'.join(f'  L{n}: {m}' for n, m in problems)
         )
-    chapters = plan_units(script, voices, args.unknown, separate_mc=args.separate_mc, enhanced=enhanced)
+    chapters = plan_units(script, voices, args.unknown, enhanced=enhanced)
     if args.chapters and args.only:
         raise SystemExit('Use either --chapters N or --only SPEC, not both.')
     if args.chapters:
@@ -1112,21 +1127,11 @@ def main(argv=None):
     s = sub.add_parser('build', help='script.txt -> <Title>.m4b')
     s.add_argument('script', type=Path)
     s.add_argument(
-        '--engine',
-        choices=['mixed', 'vieneu', 'drama3'],
-        help='Voice preset (default mixed: VieNeu narrator/men + Drama-3 heroine)',
+        '--cast',
+        type=Path,
+        help='All voice choices, JSON: {"engine": "mixed"|"vieneu"|"drama3", "voices": '
+        '{"narrator"|"mc"|"male"|"female"|<speaker>: voice}}. Default: mixed preset (casts/*.json)',
     )
-    s.add_argument(
-        '--cast', type=Path, help='JSON: {"engine": ..., "voices": {"narrator"|"male"|"female"|<speaker>: voice}}'
-    )
-    s.add_argument('--narrator', help='Narrator + MC voice: a VieNeu name (or an onboarded voice id for Drama-3)')
-    s.add_argument('--male', help='Voice for other men (and the MC with --separate-mc)')
-    s.add_argument(
-        '--separate-mc',
-        action='store_true',
-        help='Give the first-person MC the male dialogue voice instead of the narrator voice',
-    )
-    s.add_argument('--female', help='Female voice: an onboarded voice id (Drama-3), e.g. lynasa, or a VieNeu name')
     s.add_argument(
         '--unknown',
         choices=['fail', 'narrator'],

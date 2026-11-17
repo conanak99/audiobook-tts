@@ -586,7 +586,7 @@ def cmd_approve(args):
     meta.update(status='onboarded', approved=datetime.now().isoformat(timespec='seconds'))
     save(meta)
     write_table()
-    print(f'Onboarded "{vid}". Use it with: python3 -m viettts audiobook build ... --female {vid}')
+    print(f'Onboarded "{vid}". Use it in a cast: {{"voices": {{"female": "{vid}"}}}} (audiobook build --cast)')
 
 
 def cmd_note(args):

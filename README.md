@@ -31,7 +31,7 @@ python3 -m viettts audiobook build outputs/audiobooks/<slug>/script.txt --chapte
 python3 -m viettts audiobook verify outputs/audiobooks/<slug>/script.txt --partial
 ```
 
-Mixed builds use VieNeu narrator/men and an approved Drama-3 heroine. Choose `--female <voice-id>`, `--cast casts/mixed-example.json`, or `--engine vieneu` for preset voices only. Remove `--chapters 1` for the complete book; cached chunks are reused.
+Voices come from one cast JSON (`--cast`). Without it, builds use VieNeu for the narrator and men and an approved Drama-3 heroine (`casts/mixed.json`). Use `--cast casts/vieneu.json` for preset voices only, or copy a cast to pick the heroine, the MC (`"mc"`) or any speaker. Remove `--chapters 1` for the complete book; cached chunks are reused.
 
 ## Onboard a voice
 

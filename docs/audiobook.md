@@ -63,13 +63,11 @@ The volume number comes from the story's folder name (`meimei_v2/story_vn.md` �
 ```sh
 python3 -m viettts audiobook build … --chapters 2
 python3 -m viettts audiobook build … --only 6
-python3 -m viettts audiobook build … --narrator "Thiện Minh" --male "Hải Đăng" --female "Ngọc Huyền"
-python3 -m viettts audiobook build … --female lynasa
-python3 -m viettts audiobook build … --cast casts/mixed-example.json
-python3 -m viettts audiobook build … --engine vieneu
+python3 -m viettts audiobook build … --cast casts/vieneu.json
+python3 -m viettts audiobook build … --cast my-book.json
 ```
 
-Each voice picks its engine: a VieNeu voice name runs on VieNeu, and a reference `.wav` runs on Drama-3 (voice cloning). The default preset is **mixed**:
+All voices are chosen in one cast JSON (`--cast`); there are no separate voice flags. Without `--cast` the build uses the **mixed** preset, spelled out in `casts/mixed.json`:
 
 | Role | Voice |
 |---|---|
@@ -77,10 +75,23 @@ Each voice picks its engine: a VieNeu voice name runs on VieNeu, and a reference
 | Other men | VieNeu Hải Đăng |
 | Women | Drama-3 cloned from the onboarded voice `shirone-mika` |
 
-- Change the heroine with `--female <voice id>`. The onboarded voices are listed in `.opencode/skills/viet-audiobook/references/voices.md`, or run `python3 -m viettts voice list`. Raw audio files are refused; onboard them first (see below).
-- Mixed chunks are resampled to one rate (VieNeu 48 kHz) and leveled to the same loudness.
-- `--engine vieneu` puts everyone on VieNeu (Ngọc Huyền for women); `--engine drama3` puts everyone on Drama-3.
-- The MC's own dialogue (`[ta]`/`[tôi]`) uses the narrator voice, since they are one person. `--separate-mc` gives the MC the male voice instead. A cast JSON can also give one speaker their own voice: `{"voices": {"Sương Nguyệt": "Thùy Dung"}}`.
+```json
+{
+  "engine": "mixed",
+  "voices": {
+    "narrator": "Thiện Minh",
+    "mc": "Đức Trí",
+    "male": "Hải Đăng",
+    "female": "lynasa",
+    "Sương Nguyệt": "nika-linh-lan"
+  }
+}
+```
+
+- `engine` picks the preset: `mixed` (default), `vieneu` (everyone on VieNeu, Ngọc Huyền for women) or `drama3` (everyone on Drama-3). `casts/vieneu.json` and `casts/drama3.json` are ready to use. Every key in `voices` is optional and overrides the preset's voice.
+- Roles: `narrator` reads the narration and, by default, the first-person MC's dialogue (`[ta]`/`[tôi]`), since they are one person. `mc` gives the MC a voice of their own. `male` is for the other men, `female` for the women. Any other key is a speaker id from `script.txt` and gives that speaker their own voice.
+- A voice is a VieNeu name (from `VIENEU_VOICES` in `viettts/audiobook/build.py`) or an onboarded Drama-3 voice id. The onboarded voices are listed in `.opencode/skills/viet-audiobook/references/voices.md`, or run `python3 -m viettts voice list`. Raw audio files are refused; onboard them first (see below).
+- Mixed chunks are resampled to one rate (VieNeu 48 kHz) and leveled to the same loudness. Changing a voice re-synthesizes only that voice's lines.
 
 Each segment is split into one sentence per chunk and cached as `cache/<engine>/<sha1>.wav`. Chunks from both engines can sit side by side in one build. A crashed build resumes, and editing one line re-synthesizes only that line. The narrator reads the book title once, before chapter 1.
 
@@ -140,7 +151,7 @@ The NanoGPT key comes from `NANOGPT_API_KEY` or `--key-file`. The male voices ar
 python3 -m viettts audiobook make-ref --voice "Thiện Minh"
 ```
 
-`casts/drama3-example.json` uses Thiện Minh as the narrator and MC, Hải Đăng for other men and `shirone-mika` for women. Drama-3 needs about 30 GB of RAM and is much slower than VieNeu.
+`casts/drama3.json` uses these references for Thiện Minh as the narrator and MC, Hải Đăng for other men and `shirone-mika` for women. Drama-3 needs about 30 GB of RAM and is much slower than VieNeu.
 
 ## Agent helpers
 

@@ -212,8 +212,9 @@ class BuildHelperTests(unittest.TestCase):
         self.assertEqual(units[1], ('narrator', 'Chương 1: Mở Đầu', PAUSES_MS['title']))
         self.assertIn(('female', 'Sư huynh!', PAUSES_MS['segment']), units)
         self.assertIn(('narrator', 'Muội lại tới.', PAUSES_MS['paragraph']), units)  # the MC speaks as the narrator
-        ((_, separate),) = plan_units(script, voices, 'fail', separate_mc=True)
-        self.assertIn(('male', 'Muội lại tới.', PAUSES_MS['paragraph']), separate)
+        ((_, own),) = plan_units(script, {**voices, 'mc': 'C'}, 'fail')  # the cast gave the MC a voice
+        self.assertIn(('mc', 'Muội lại tới.', PAUSES_MS['paragraph']), own)
+        self.assertIn(('narrator', 'Chương 1: Mở Đầu', PAUSES_MS['title']), own)
         self.assertEqual(voice_for('ta', {'ta': 'male'}, {**voices, 'ta': 'X'}, 'fail', 'ta'), 'ta')
         self.assertEqual(units[-1][2], PAUSES_MS['chapter_end'])
         self.assertEqual(voice_for('narrator', {}, voices, 'fail'), 'narrator')
@@ -244,17 +245,42 @@ class BuildHelperTests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             resolve_voice('Not A Voice')
 
-        class Args:
-            cast = engine = narrator = male = None
-            female = 'lynasa'
+    def test_the_cast_is_the_only_voice_choice(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        from types import SimpleNamespace
 
-        preset, voices = load_cast(Args)
+        from viettts.paths import ROOT
+
+        def cast(data=None, path=None):
+            if data is not None:
+                path = Path(tempfile.mkdtemp()) / 'cast.json'
+                path.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+            return load_cast(SimpleNamespace(cast=path))
+
+        preset, voices = cast()  # no --cast: the mixed preset, as casts/mixed.json spells out
         self.assertEqual(preset, 'mixed')
+        self.assertEqual(voices, cast(path=ROOT / 'casts' / 'mixed.json')[1])
         self.assertEqual(voices['narrator'], ('vieneu', 'Thiện Minh'))
-        self.assertEqual(voices['male'], ('vieneu', 'Hải Đăng'))
         self.assertEqual(voices['female'][0], 'drama3')
-        Args.engine, Args.female = 'vieneu', None
-        self.assertEqual(load_cast(Args)[1]['female'], ('vieneu', 'Ngọc Huyền'))
+        self.assertEqual(cast(path=ROOT / 'casts' / 'vieneu.json'), cast({'engine': 'vieneu'}))
+        self.assertEqual(cast({'engine': 'vieneu'})[1]['female'], ('vieneu', 'Ngọc Huyền'))
+        self.assertEqual(cast(path=ROOT / 'casts' / 'drama3.json')[0], 'drama3')
+        _, voices = cast({'voices': {'mc': 'Đức Trí', 'female': 'lynasa', 'Sương Nguyệt': 'Thùy Dung'}})
+        self.assertEqual(voices['mc'], ('vieneu', 'Đức Trí'))
+        self.assertEqual(voices['male'], ('vieneu', 'Hải Đăng'))  # roles left out keep the preset's voice
+        self.assertEqual(voice_for('ta', {'ta': 'male'}, voices, 'fail', 'ta'), 'mc')
+        self.assertEqual(voice_for('Sương Nguyệt', {'Sương Nguyệt': 'female'}, voices, 'fail', 'ta'), 'Sương Nguyệt')
+        with self.assertRaises(SystemExit):
+            cast({'engine': 'fast'})
+
+    def test_cast_keys_that_match_nothing_are_reported(self):
+        from viettts.audiobook.build import unmatched_cast_keys
+
+        script = read_script(write_script(build_book(STORY)))  # speakers: ta, Sương Nguyệt
+        voices = dict.fromkeys(['narrator', 'mc', 'male', 'female', 'Sương Nguyệt', 'ta', 'Suong Nguyet'], 'v')
+        self.assertEqual(unmatched_cast_keys(voices, script), ['Suong Nguyet'])
 
     def test_unknown_line_fails_unless_allowed(self):
         script = read_script('@title T\n## C\n[?] Ai nói?\n')

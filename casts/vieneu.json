@@ -1,0 +1,9 @@
+{
+  "_note": "Everyone on VieNeu (fastest). narrator = narration + the first-person MC; add \"mc\" to give the MC a voice of their own. male = other men only.",
+  "engine": "vieneu",
+  "voices": {
+    "narrator": "Thiện Minh",
+    "male": "Hải Đăng",
+    "female": "Ngọc Huyền"
+  }
+}

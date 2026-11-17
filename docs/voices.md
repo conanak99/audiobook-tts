@@ -24,7 +24,7 @@ python3 -m viettts voice list
 
 Use `voice note <id> "..."` to record performance/fit observations in `voice.json`. Notes are not included in the compact generated table.
 
-Approved ids can be used with `audiobook build ... --female <id>` or in `casts/*.json`. VieNeu preset names do not need onboarding. `audiobook make-ref --voice "Thiện Minh"` can create a synthetic VieNeu reference for Drama-3; these explicit references are the exception to the approved-id requirement.
+Approved ids can be used in a cast (`"female": "<id>"`, or as any role or speaker; see `casts/*.json`) passed with `audiobook build ... --cast`. VieNeu preset names do not need onboarding. `audiobook make-ref --voice "Thiện Minh"` can create a synthetic VieNeu reference for Drama-3; these explicit references are the exception to the approved-id requirement.
 
 After changing Drama-3 weights, regenerate auditions and listen again. Existing approvals and transcripts remain, but stale samples are flagged.
 

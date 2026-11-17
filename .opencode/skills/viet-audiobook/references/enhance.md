@@ -32,7 +32,7 @@ L19: [giggles] Triệu trưởng lão nốc cạn ba vò đào hoa tửu, giờ 
 
 ## Which lines get Drama-3
 
-With the default **mixed** preset, the women's lines (the `female` role and each female speaker) use Drama-3. With a `--cast`, any speaker mapped to an onboarded voice id uses it. With `--engine drama3`, every line uses Drama-3, narration included. Entries for lines that VieNeu reads are ignored.
+With the default **mixed** preset, the women's lines (the `female` role and each female speaker) use Drama-3. Any role or speaker the cast maps to an onboarded voice id uses it too. With `"engine": "drama3"`, every line uses Drama-3, narration included. Entries for lines that VieNeu reads are ignored.
 
 ## Choosing tags (read the context)
 

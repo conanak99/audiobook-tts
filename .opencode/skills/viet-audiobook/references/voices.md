@@ -2,7 +2,7 @@
 
 By default the men use VieNeu (fast) and the heroine is cloned with Drama-3 from an **onboarded** voice (onboarded mean voice has been licensed for use). 
 
-Pick the female voice with the user and pass its id, e.g. `--female lynasa`.
+Pick the female voice with the user and put its id in the book's `cast.json`, e.g. `"female": "lynasa"` (see the template below).
 
 ## Onboarded Drama-3 voices
 
@@ -39,19 +39,19 @@ The table below is regenerated from `voice.json`; don't edit it by hand.
 
 Builds accept only the VieNeu voices in `VIENEU_VOICES` (`viettts/audiobook/build.py`). To use another VieNeu preset, add its name to the list first; its GGUF voice files are created on first use.
 
-An all-Drama-3 build (`--engine drama3`) gives the men the synthetic references `references/vieneu-thien-minh.wav` and `references/vieneu-hai-dang.wav`.
+An all-Drama-3 build (`"engine": "drama3"`, `casts/drama3.json`) gives the men the synthetic references `references/vieneu-thien-minh.wav` and `references/vieneu-hai-dang.wav`.
 
 ## Cast template
 
 `narrator` voices the narration **and** the first-person MC (`ta`/`tôi`). They are the same person in about 99% of stories, so they share one voice. 
 
-`male` is only for *other* men. Don't put the MC under `male`; use `--separate-mc` only if the user wants the MC to sound different. 
+`male` is only for *other* men. Add `"mc"` only if the user wants the MC to sound different from the narration; the MC then uses that voice, whatever their pronoun.
 
-A VieNeu name runs on VieNeu and an onboarded voice id runs on Drama-3:
+A VieNeu name runs on VieNeu and an onboarded voice id runs on Drama-3. Every key in `voices` is optional; one that is left out keeps the preset's voice:
 
 ```json
 {
-  "_note": "narrator = narration + first-person MC (one voice); male = other men only. VieNeu name -> VieNeu, onboarded voice id -> Drama-3",
+  "engine": "mixed",
   "voices": {
     "narrator": "Thiện Minh",
     "male": "Hải Đăng",
@@ -61,4 +61,4 @@ A VieNeu name runs on VieNeu and an onboarded voice id runs on Drama-3:
 }
 ```
 
-The same template is in `casts/mixed-example.json`. For a single heroine, `--female <id>` is enough and no cast file is needed.
+Save it as `<audiobook dir>/cast.json` and build with `--cast <audiobook dir>/cast.json`; the build has no other voice flags. Presets: `casts/mixed.json` (the default), `casts/vieneu.json`, `casts/drama3.json`.
