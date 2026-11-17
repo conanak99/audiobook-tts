@@ -350,7 +350,8 @@ def cmd_cut(args):
             p['duration'] = trim_point(p['preview'], share) if p['preview'] else round(share, 2)
     d = voice_dir(vid)
     d.mkdir(parents=True, exist_ok=True)
-    for old in list(d.glob('reference*')) + list(d.glob('stt*.json')):  # a new cut replaces the old references
+    # A new cut replaces the old references and their review scratch.
+    for old in [*d.glob('reference*'), *work.glob('stt-*.json'), *work.glob('reference-*.draft.txt')]:
         old.unlink()
     refs = []
     for n, p in enumerate(picks, 1):
@@ -450,15 +451,17 @@ def cmd_transcribe(args):
     meta = load(vid)
     env = key_env(args)
     py = sys.executable
+    work = WORK / vid  # review scratch (STT report, draft); the voice folder keeps only reference-N.wav/.txt
+    work.mkdir(parents=True, exist_ok=True)
     for n, wav, _ in refs_of(vid):
         if args.ref and n != args.ref:
             continue
         subprocess.run([py, '-m', 'viettts.voices.transcription', str(wav)], check=True, env=env, cwd=ROOT)
         subprocess.run([py, '-m', 'viettts.voices.reconciliation', str(wav)], check=True, env=env, cwd=ROOT)
         report = json.loads(wav.with_suffix('.stt.json').read_text(encoding='utf-8'))
-        shutil.move(str(wav.with_suffix('.stt.json')), str(voice_dir(vid) / f'stt-{n}.json'))
+        shutil.move(str(wav.with_suffix('.stt.json')), str(work / f'stt-{n}.json'))
         draft = report.get('chosen') or report.get('consensus', '')
-        (voice_dir(vid) / f'reference-{n}.draft.txt').write_text(draft + '\n', encoding='utf-8')
+        (work / f'reference-{n}.draft.txt').write_text(draft + '\n', encoding='utf-8')
         ref = next(r for r in meta['references'] if r['n'] == n)
         ref['transcript_reviewed'] = False
         words = len(draft.split())
@@ -466,7 +469,7 @@ def cmd_transcribe(args):
     meta['transcript_reviewed'] = False
     save(meta)
     print(
-        f'\nReview each draft against stt-N.json (all models + judges), then for each N:\n'
+        f'\nReview each draft against {(work / "stt-N.json").relative_to(ROOT)} (all models + judges), then for each N:\n'
         f'  python3 -m viettts voice set-transcript {vid} --ref N --text "<final transcript>"'
     )
 

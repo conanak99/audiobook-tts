@@ -44,13 +44,8 @@ VIENEU_VOICES = [
     'Adam bựa',
     'Thiện Minh',
     'Hải Đăng',
-    'Thiền Tâm Đức',
-    'Quang Sơn',
-    'Trúc Ly',
-    'Mai Anh',
     'Thùy Dung',
     'Ngọc Huyền',
-    'Ngọc Trân',
 ]
 
 # Longer sentences are cut at commas (viettts.text.split_chunks). Drama-3 stays under mlx-audio's own 300-byte

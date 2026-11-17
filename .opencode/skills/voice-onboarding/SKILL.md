@@ -12,7 +12,6 @@ Run everything from the vietTTS repository root with the system `python3`. The c
 Each voice ends up in `references/voices/<id>/`:
 - `reference-1.wav`, `reference-2.wav`, …: the cleaned cuts
 - `reference-N.txt`: the reviewed transcript of each cut
-- `stt-N.json`: the transcription evidence for each cut
 - `samples/`: three auditions
 - `voice.json`: the source of truth
 
@@ -71,9 +70,9 @@ The NanoGPT key comes from `NANOGPT_API_KEY` or `--key-file`. If neither is avai
 python3 -m viettts voice transcribe <id> [--key-file <file>] [--ref N]
 ```
 
-For each reference, this runs three STT models (Whisper-Large-V3, gpt-4o-mini-transcribe, Wizper). Then audio-listening judges (Qwen omni plus/flash, Perceptron) and a text judge (Claude) each produce a transcript, and Claude adds punctuation without changing any words. Everything is saved to `stt-N.json`, and a draft is printed for each reference.
+For each reference, this runs three STT models (Whisper-Large-V3, gpt-4o-mini-transcribe, Wizper). Then audio-listening judges (Qwen omni plus/flash, Perceptron) and a text judge (Claude) each produce a transcript, and Claude adds punctuation without changing any words. The report and draft are scratch files in `outputs/voice-onboarding/<id>/` (`stt-N.json`, `reference-N.draft.txt`, ignored by git). The voice folder keeps only the WAV and its final `.txt`. A draft is printed for each reference.
 
-**Review each draft yourself against all versions in `stt-N.json`, then save each final text:**
+**Review each draft yourself against all versions in `outputs/voice-onboarding/<id>/stt-N.json`, then save each final text:**
 - **Hallucinations:** Whisper often invents "Hãy subscribe cho kênh Ghiền Mì Gõ…" or subtitle credits. Remove them.
 - **Disputed words:** decide them by meaning and context. For example, "lên Steam tìm" (buying software) beats "lên stream tìm". "Số tiền đã ủng hộ" (money donated) beats "Số tin". Accent-specific forms like "hông" should be kept.
 - **Fillers and code-switching:** the omni listeners and gpt-4o keep fillers ("á", "hả", "kiểu") and English words ("check"); Whisper-family models drop them. Trust the listeners when two or more agree.

@@ -9,7 +9,6 @@ Pick the female voice with the user and pass its id, e.g. `--female lynasa`.
 Use only these. Each voice lives in `references/voices/<id>/`:
 - `reference-N.wav`: one or more cleaned cuts (≤ 30 s together; Drama-3 uses them all)
 - `reference-N.txt`: the reviewed transcript of each
-- `stt-N.json`: the transcription evidence
 - `samples/sample-1..3.wav`: ~5 s auditions to play for the user
 - `voice.json`: the source of truth
 
