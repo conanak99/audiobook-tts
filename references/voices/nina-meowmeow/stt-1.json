@@ -1,0 +1,36 @@
+{
+  "clip": "07_nina_meowmeow.wav",
+  "models": {
+    "Whisper-Large-V3": "số tin đã ủng hộ mình rất là nhiều. Cảm ơn bạn đã xem stream. Nhân tin động viên mình, nhưng mà mình xin lỗi nếu như mà có làm bạn kiểu bị sốc hoặc thất vọng vì mình không được hiền cho lắm. Nhưng mình cảm ơn bạn rất nhiều.",
+    "gpt-4o-mini-transcribe": "Đầu tiên đã là một người rất nhiều, cảm ơn bạn đã xem stream ờ em tin động viên mình nhưng mà mình xin lỗi nếu như mà có làm làm bạn kiểu bức xúc hoặc là thất vọng vì mình không được hiền cho lắm nhưng mà mình cảm ơn bạn rất nhiều.",
+    "Wizper": "Số tin đã ủng hộ mình rất là nhiều. Cảm ơn bạn đã xem stream. Nhân tin động viên mình. Nhưng mà mình xin lỗi nếu như mà có làm bạn kiểu bị sốc hoặc là thất vọng vì mình không được hiền cho lắm. Nhưng mà mình cảm ơn bạn rất nhiều."
+  },
+  "errors": {},
+  "agreement": {
+    "Whisper-Large-V3 vs gpt-4o-mini-transcribe": 0.8,
+    "Whisper-Large-V3 vs Wizper": 0.981,
+    "gpt-4o-mini-transcribe vs Wizper": 0.822
+  },
+  "consensus_model": "Wizper",
+  "consensus": "Số tin đã ủng hộ mình rất là nhiều. Cảm ơn bạn đã xem stream. Nhân tin động viên mình. Nhưng mà mình xin lỗi nếu như mà có làm bạn kiểu bị sốc hoặc là thất vọng vì mình không được hiền cho lắm. Nhưng mà mình cảm ơn bạn rất nhiều.",
+  "judges": {
+    "qwen/qwen3.5-omni-plus": "đầu tiên đã ủng hộ mình rất là nhiều cảm ơn bạn đã xem stream nhắn tin động viên mình nhưng mà mình xin lỗi nếu như mà có làm bạn kiểu bị sốc hoặc là thất vọng vì mình không được hiền cho lắm nhưng mình cảm ơn bạn rất nhiều",
+    "qwen/qwen3.8-omni-flash": "số tiền đã ủng hộ mình rất là nhiều cảm ơn bạn đã xem stream nhắn tin động viên mình nhưng mà mình xin lỗi nếu như mà có làm bạn kiểu bị sốc hoặc thất vọng vì mình không được hiền cho lắm nhưng mình cảm ơn bạn rất nhiều",
+    "perceptron/perceptron-mk1.5": "Số tin đã ủng hộ mình rất là nhiều. Cảm ơn bạn đã xem stream, nhắn tin động viên mình. Nhưng mà mình xin lỗi nếu như mà có làm bạn kiểu bị sốc hoặc là thất vọng vì mình không được hiền cho lắm. Nhưng mình cảm ơn bạn rất nhiều.",
+    "anthropic/claude-opus-5.5": "Số tin đã ủng hộ mình rất là nhiều, cảm ơn bạn đã xem stream và nhắn tin động viên mình, nhưng mà mình xin lỗi nếu như mà có làm bạn kiểu bị sốc hoặc là thất vọng vì mình không được hiền cho lắm, nhưng mà mình cảm ơn bạn rất nhiều."
+  },
+  "judge_errors": {
+    "gemini-2.5-flash": "gemini-2.5-flash: HTTP 503 {\"error\":{\"message\":\"Service temporarily unavailable. Please try again later.\",\"type\":\"service_unavailable\"}}"
+  },
+  "judges_agreement": {
+    "qwen/qwen3.5-omni-plus vs qwen/qwen3.8-omni-flash": 0.951,
+    "qwen/qwen3.5-omni-plus vs perceptron/perceptron-mk1.5": 0.962,
+    "qwen/qwen3.5-omni-plus vs anthropic/claude-opus-5.5": 0.943,
+    "qwen/qwen3.8-omni-flash vs perceptron/perceptron-mk1.5": 0.971,
+    "qwen/qwen3.8-omni-flash vs anthropic/claude-opus-5.5": 0.952,
+    "perceptron/perceptron-mk1.5 vs anthropic/claude-opus-5.5": 0.981
+  },
+  "chosen_judge": "perceptron/perceptron-mk1.5",
+  "chosen": "Số tin đã ủng hộ mình rất là nhiều. Cảm ơn bạn đã xem stream, nhắn tin động viên mình. Nhưng mà mình xin lỗi nếu như mà có làm bạn kiểu bị sốc hoặc là thất vọng vì mình không được hiền cho lắm. Nhưng mình cảm ơn bạn rất nhiều.",
+  "final_reviewed": "Số tiền đã ủng hộ mình rất là nhiều. Cảm ơn bạn đã xem stream, nhắn tin động viên mình. Nhưng mà mình xin lỗi nếu như mà có làm bạn kiểu bị sốc hoặc là thất vọng vì mình không được hiền cho lắm. Nhưng mình cảm ơn bạn rất nhiều."
+}

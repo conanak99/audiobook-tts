@@ -1,0 +1,25 @@
+# Virtual environments & uv/HuggingFace caches
+.venv/
+**/.venv/
+.uv/
+.cache/
+
+# Model weights & generated outputs
+models/
+outputs/
+
+# Python bytecode & test caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# OS, editor & temporary download artifacts
+.DS_Store
+*.part
+*.ytdl
+*.tmp
+.env
+.env.*

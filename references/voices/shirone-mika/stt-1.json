@@ -1,0 +1,36 @@
+{
+  "clip": "01_shirone_mika.wav",
+  "models": {
+    "Whisper-Large-V3": "Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn  Mai hả? Mai 50/50 á? Mai chỉ biết nữa, mai tỉ hứng á.  Mika có kể là hoặc là Mika sẽ stream trên Twitch, hoặc là Mika stream... không stream luôn.  Chứ Youtube là coi chắc chắn là có chứ không phải là có khả năng cao hoặc không rồi đó.  Hôm nào là stream chờ... hôm nào là stream chờ 2 Mika sub.",
+    "gpt-4o-mini-transcribe": "Mai hả? Mai 55 á, mà chị biết đâu, mai thì hấn á. Nhờ Mikan có kể là hoặc là Mikan sẽ stream trên Twitch, hoặc là Mikan streamer không stream luôn. chứ Youtube là coi như chắc chắn là có có khả năng cao là không mà nó. Hôm nào là stream chờ hôm nào là stream chờ hai Mikan",
+    "Wizper": "Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn"
+  },
+  "errors": {},
+  "agreement": {
+    "Whisper-Large-V3 vs gpt-4o-mini-transcribe": 0.61,
+    "Whisper-Large-V3 vs Wizper": 0.316,
+    "gpt-4o-mini-transcribe vs Wizper": 0.026
+  },
+  "consensus_model": "Whisper-Large-V3",
+  "consensus": "Hãy subscribe cho kênh Ghiền Mì Gõ Để không bỏ lỡ những video hấp dẫn  Mai hả? Mai 50/50 á? Mai chỉ biết nữa, mai tỉ hứng á.  Mika có kể là hoặc là Mika sẽ stream trên Twitch, hoặc là Mika stream... không stream luôn.  Chứ Youtube là coi chắc chắn là có chứ không phải là có khả năng cao hoặc không rồi đó.  Hôm nào là stream chờ... hôm nào là stream chờ 2 Mika sub.",
+  "judges": {
+    "qwen/qwen3.5-omni-plus": "mai hả mai năm mươi năm mươi á mai chưa biết nữa mai tùy hứng á nhà mica có kể là hoặc là mica sẽ stream bên twitch hoặc là mica stream không stream luôn chứ youtube là coi như chắc chắn là có khả năng cao là không rồi đó hôm nào làm stream chờ hôm nào làm stream chờ hai mươi k sub",
+    "qwen/qwen3.8-omni-flash": "chuyện hàng ngày mai hả mai năm mươi năm mươi á mà chưa biết nữa mai tùy hứng á nhà mika có kể là hoặc là mika sẽ stream bên twitch hoặc là mika stream không stream luôn chứ youtube là coi như chắc chắn là có khả năng cao là không rồi đó hôm nào làm stream chờ hai mika sub",
+    "perceptron/perceptron-mk1.5": "chút hàng ngày mai hả 555 á mà chị biết đâu mai tỉ hứng á nhà Mika có kể là hoặc là Mika sẽ stream bên Twitch hoặc là Mika không stream luôn chứ YouTube coi như chắc chắn là có khả năng cao là không rồi đó hôm nào làm stream chờ...",
+    "anthropic/claude-opus-5.5": "Mai hả? Mai năm mươi năm mươi á, mai chưa biết nữa, mai tùy hứng á. Như Mika có kể là hoặc là Mika sẽ stream trên Twitch, hoặc là Mika stream, không stream luôn. Chứ YouTube là coi như chắc chắn là có khả năng cao là không rồi đó. Hôm nào là stream chờ, hôm nào là stream chờ hai Mika sub."
+  },
+  "judge_errors": {
+    "gemini-2.5-flash": "gemini-2.5-flash: HTTP 503 {\"error\":{\"message\":\"Service temporarily unavailable. Please try again later.\",\"type\":\"service_unavailable\"}}"
+  },
+  "judges_agreement": {
+    "qwen/qwen3.5-omni-plus vs qwen/qwen3.8-omni-flash": 0.85,
+    "qwen/qwen3.5-omni-plus vs perceptron/perceptron-mk1.5": 0.678,
+    "qwen/qwen3.5-omni-plus vs anthropic/claude-opus-5.5": 0.868,
+    "qwen/qwen3.8-omni-flash vs perceptron/perceptron-mk1.5": 0.835,
+    "qwen/qwen3.8-omni-flash vs anthropic/claude-opus-5.5": 0.873,
+    "perceptron/perceptron-mk1.5 vs anthropic/claude-opus-5.5": 0.718
+  },
+  "chosen_judge": "qwen/qwen3.8-omni-flash",
+  "chosen": "Chuyện hàng ngày mai hả? Mai năm mươi năm mươi á, mà chưa biết nữa. Mai tùy hứng á. Nhà Mika có kể là hoặc là Mika sẽ stream bên Twitch, hoặc là Mika stream... không stream luôn, chứ YouTube là coi như chắc chắn là... có khả năng cao là không rồi đó. Hôm nào làm stream chờ hai Mika sub.",
+  "final_reviewed": "Chuyện hàng ngày. Mai hả? Mai năm mươi năm mươi á, mai chưa biết nữa, mai tùy hứng á. Nhà Mika có kể là hoặc là Mika sẽ stream bên Twitch, hoặc là Mika stream... không stream luôn, chứ YouTube là coi như chắc chắn là có khả năng cao là không rồi đó. Hôm nào làm stream chờ, hôm nào làm stream chờ hai mươi k sub."
+}

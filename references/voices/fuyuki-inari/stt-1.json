@@ -1,0 +1,35 @@
+{
+  "clip": "reference-1.wav",
+  "models": {
+    "Whisper-Large-V3": "những con nít và bố mẹ của tụi nó luôn luôn nhìn xem phân của bọn nó như thế nào để biết được tình trạng sức khỏe của bọn nó.  Cho nên thay vì mình hỏi rằng là hôm nay bạn có khỏe không, hôm nay bạn thế nào là 2 câu đúng không?",
+    "gpt-4o-mini-transcribe": "những đứa cùng nó ta và bố mẹ của tụi nó kiểu luôn luôn nhìn xem á hả cái phân của bọn nó như thế nào để biết được tình trạng sức khỏe của bọn nó. Vậy cho nên thay vì mình hỏi rằng là hôm nay bạn có khỏe không, hôm nay bạn thế nào là hai câu đúng không?",
+    "Wizper": "những con nít và bố mẹ của tụi nó luôn luôn nhìn xem phân của bọn nó như thế nào để biết được tình trạng sức khỏe của bọn nó. Cho nên thay vì mình hỏi rằng là hôm nay bạn có khỏe không? Hôm nay bạn thế nào? Là hai câu đúng không?"
+  },
+  "errors": {},
+  "agreement": {
+    "Whisper-Large-V3 vs gpt-4o-mini-transcribe": 0.887,
+    "Whisper-Large-V3 vs Wizper": 0.981,
+    "gpt-4o-mini-transcribe vs Wizper": 0.904
+  },
+  "consensus_model": "Wizper",
+  "consensus": "những con nít và bố mẹ của tụi nó luôn luôn nhìn xem phân của bọn nó như thế nào để biết được tình trạng sức khỏe của bọn nó. Cho nên thay vì mình hỏi rằng là hôm nay bạn có khỏe không? Hôm nay bạn thế nào? Là hai câu đúng không?",
+  "judges": {
+    "qwen/qwen3.5-omni-plus": "những đứa con nít á và bố mẹ của tụi nó kiểu luôn luôn nhìn xem á hả cái phân của bọn nó như thế nào để biết được tình trạng sức khỏe của bọn nó vậy cho nên thay vì mình hỏi rằng là hôm nay bạn có khỏe không hôm nay bạn thế nào là hai câu đúng không",
+    "qwen/qwen3.8-omni-flash": "Những đứa con nít á và bố mẹ của tụi nó kiểu luôn luôn nhìn xem á hả cái phân của bọn nó như thế nào để biết được tình trạng sức khỏe của bọn nó. Vậy cho nên thay vì mình hỏi rằng là hôm nay bạn có khỏe không, hôm nay bạn thế nào là hai câu đúng không?",
+    "perceptron/perceptron-mk1.5": "những con nít và bố mẹ của tụi nó luôn luôn nhìn xem phân của bọn nó như thế nào để biết được tình trạng sức khỏe của bọn nó. Cho nên thay vì mình hỏi rằng là hôm nay bạn có khỏe không, hôm nay bạn thế nào là hai câu đúng không?",
+    "anthropic/claude-opus-5.5": "những đứa con nít và bố mẹ của tụi nó kiểu luôn luôn nhìn xem á hả cái phân của bọn nó như thế nào để biết được tình trạng sức khỏe của bọn nó. Vậy cho nên thay vì mình hỏi rằng là hôm nay bạn có khỏe không, hôm nay bạn thế nào, là hai câu đúng không?"
+  },
+  "judge_errors": {
+    "gemini-2.5-flash": "gemini-2.5-flash: HTTP 503 {\"error\":{\"message\":\"Service temporarily unavailable. Please try again later.\",\"type\":\"service_unavailable\"}}"
+  },
+  "judges_agreement": {
+    "qwen/qwen3.5-omni-plus vs qwen/qwen3.8-omni-flash": 1.0,
+    "qwen/qwen3.5-omni-plus vs perceptron/perceptron-mk1.5": 0.939,
+    "qwen/qwen3.5-omni-plus vs anthropic/claude-opus-5.5": 0.992,
+    "qwen/qwen3.8-omni-flash vs perceptron/perceptron-mk1.5": 0.939,
+    "qwen/qwen3.8-omni-flash vs anthropic/claude-opus-5.5": 0.992,
+    "perceptron/perceptron-mk1.5 vs anthropic/claude-opus-5.5": 0.947
+  },
+  "chosen_judge": "qwen/qwen3.5-omni-plus",
+  "chosen": "Những đứa con nít á, và bố mẹ của tụi nó kiểu luôn luôn nhìn xem á, hả, cái phân của bọn nó như thế nào để biết được tình trạng sức khỏe của bọn nó vậy. Cho nên thay vì mình hỏi rằng là \"Hôm nay bạn có khỏe không?\", \"Hôm nay bạn thế nào?\" là hai câu, đúng không?"
+}

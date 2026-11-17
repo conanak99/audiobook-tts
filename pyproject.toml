@@ -1,0 +1,42 @@
+[project]
+name = "viettts-dev"
+version = "0.1.0"
+requires-python = ">=3.11,<3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "mypy>=1.18,<2",
+    "numpy>=2,<3",
+    "ruff>=0.14,<1",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+extend-exclude = [".cache", ".uv", "engines/**", "models", "outputs", "references"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP"]
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.mypy]
+python_version = "3.11"
+files = ["viettts"]
+check_untyped_defs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = ["vieneu", "soundfile", "mlx.*", "mlx_audio.*", "huggingface_hub"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["viettts.paths", "viettts.text", "viettts.cli", "viettts.voices.registry"]
+disallow_untyped_defs = true

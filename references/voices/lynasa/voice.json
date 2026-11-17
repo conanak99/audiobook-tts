@@ -1,0 +1,64 @@
+{
+  "id": "lynasa",
+  "name": "Lynasa",
+  "gender": "female",
+  "status": "onboarded",
+  "style": "Sweet, melodic (≈ 265 Hz)",
+  "fits": "Southern characters, girlfriend roleplay",
+  "contact": "visekai.net/lynasa | fb.com/Vtuberisekai",
+  "source": {
+    "input": "https://www.youtube.com/watch?v=iqG6Hd7Up6U"
+  },
+  "metrics": {
+    "duration": 17.5,
+    "longest_pause": 0
+  },
+  "transcript_reviewed": true,
+  "notes": [
+    "2026-11-16: lower SNR (20 dB) than the others."
+  ],
+  "accent": "Southern",
+  "updated": "2026-11-16T22:46:50",
+  "samples": [
+    {
+      "file": "references/voices/lynasa/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+      "duration": 5.9,
+      "speech_pct": 93.8,
+      "longest_pause": 0,
+      "mean_db": -21.9
+    },
+    {
+      "file": "references/voices/lynasa/samples/sample-2.wav",
+      "text": "Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!",
+      "duration": 5.25,
+      "speech_pct": 85.3,
+      "longest_pause": 0.34,
+      "mean_db": -21.5
+    },
+    {
+      "file": "references/voices/lynasa/samples/sample-3.wav",
+      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+      "duration": 5.62,
+      "speech_pct": 70.7,
+      "longest_pause": 0.55,
+      "mean_db": -22.6
+    }
+  ],
+  "sample_retries": 0,
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source_start": 1501.0,
+      "transcript_reviewed": true,
+      "words_per_s": 4.34,
+      "duration": 17.5,
+      "speech_pct": 100.0,
+      "longest_pause": 0,
+      "mean_db": -19.9
+    }
+  ],
+  "approved": "2026-11-16T22:27:39",
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a"
+}

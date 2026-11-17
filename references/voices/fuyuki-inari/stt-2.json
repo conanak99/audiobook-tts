@@ -1,0 +1,35 @@
+{
+  "clip": "reference-2.wav",
+  "models": {
+    "Whisper-Large-V3": "dạy ông kiến thức mới để kiểm tra sức khỏe của ông đó  nhưng mà ông không có tiền để ông đi vô bệnh viện  ông thám sức khỏe tổng bát mỗi ngày đó  à không, mỗi 6 tháng chứ  người ta thường hay bảo là cứ cách 6 tháng ông nên đi khám sức khỏe tổng bá lần nhưng mà vì ông",
+    "gpt-4o-mini-transcribe": "Dạy ông kiến thức mới để check và để kiểm tra sức khỏe của ông nữa nhưng mà ông không có tiền nên ông đi vô bệnh viện ông khám sức khỏe tổng quát mỗi ngày đó. À không, mỗi sáu tháng chứ. Người ta thường hay bảo là cứ cách sáu tháng mà ông nên đi khám sức khỏe tổng quát một lần nhưng mà vì ông không có",
+    "Wizper": "dạy ông kiến thức mới để kiểm tra sức khỏe của ông đó nhưng mà ông không có tiền để ông đi vô bệnh viện ông khám sức khỏe tổng bác mỗi ngày đó à không, mỗi 6 tháng chứ người ta thường hay bảo là cứ cách 6 tháng là ông nên đi khám sức khỏe tổng bác 1 lần nhưng mà vì ông không có"
+  },
+  "errors": {},
+  "agreement": {
+    "Whisper-Large-V3 vs gpt-4o-mini-transcribe": 0.842,
+    "Whisper-Large-V3 vs Wizper": 0.923,
+    "gpt-4o-mini-transcribe vs Wizper": 0.861
+  },
+  "consensus_model": "Wizper",
+  "consensus": "dạy ông kiến thức mới để kiểm tra sức khỏe của ông đó nhưng mà ông không có tiền để ông đi vô bệnh viện ông khám sức khỏe tổng bác mỗi ngày đó à không, mỗi 6 tháng chứ người ta thường hay bảo là cứ cách 6 tháng là ông nên đi khám sức khỏe tổng bác 1 lần nhưng mà vì ông không có",
+  "judges": {
+    "qwen/qwen3.5-omni-plus": "tôi dạy ông kiến thức mới để check và để kiểm tra sức khỏe của ông đó nhưng mà ông không có tiền để ông đi vô bệnh viện ông khám sức khỏe tổng quát mỗi ngày đó à không mỗi sáu tháng chứ người ta thường hay bảo là cứ cách sáu tháng ông nên đi khám sức khỏe tổng quát một lần nhưng mà vì ông không có",
+    "qwen/qwen3.8-omni-flash": "dạy ông kiến thức mới để check cơ và để kiểm tra sức khỏe của ông đó nhưng mà ông không có tiền nên ông đi vô bệnh viện ông khám sức khỏe tổng quát mỗi ngày đó à không mỗi sáu tháng chứ người ta thường hay bảo là cứ cách sáu tháng là ông nên đi khám sức khỏe tổng quát một lần nhưng mà vì ông không có",
+    "perceptron/perceptron-mk1.5": "dạy ông kiến thức mới để kiểm tra sức khỏe của ông đó nhưng mà ông không có tiền để đi vô bệnh viện, ông khám sức khỏe tổng quát mỗi ngày đó à không, mỗi 6 tháng chứ người ta thường hay bảo là cứ cách 6 tháng là ông nên đi khám sức khỏe tổng quát một lần nhưng mà vì ông không có",
+    "anthropic/claude-opus-5.5": "Dạy ông kiến thức mới để kiểm tra sức khỏe của ông đó, nhưng mà ông không có tiền để ông đi vô bệnh viện ông khám sức khỏe tổng quát mỗi ngày đó. À không, mỗi sáu tháng chứ. Người ta thường hay bảo là cứ cách sáu tháng là ông nên đi khám sức khỏe tổng quát một lần, nhưng mà vì ông không có"
+  },
+  "judge_errors": {
+    "gemini-2.5-flash": "gemini-2.5-flash: HTTP 503 {\"error\":{\"message\":\"Service temporarily unavailable. Please try again later.\",\"type\":\"service_unavailable\"}}"
+  },
+  "judges_agreement": {
+    "qwen/qwen3.5-omni-plus vs qwen/qwen3.8-omni-flash": 0.965,
+    "qwen/qwen3.5-omni-plus vs perceptron/perceptron-mk1.5": 0.926,
+    "qwen/qwen3.5-omni-plus vs anthropic/claude-opus-5.5": 0.964,
+    "qwen/qwen3.8-omni-flash vs perceptron/perceptron-mk1.5": 0.92,
+    "qwen/qwen3.8-omni-flash vs anthropic/claude-opus-5.5": 0.957,
+    "perceptron/perceptron-mk1.5 vs anthropic/claude-opus-5.5": 0.962
+  },
+  "chosen_judge": "qwen/qwen3.5-omni-plus",
+  "chosen": "Tôi dạy ông kiến thức mới để check và để kiểm tra sức khỏe của ông đó, nhưng mà ông không có tiền để ông đi vô bệnh viện ông khám sức khỏe tổng quát mỗi ngày đó. À không, mỗi sáu tháng chứ. Người ta thường hay bảo là cứ cách sáu tháng ông nên đi khám sức khỏe tổng quát một lần, nhưng mà vì ông không có..."
+}

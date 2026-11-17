@@ -1,0 +1,36 @@
+{
+  "clip": "09_nika_linh_lan.wav",
+  "models": {
+    "Whisper-Large-V3": "Lịch sử livestream của tôi, tôi sẽ không làm gì trên livestream à.  Đấy, tôi sẽ ngồi, tôi học mọi người ơi.  Tôi làm những công việc của tôi, đấy.  Lâu lâu tôi lướt, tôi nói chuyện, tôi vừa nói chuyện, tôi vừa ấy.  Tôi không cần phải tập trung lắm cho nên là chill.  Thế mình cứ ngồi đấy, xong rồi khoảng 1 tiếng, 1 tiếng rưỡi, 2 tiếng rồi tôi bắt đầu tôi đổi sang cái stream khác.",
+    "gpt-4o-mini-transcribe": "Mình thử livestream tôi tôi sẽ không làm gì trên livestream à? Đấy, tôi sẽ ngồi tôi học mọi người ơi. Tôi làm những cái công việc của tôi đấy. Lâu lâu tôi lướt lên tôi nói chuyện, tôi vừa nói chuyện tôi vừa ấy, tôi không cần phải tập trung lắm cho nên là chill. Thế mình, mình cứ ngồi đấy xong rồi khoảng một tiếng, một tiếng rưỡi, hai tiếng thì tôi bắt đầu tôi đổi sang cái stream khác ấy.",
+    "Wizper": "Lịch sử livestream của tôi, tôi sẽ không làm gì trên livestream à. Đấy, tôi sẽ ngồi, tôi học mọi người ơi. Tôi làm những cái công việc của tôi, đấy. Lâu lâu tôi lướt đây, tôi nói chuyện, tôi vừa nói chuyện, tôi vừa đấy, tôi không cần phải tập trung lắm cho nên là chill. Thế mình, mình cứ ngồi đấy, xong rồi khoảng 1 tiếng, 1 tiếng rưỡi, 2 tiếng rồi tôi bắt đầu tôi đổi sang cái stream khác, đấy."
+  },
+  "errors": {},
+  "agreement": {
+    "Whisper-Large-V3 vs gpt-4o-mini-transcribe": 0.896,
+    "Whisper-Large-V3 vs Wizper": 0.963,
+    "gpt-4o-mini-transcribe vs Wizper": 0.886
+  },
+  "consensus_model": "Whisper-Large-V3",
+  "consensus": "Lịch sử livestream của tôi, tôi sẽ không làm gì trên livestream à.  Đấy, tôi sẽ ngồi, tôi học mọi người ơi.  Tôi làm những công việc của tôi, đấy.  Lâu lâu tôi lướt, tôi nói chuyện, tôi vừa nói chuyện, tôi vừa ấy.  Tôi không cần phải tập trung lắm cho nên là chill.  Thế mình cứ ngồi đấy, xong rồi khoảng 1 tiếng, 1 tiếng rưỡi, 2 tiếng rồi tôi bắt đầu tôi đổi sang cái stream khác.",
+  "judges": {
+    "qwen/qwen3.5-omni-plus": "Lịch sử livestream của tôi, tôi sẽ không làm gì trên livestream cả. Đấy, tôi sẽ ngồi tôi học mọi người ơi. Tôi làm những cái công việc của tôi, đấy. Lâu lâu tôi lướt lên tôi nói chuyện, tôi vừa nói chuyện tôi vừa ấy, tôi không cần phải tập trung lắm cho nên là chill. Thế mình, mình cứ ngồi đấy xong rồi khoảng một tiếng, một tiếng rưỡi, hai tiếng thì tôi bắt đầu tôi đổi sang cái stream khác ấy.",
+    "qwen/qwen3.8-omni-flash": "lịch sử livestream của tôi tôi sẽ không làm gì trên livestream cả đấy tôi sẽ ngồi tôi học mọi người ơi tôi làm những cái công việc của tôi đấy lâu lâu tôi lướt đây tôi nói chuyện tôi vừa nói chuyện tôi vừa thấy tôi không cần phải tập trung lắm cho nên là chill thế mình mình cứ ngồi đấy xong rồi khoảng một tiếng một tiếng rưỡi hai tiếng thì tôi bắt đầu tôi đổi sang cái stream khác đấy",
+    "perceptron/perceptron-mk1.5": "Lịch sử livestream của tôi, tôi sẽ làm gì trên livestream à? À, tôi sẽ ngồi học với mọi người. Tôi làm những công việc của tôi. Lâu lâu tôi lướt web, tôi nói chuyện, tôi vừa nói chuyện, tôi vừa... Tôi không cần phải tập trung lắm cho nên là chill. Thế mình cứ ngồi đó, xong rồi khoảng 1 tiếng, 1 tiếng rưỡi, 2 tiếng rồi tôi bắt đầu tôi đổi sang cái stream khác.",
+    "anthropic/claude-opus-5.5": "Lịch sử livestream của tôi, tôi sẽ không làm gì trên livestream à. Đấy, tôi sẽ ngồi, tôi học mọi người ơi. Tôi làm những cái công việc của tôi. Đấy, lâu lâu tôi lướt lên, tôi nói chuyện, tôi vừa nói chuyện tôi vừa ấy, tôi không cần phải tập trung lắm cho nên là chill. Thế mình, mình cứ ngồi đấy, xong rồi khoảng một tiếng, một tiếng rưỡi, hai tiếng rồi tôi bắt đầu tôi đổi sang cái stream khác, đấy."
+  },
+  "judge_errors": {
+    "gemini-2.5-flash": "gemini-2.5-flash: HTTP 503 {\"error\":{\"message\":\"Service temporarily unavailable. Please try again later.\",\"type\":\"service_unavailable\"}}"
+  },
+  "judges_agreement": {
+    "qwen/qwen3.5-omni-plus vs qwen/qwen3.8-omni-flash": 0.964,
+    "qwen/qwen3.5-omni-plus vs perceptron/perceptron-mk1.5": 0.845,
+    "qwen/qwen3.5-omni-plus vs anthropic/claude-opus-5.5": 0.964,
+    "qwen/qwen3.8-omni-flash vs perceptron/perceptron-mk1.5": 0.845,
+    "qwen/qwen3.8-omni-flash vs anthropic/claude-opus-5.5": 0.952,
+    "perceptron/perceptron-mk1.5 vs anthropic/claude-opus-5.5": 0.87
+  },
+  "chosen_judge": "qwen/qwen3.5-omni-plus",
+  "chosen": "Lịch sử livestream của tôi, tôi sẽ không làm gì trên livestream cả. Đấy, tôi sẽ ngồi, tôi học, mọi người ơi. Tôi làm những cái công việc của tôi, đấy. Lâu lâu tôi lướt lên, tôi nói chuyện, tôi vừa nói chuyện, tôi vừa ấy... tôi không cần phải tập trung lắm, cho nên là chill. Thế mình, mình cứ ngồi đấy, xong rồi khoảng một tiếng, một tiếng rưỡi, hai tiếng thì tôi bắt đầu, tôi đổi sang cái stream khác ấy.",
+  "final_reviewed": "Lịch sử livestream của tôi, tôi sẽ không làm gì trên livestream cả. Đấy, tôi sẽ ngồi, tôi học, mọi người ơi. Tôi làm những cái công việc của tôi, đấy. Lâu lâu tôi lướt lên, tôi nói chuyện, tôi vừa nói chuyện, tôi vừa ấy... tôi không cần phải tập trung lắm, cho nên là chill. Thế mình, mình cứ ngồi đấy, xong rồi khoảng một tiếng, một tiếng rưỡi, hai tiếng thì tôi bắt đầu, tôi đổi sang cái stream khác ấy."
+}
