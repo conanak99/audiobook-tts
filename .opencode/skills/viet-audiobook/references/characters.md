@@ -15,7 +15,7 @@ Narrator and MC: Hàn Thần (`ta`) on VieNeu **Thiện Minh**. Other men defaul
 |---|---|---|---|---|
 | ta | Hàn Thần | `narrator` (Thiện Minh) | MC | shuangyue_v1–v5 |
 | Sương Nguyệt | Nguyệt nhi, Tiểu Nguyệt, Sương Ma Nữ | `shirone-mika` | Heroine; bratty, possessive ice-cultivator sư muội | v1–v5 |
-| Mộc Liên Hoa | Mộc trưởng lão | `tam-nee` | Hợp Hoan elder, wry schemer with lưu ảnh thạch | v4, v5 |
+| Mộc Liên Hoa | Mộc trưởng lão | `tam-nee` | Hợp Hoan elder, wry schemer with lưu ảnh thạch | shuangyue_v4–v5, mahua_v4–v5 |
 | Cơ Hồng Loa | Cơ tông chủ | `fuyuki-inari` | Hợp Hoan sect head, calm and dry | v4, v5 |
 | Bạch Thanh Thanh | Liên Hoa Tiên Tử | `fuyuki-inari` | Thúy Liên Cốc healer, prim; engaged to Ngưu Mãnh | v3, v5 |
 | Hỏa Linh | Hỏa Linh phu nhân | `fuyuki-inari` | Phoenix wife of Ngạo Côn, dry judge | v3, v5 |
@@ -29,6 +29,7 @@ Narrator and MC: Khả Khả's unnamed disciple (`ta`) on VieNeu **Thiện Minh*
 |---|---|---|---|---|
 | ta | đồ nhi, đồ đệ, tiểu tử | `narrator` (Thiện Minh) | MC; Khả Khả's disciple | keke_v1–v5 |
 | Khả Khả | Tô Khả Khả, cô cô, sư phụ, lão cô cô | `lynasa` | Heroine; lazy, hedonistic Nguyên Anh elder fond of role-play | keke_v1–v5 |
+| Trận Linh | trận linh Cửu Yên Luyện Cảnh, lão giữ cửa | Thùy Dung (VieNeu) | Male ancient trial spirit; dry, weary keeper of Khả Khả's sect memories | keke_v5 |
 
 ## Ma Hoa universe
 
@@ -36,8 +37,9 @@ Narrator and MC: Ma Hoa's unnamed sư đệ (`ta`) on VieNeu **Thiện Minh**. O
 
 | Id | Also called | Voice | Who | Books |
 |---|---|---|---|---|
-| ta | sư đệ, tiểu tử, dược liệu, đạo lữ | `narrator` (Thiện Minh) | MC; Ma Hoa's unnamed junior disciple and partner | mahua_v1–v3 |
-| Ma Hoa | Hoa sư tỷ, Ma đan sư | `azu-livyatan` | Heroine; deadpan Hợp Hoan alchemist whose composure shifts selectively | mahua_v1–v3 |
+| ta | sư đệ, tiểu tử, dược liệu, đạo lữ, phu quân | `narrator` (Thiện Minh) | MC; Ma Hoa's unnamed junior disciple and partner | mahua_v1–v5 |
+| Ma Hoa | Hoa sư tỷ, Ma đan sư, bánh quẩy nhỏ | `azu-livyatan` | Heroine; deadpan Hợp Hoan alchemist whose composure shifts selectively | mahua_v1–v5 |
+| Bách Vị Tiên Nhân | gương mặt đá, vị tiên nhân, lão già | Hải Đăng | Deceased trial creator and voice of Bách Vị Bia | mahua_v3 |
 
 ## Mị Mị universe (Cầu Đạo Tông)
 
@@ -47,9 +49,9 @@ Crossovers: v4 (meimei_v4) also has Khả Khả (`lynasa`, Khả Khả universe)
 
 | Id | Also called | Voice | Who | Books |
 |---|---|---|---|---|
-| ta | Lý Vân Chu, Vân Chu, Sư tôn, Phong chủ Vong Vân Phong | `narrator` (Thiện Minh) | MC; calm, honest Nguyên Anh sword master who indulges his disciple | meimei_v1–v4 |
-| Mị Mị | Cố Niệm, đồ nhi, khôi thủ, Thánh nữ Vong Vân Phong; `female` in v1 | `nina-meowmeow` | Heroine; reincarnated game tester, lazy, lewd and scheming, plays the sweet disciple in public | v1–v4 |
+| ta | Lý Vân Chu, Vân Chu, Sư tôn, Phong chủ Vong Vân Phong | `narrator` (Thiện Minh) | MC; calm, honest Nguyên Anh sword master who indulges his disciple | meimei_v1–v6 |
+| Mị Mị | Cố Niệm, đồ nhi, khôi thủ, Thánh nữ Vong Vân Phong; `female` in v1 | `nina-meowmeow` | Heroine; reincarnated game tester, lazy, lewd and scheming, plays the sweet disciple in public; in v5 split into three soul shards (all her, same voice); in v6 Cố Niệm in Trùng Khánh, speaks `tôi`/`anh` until she remembers | v1–v6 |
 | Hoài Thanh | Đệ tử Hoài Thanh, đồ tôn of Đàm Trưởng lão | `nyan-mikuru` | Bách Thảo Đường inner disciple, earnest and naive; rescued from Xích Đỉnh Tông, calls Mị Mị "sư tỷ" | v3 |
-| Hệ thống | Gia thần, the system panel / banners | Thùy Dung (VieNeu) | Mị Mị's game system. Its banners are narration lines in square brackets (`[MỞ KHÓA NHIỆM VỤ: …]`, `[TÌNH CẢM CỘNG HƯỞNG ↑] ▰▰▱…`); during review, answer each such line `Hệ thống` (`new: Hệ thống \| female` the first time). Lines that only describe the panel stay `narrator` | v3, v4 |
-| Đàm Trưởng lão | Đàm (v2) | Hải Đăng | Bách Thảo Đường elder, grandfatherly, always fooled by Mị Mị's act | v1–v3 |
-| Liễu lão thư lại | Liễu, họ Liễu, Liễu chưởng quỹ; `Liễu` in the v4 parse | Adam bựa (VieNeu) | Important side character: vain, theatrical scribe of Thiên Mặc Đường in Hạ Trúc Cốc who writes 《Phong Chủ Lô Đỉnh Truyền》 | v4 |
+| Hệ thống | Gia thần, the system panel / banners | Thùy Dung (VieNeu) | Mị Mị's game system. Its banners are narration lines in square brackets (`[MỞ KHÓA NHIỆM VỤ: …]`, `[TÌNH CẢM CỘNG HƯỞNG ↑] ▰▰▱…`); during review, answer each such line `Hệ thống` (`new: Hệ thống \| female` the first time). From v5 it also talks, in lowercase bracket lines (`[ta nói chuyện liên tục đấy chứ…]`), and in v6 through her old phone; the progress-bar line `▰▰▱…` is Hệ thống too | v3–v6 |
+| Đàm Trưởng lão | Đàm (v2) | Hải Đăng | Bách Thảo Đường elder, grandfatherly, always fooled by Mị Mị's act | v1–v3, v5, v6 |
+| Liễu lão thư lại | Liễu, họ Liễu, Liễu chưởng quỹ; `Liễu` in the parses | Adam bựa (VieNeu) | Important side character: vain, theatrical scribe of Thiên Mặc Đường in Hạ Trúc Cốc who writes popular romance stories | keke_v3, keke_v5, meimei_v4 |

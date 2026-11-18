@@ -24,7 +24,7 @@ It prints the script path, chapter/quote counts, speakers with genders, and the 
 Loop until no items are open:
 
 ```sh
-python3 -m viettts audiobook review <script.txt> --batch 40
+python3 -m viettts audiobook review <script.txt> --batch 100
 ```
 
 Each batch shows numbered context windows.
