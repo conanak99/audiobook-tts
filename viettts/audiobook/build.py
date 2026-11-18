@@ -411,6 +411,22 @@ def unmatched_cast_keys(voices, script):
     return [key for key in voices if key not in ROLES and key not in script.speakers]
 
 
+def validate_cast(script, cast_path, script_name='script.txt'):
+    """Resolve and plan a cast exactly as a build would, without loading a TTS engine."""
+    try:
+        preset, voices = load_cast(argparse.Namespace(cast=cast_path))
+    except (OSError, json.JSONDecodeError, SystemExit) as error:
+        return None, {}, [str(error)]
+    findings = [
+        f'key "{key}" is not a role or a speaker in {script_name}' for key in unmatched_cast_keys(voices, script)
+    ]
+    try:
+        plan_units(script, voices, 'fail')
+    except SystemExit as error:
+        findings.append(str(error))
+    return preset, voices, findings
+
+
 def onboarded_voices():
     return {info['id']: info for info in registry.all_voices(VOICES_DIR)}
 
@@ -1110,6 +1126,7 @@ def main(argv=None):
     s.set_defaults(func=cmd_review)
     s = sub.add_parser('check', help='Heuristic warnings on confident lines; exit 1 if not buildable')
     s.add_argument('script', type=Path)
+    s.add_argument('--cast', type=Path, help='Cast JSON to validate (default: cast.json beside the script, if present)')
     s.set_defaults(func=cmd_check)
     s = sub.add_parser('status', help='Script, cache and build progress at a glance')
     s.add_argument('script', type=Path)

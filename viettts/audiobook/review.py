@@ -75,16 +75,34 @@ def cmd_apply_review(args):
 
 
 def cmd_check(args):
-    from .build import check_enhance, enhance_path
+    from .build import check_enhance, enhance_path, validate_cast, voice_label
 
-    text = args.script.read_text(encoding='utf-8')
+    script_path = args.script.resolve()
+    text = script_path.read_text(encoding='utf-8')
+    script = read_script(text)
     findings = check_script(text)
-    enhanced, enhance_findings = check_enhance(args.script.resolve(), read_script(text))
+    enhanced, enhance_findings = check_enhance(script_path, script)
     findings = sorted(findings + enhance_findings)
+    cast_path = getattr(args, 'cast', None)
+    if cast_path is not None:
+        cast_path = cast_path.expanduser().resolve()
+    else:
+        adjacent = script_path.with_name('cast.json')
+        cast_path = adjacent if adjacent.is_file() else None
+    cast_findings = []
+    if cast_path is not None:
+        preset, voices, cast_findings = validate_cast(script, cast_path, script_path.name)
+        if cast_findings:
+            print(f'{cast_path.name}: {len(cast_findings)} cast error(s)')
+        else:
+            labels = ', '.join(f'{key}={voice_label(*voice)}' for key, voice in voices.items())
+            print(f'{cast_path.name}: valid {preset} cast; {labels}')
     _, _, open_items = export_review(text, limit=0)
     unknown = text.count('\n[?] ')
     for number, message in findings:
         print(f'{"L" + str(number) if number else "--"}: {message}')
+    for message in cast_findings:
+        print(f'--: cast: {message}')
     print(
         f'{len(findings)} findings, {open_items} open review items, {unknown} [?] lines'
         + (
@@ -98,6 +116,9 @@ def cmd_check(args):
         raise SystemExit(1)
     if enhance_findings:
         print('Not buildable yet: fix the enhance.txt lines above.')
+        raise SystemExit(1)
+    if cast_findings:
+        print('Not buildable yet: fix the cast errors above.')
         raise SystemExit(1)
 
 

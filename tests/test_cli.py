@@ -16,6 +16,16 @@ class PackageTests(unittest.TestCase):
             [sys.executable, '-m', 'viettts', *args], cwd=cwd, env=env, capture_output=True, text=True
         )
 
+    def write_check_book(self, directory, cast=None, speaker='Khả Khả', gender='female'):
+        script = directory / 'script.txt'
+        script.write_text(
+            f'@title T\n@speaker ta male narrator\n@speaker {speaker} {gender}\n## C\n[{speaker}] Xin chào.\n',
+            encoding='utf-8',
+        )
+        if cast is not None:
+            (directory / 'cast.json').write_text(json.dumps(cast, ensure_ascii=False), encoding='utf-8')
+        return script
+
     def test_command_groups_have_help_without_engine_dependencies(self):
         for args in [
             (),
@@ -80,6 +90,81 @@ class PackageTests(unittest.TestCase):
             for action in ('review', 'check', 'status'):
                 result = self.cli('audiobook', action, str(script), cwd=work)
                 self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_check_discovers_adjacent_cast(self):
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory)
+            script = self.write_check_book(work, {'engine': 'vieneu'})
+
+            result = self.cli('audiobook', 'check', str(script), cwd=work)
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn('cast.json: valid', result.stdout)
+
+    def test_check_explicit_cast_overrides_adjacent(self):
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory)
+            script = self.write_check_book(work, {'voices': {'female': 'Not A Voice'}})
+            override = work / 'chosen.json'
+            override.write_text('{"engine": "vieneu"}', encoding='utf-8')
+
+            result = self.cli('audiobook', 'check', str(script), '--cast', str(override), cwd=work)
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn('chosen.json: valid', result.stdout)
+            self.assertNotIn('Not A Voice', result.stdout)
+
+    def test_check_accepts_named_speaker_voice(self):
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory)
+            script = self.write_check_book(work, {'voices': {'Khả Khả': 'lynasa'}})
+
+            result = self.cli('audiobook', 'check', str(script), cwd=work)
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn('Khả Khả=lynasa (drama3', result.stdout)
+
+    def test_check_without_cast_skips_cast_validation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory)
+            script = self.write_check_book(work)
+
+            result = self.cli('audiobook', 'check', str(script), cwd=work)
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertNotIn('cast.json', result.stdout)
+            self.assertNotIn('cast:', result.stdout)
+
+    def test_check_rejects_unknown_cast_voice(self):
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory)
+            script = self.write_check_book(work, {'voices': {'Khả Khả': 'Not A Voice'}})
+
+            result = self.cli('audiobook', 'check', str(script), cwd=work)
+
+            self.assertEqual(result.returncode, 1)
+            self.assertIn('cast: Unknown voice "Not A Voice"', result.stdout)
+            self.assertIn('Not buildable yet: fix the cast errors above.', result.stdout)
+
+    def test_check_rejects_unmatched_cast_key(self):
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory)
+            script = self.write_check_book(work, {'voices': {'Kha Kha': 'lynasa'}})
+
+            result = self.cli('audiobook', 'check', str(script), cwd=work)
+
+            self.assertEqual(result.returncode, 1)
+            self.assertIn('cast: key "Kha Kha" is not a role or a speaker in script.txt', result.stdout)
+
+    def test_check_rejects_unresolved_speaker_voice(self):
+        with tempfile.TemporaryDirectory() as directory:
+            work = Path(directory)
+            script = self.write_check_book(work, {'engine': 'vieneu'}, speaker='Bí Ẩn', gender='?')
+
+            result = self.cli('audiobook', 'check', str(script), cwd=work)
+
+            self.assertEqual(result.returncode, 1)
+            self.assertIn('cast: Speaker "Bí Ẩn" has no voice', result.stdout)
 
     def test_existing_voice_registry_and_cast_are_readable(self):
         result = self.cli('voice', 'list')
