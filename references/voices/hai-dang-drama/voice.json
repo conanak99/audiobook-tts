@@ -11,12 +11,12 @@
       "file": "reference-1.wav",
       "source_start": 0.0,
       "transcript_reviewed": true,
-      "gain_db": 1.9,
-      "duration": 11.68,
-      "speech_pct": 86.9,
+      "gain_db": 2.5,
+      "duration": 11.61,
+      "speech_pct": 81.8,
       "longest_pause": 0.52,
-      "mean_db": -19.9,
-      "lufs": -20.1,
+      "mean_db": -20.0,
+      "lufs": -20.0,
       "peak_db": -2.0,
       "words_per_s": 4.62
     },
@@ -25,12 +25,12 @@
       "file": "reference-2.wav",
       "source_start": 13.95,
       "transcript_reviewed": true,
-      "gain_db": 2.0,
-      "duration": 11.57,
-      "speech_pct": 85.0,
-      "longest_pause": 0.53,
-      "mean_db": -20.0,
-      "lufs": -20.2,
+      "gain_db": 0.9,
+      "duration": 12.31,
+      "speech_pct": 79.9,
+      "longest_pause": 0.62,
+      "mean_db": -20.7,
+      "lufs": -20.6,
       "peak_db": -2.0,
       "words_per_s": 4.58
     }
@@ -39,60 +39,60 @@
     {
       "file": "references/voices/hai-dang-drama/samples/sample-1.wav",
       "text": "Sương sớm phủ kín sân viện, ta khẽ đẩy cửa bước ra, nhìn con bé đang ngủ gục bên bàn đá.",
-      "duration": 5.02,
-      "speech_pct": 85.4,
-      "longest_pause": 0.39,
-      "mean_db": -21.9,
-      "lufs": -22.2,
-      "peak_db": -6.2
+      "duration": 4.97,
+      "speech_pct": 81.6,
+      "longest_pause": 0.31,
+      "mean_db": -22.0,
+      "lufs": -21.8,
+      "peak_db": -3.7
     },
     {
       "file": "references/voices/hai-dang-drama/samples/sample-2.wav",
       "text": "Một tiểu sư muội đang dắt đám hàng hóa đi dạo kìa. Nhốt chúng lại chỗ cũ đi!",
-      "duration": 3.9,
-      "speech_pct": 90.1,
-      "longest_pause": 0.38,
+      "duration": 3.99,
+      "speech_pct": 81.5,
+      "longest_pause": 0.36,
       "mean_db": -21.8,
-      "lufs": -21.9,
-      "peak_db": -5.4
+      "lufs": -21.6,
+      "peak_db": -4.2
     },
     {
       "file": "references/voices/hai-dang-drama/samples/sample-3.wav",
       "text": "Suốt sáu mươi năm qua, lão phu chưa từng thấy sự khiêm nhường đến nhường này.",
-      "duration": 3.72,
-      "speech_pct": 87.2,
-      "longest_pause": 0.27,
-      "mean_db": -21.8,
-      "lufs": -22.1,
-      "peak_db": -5.2
+      "duration": 3.62,
+      "speech_pct": 89.7,
+      "longest_pause": 0,
+      "mean_db": -21.9,
+      "lufs": -21.8,
+      "peak_db": -4.5
     },
     {
       "file": "references/voices/hai-dang-drama/samples/sample-4.wav",
       "text": "[mocking, smug] Tiểu tặc, ngươi tưởng [laughs] chạy thoát được sao? <emphasis>Đứng lại!</emphasis>",
-      "duration": 3.53,
-      "speech_pct": 74.4,
-      "longest_pause": 0.37,
-      "mean_db": -22.7,
-      "lufs": -22.4,
-      "peak_db": -8.4
+      "duration": 3.81,
+      "speech_pct": 65.7,
+      "longest_pause": 0.38,
+      "mean_db": -23.1,
+      "lufs": -22.7,
+      "peak_db": -6.2
     },
     {
       "file": "references/voices/hai-dang-drama/samples/sample-5.wav",
       "text": "[low, warm] Lại đây. [small laugh] <soft>Ngoan nào,</soft> để ta xem.",
-      "duration": 3.02,
-      "speech_pct": 57.4,
+      "duration": 3.2,
+      "speech_pct": 53.1,
       "longest_pause": 0.51,
-      "mean_db": -23.9,
-      "lufs": -23.3,
-      "peak_db": -5.1
+      "mean_db": -24.3,
+      "lufs": -23.1,
+      "peak_db": -4.5
     }
   ],
   "metrics": {
-    "duration": 23.25,
-    "longest_pause": 0.53
+    "duration": 23.92,
+    "longest_pause": 0.62
   },
   "name": "Hải Đăng (Drama-3)",
-  "updated": "2026-11-18T20:05:12",
+  "updated": "2026-11-18T21:04:39",
   "sample_retries": 0,
   "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
   "gender": "male",
