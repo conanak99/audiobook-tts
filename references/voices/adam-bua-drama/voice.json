@@ -1,0 +1,105 @@
+{
+  "id": "adam-bua-drama",
+  "status": "onboarded",
+  "transcript_reviewed": true,
+  "source": {
+    "input": "/Users/harry.pham/Desktop/private-hub/audiobook-tts/outputs/voice-onboarding/adam-bua-drama/vieneu/source.wav"
+  },
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source_start": 0.0,
+      "transcript_reviewed": true,
+      "gain_db": 1.8,
+      "duration": 13.07,
+      "speech_pct": 88.7,
+      "longest_pause": 0.41,
+      "mean_db": -19.9,
+      "lufs": -20.0,
+      "peak_db": -4.2,
+      "words_per_s": 4.13
+    },
+    {
+      "n": 2,
+      "file": "reference-2.wav",
+      "source_start": 15.45,
+      "transcript_reviewed": true,
+      "gain_db": 1.9,
+      "duration": 14.22,
+      "speech_pct": 82.6,
+      "longest_pause": 0.51,
+      "mean_db": -20.0,
+      "lufs": -20.0,
+      "peak_db": -4.1,
+      "words_per_s": 3.73
+    }
+  ],
+  "samples": [
+    {
+      "file": "references/voices/adam-bua-drama/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, ta khẽ đẩy cửa bước ra, nhìn con bé đang ngủ gục bên bàn đá.",
+      "duration": 5.76,
+      "speech_pct": 87.0,
+      "longest_pause": 0.44,
+      "mean_db": -21.9,
+      "lufs": -21.8,
+      "peak_db": -7.2
+    },
+    {
+      "file": "references/voices/adam-bua-drama/samples/sample-2.wav",
+      "text": "Một tiểu sư muội đang dắt đám hàng hóa đi dạo kìa. Nhốt chúng lại chỗ cũ đi!",
+      "duration": 4.46,
+      "speech_pct": 91.2,
+      "longest_pause": 0.39,
+      "mean_db": -21.7,
+      "lufs": -21.5,
+      "peak_db": -7.7
+    },
+    {
+      "file": "references/voices/adam-bua-drama/samples/sample-3.wav",
+      "text": "Suốt sáu mươi năm qua, lão phu chưa từng thấy sự khiêm nhường đến nhường này.",
+      "duration": 4.23,
+      "speech_pct": 93.7,
+      "longest_pause": 0.27,
+      "mean_db": -21.6,
+      "lufs": -21.8,
+      "peak_db": -8.3
+    },
+    {
+      "file": "references/voices/adam-bua-drama/samples/sample-4.wav",
+      "text": "[mocking, smug] Tiểu tặc, ngươi tưởng [laughs] chạy thoát được sao? <emphasis>Đứng lại!</emphasis>",
+      "duration": 4.46,
+      "speech_pct": 80.8,
+      "longest_pause": 0.46,
+      "mean_db": -22.9,
+      "lufs": -22.3,
+      "peak_db": -7.3
+    },
+    {
+      "file": "references/voices/adam-bua-drama/samples/sample-5.wav",
+      "text": "[low, warm] Lại đây. [small laugh] <soft>Ngoan nào,</soft> để ta xem.",
+      "duration": 3.3,
+      "speech_pct": 74.0,
+      "longest_pause": 0.3,
+      "mean_db": -23.0,
+      "lufs": -22.1,
+      "peak_db": -6.6
+    }
+  ],
+  "metrics": {
+    "duration": 27.29,
+    "longest_pause": 0.51
+  },
+  "name": "Adam bựa (Drama-3)",
+  "updated": "2026-11-18T20:05:12",
+  "sample_retries": 0,
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
+  "gender": "male",
+  "style": "playful, cheeky male; lively, a bit roguish",
+  "fits": "comic or roguish men, smug villains, cheeky side characters",
+  "approved": "2026-11-18T20:05:12",
+  "notes": [
+    "2026-11-18: Synthetic: 2 references made with VieNeu Adam bựa; transcripts are the exact TTS input text."
+  ]
+}

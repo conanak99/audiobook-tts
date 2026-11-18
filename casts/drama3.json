@@ -1,6 +1,5 @@
 {
   "_note": "Everyone on Drama-3, narration included; the men use VieNeu-made references (audiobook make-ref). narrator = narration + the first-person MC; add \"mc\" to give the MC a voice of their own. male = other men only.",
-  "engine": "drama3",
   "voices": {
     "narrator": "references/vieneu-thien-minh.wav",
     "male": "references/vieneu-hai-dang.wav",

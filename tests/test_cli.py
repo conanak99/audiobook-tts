@@ -94,7 +94,7 @@ class PackageTests(unittest.TestCase):
     def test_check_discovers_adjacent_cast(self):
         with tempfile.TemporaryDirectory() as directory:
             work = Path(directory)
-            script = self.write_check_book(work, {'engine': 'vieneu'})
+            script = self.write_check_book(work, {'voices': {'mc': 'Thiện Minh', 'female': 'Ngọc Huyền'}})
 
             result = self.cli('audiobook', 'check', str(script), cwd=work)
 
@@ -106,7 +106,7 @@ class PackageTests(unittest.TestCase):
             work = Path(directory)
             script = self.write_check_book(work, {'voices': {'female': 'Not A Voice'}})
             override = work / 'chosen.json'
-            override.write_text('{"engine": "vieneu"}', encoding='utf-8')
+            override.write_text('{"voices": {"mc": "Thiện Minh", "female": "Ngọc Huyền"}}', encoding='utf-8')
 
             result = self.cli('audiobook', 'check', str(script), '--cast', str(override), cwd=work)
 
@@ -159,7 +159,7 @@ class PackageTests(unittest.TestCase):
     def test_check_rejects_unresolved_speaker_voice(self):
         with tempfile.TemporaryDirectory() as directory:
             work = Path(directory)
-            script = self.write_check_book(work, {'engine': 'vieneu'}, speaker='Bí Ẩn', gender='?')
+            script = self.write_check_book(work, {'voices': {'mc': 'Thiện Minh', 'female': 'Ngọc Huyền'}}, speaker='Bí Ẩn', gender='?')
 
             result = self.cli('audiobook', 'check', str(script), cwd=work)
 
@@ -175,8 +175,9 @@ class PackageTests(unittest.TestCase):
         from viettts.audiobook.build import load_cast
 
         for path in (ROOT / 'casts').glob('*.json'):
-            preset, voices = load_cast(SimpleNamespace(cast=path, engine=None))
-            self.assertIn(preset, ('mixed', 'vieneu', 'drama3'))
+            self.assertNotIn('engine', json.loads(path.read_text()))  # each voice picks its own engine
+            mix, voices = load_cast(SimpleNamespace(cast=path))
+            self.assertEqual(mix, path.stem)  # casts/<mix>.json
             self.assertEqual(set(voices), set(json.loads(path.read_text())['voices']))
 
     def test_active_guides_use_current_commands(self):

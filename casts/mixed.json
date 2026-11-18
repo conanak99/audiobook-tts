@@ -1,8 +1,8 @@
 {
-  "_note": "The default when no --cast is given. narrator = narration + the first-person MC (one voice); add \"mc\" to give the MC a voice of their own. male = other men only. Any other key is a speaker id from script.txt. VieNeu name -> VieNeu, onboarded voice id -> Drama-3.",
-  "engine": "mixed",
+  "_note": "The default when no --cast is given. narrator = the narration; mc = the first-person MC's dialogue, on thien-minh-drama (the Drama-3 clone of Thiện Minh, so it takes enhance.txt tags; that default applies only while narrator is Thiện Minh). male = other men only. Any other key is a speaker id from script.txt. VieNeu name -> VieNeu, onboarded voice id -> Drama-3.",
   "voices": {
     "narrator": "Thiện Minh",
+    "mc": "thien-minh-drama",
     "male": "Hải Đăng",
     "female": "shirone-mika"
   }

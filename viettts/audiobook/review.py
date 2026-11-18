@@ -91,12 +91,12 @@ def cmd_check(args):
         cast_path = adjacent if adjacent.is_file() else None
     cast_findings = []
     if cast_path is not None:
-        preset, voices, cast_findings = validate_cast(script, cast_path, script_path.name)
+        mix, voices, cast_findings = validate_cast(script, cast_path, script_path.name)
         if cast_findings:
             print(f'{cast_path.name}: {len(cast_findings)} cast error(s)')
         else:
             labels = ', '.join(f'{key}={voice_label(*voice)}' for key, voice in voices.items())
-            print(f'{cast_path.name}: valid {preset} cast; {labels}')
+            print(f'{cast_path.name}: valid {mix} cast; {labels}')
     _, _, open_items = export_review(text, limit=0)
     unknown = text.count('\n[?] ')
     for number, message in findings:

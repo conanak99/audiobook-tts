@@ -67,17 +67,17 @@ python3 -m viettts audiobook build … --cast casts/vieneu.json
 python3 -m viettts audiobook build … --cast my-book.json
 ```
 
-All voices are chosen in one cast JSON (`--cast`); there are no separate voice flags. Without `--cast` the build uses the **mixed** preset, spelled out in `casts/mixed.json`:
+All voices are chosen in one cast JSON (`--cast`); there are no separate voice flags. Each voice picks its own engine: a VieNeu name runs on VieNeu, an onboarded voice id on Drama-3, so the cast has no engine setting. Without `--cast` (and for any role a cast leaves out) the build uses the defaults spelled out in `casts/mixed.json`:
 
 | Role | Voice |
 |---|---|
-| Narration and the first-person MC | VieNeu Thiện Minh |
+| Narration | VieNeu Thiện Minh |
+| The first-person MC's dialogue | Drama-3 `thien-minh-drama` (a clone of Thiện Minh, so it takes `enhance.txt` tags) |
 | Other men | VieNeu Hải Đăng |
 | Women | Drama-3 cloned from the onboarded voice `shirone-mika` |
 
 ```json
 {
-  "engine": "mixed",
   "voices": {
     "narrator": "Thiện Minh",
     "mc": "Đức Trí",
@@ -88,8 +88,8 @@ All voices are chosen in one cast JSON (`--cast`); there are no separate voice f
 }
 ```
 
-- `engine` picks the preset: `mixed` (default), `vieneu` (everyone on VieNeu, Ngọc Huyền for women) or `drama3` (everyone on Drama-3). `casts/vieneu.json` and `casts/drama3.json` are ready to use. Every key in `voices` is optional and overrides the preset's voice.
-- Roles: `narrator` reads the narration and, by default, the first-person MC's dialogue (`[ta]`/`[tôi]`), since they are one person. `mc` gives the MC a voice of their own. `male` is for the other men, `female` for the women. Any other key is a speaker id from `script.txt` and gives that speaker their own voice.
+- The build reports the mix it found: `vieneu` when every voice is a VieNeu name, `drama3` when every voice is an onboarded id or `make-ref` reference, else `mixed`. `casts/vieneu.json` (everyone on VieNeu, Ngọc Huyền for women) and `casts/drama3.json` (everyone on Drama-3) are ready to use. Every key in `voices` is optional and overrides the default voice. A cast with an `"engine"` key is refused; remove the key.
+- Roles: `narrator` reads the narration. `mc` reads the first-person MC's dialogue (`[ta]`/`[tôi]`): by default `thien-minh-drama` while the narrator is Thiện Minh, else the narrator voice. Set `mc` for another narrator (`hai-dang-drama` for Hải Đăng), or `"mc": "Thiện Minh"` to keep the MC on VieNeu. `male` is for the other men, `female` for the women. Any other key is a speaker id from `script.txt` and gives that speaker their own voice.
 - A voice is a VieNeu name (from `VIENEU_VOICES` in `viettts/audiobook/build.py`) or an onboarded Drama-3 voice id. The onboarded voices are listed in `.opencode/skills/viet-audiobook/references/voices.md`, or run `python3 -m viettts voice list`. Raw audio files are refused; onboard them first (see below).
 - Mixed chunks are resampled to one rate (VieNeu 48 kHz) and leveled to the same loudness. Changing a voice re-synthesizes only that voice's lines.
 

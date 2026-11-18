@@ -66,18 +66,18 @@ You may also edit `script.txt` directly. Keep the `[speaker] text` format and ne
 
 ## 4. Voices
 
-All voices go in **one cast file**: write `<audiobook dir>/cast.json` next to `script.txt` and build with `--cast <audiobook dir>/cast.json`. There are no separate voice flags. The book keeps its own choices, so reruns and pilots use the same voices. Start from `casts/mixed.json` (the default preset): the men run on fast VieNeu and the heroine is cloned with Drama-3. A **VieNeu voice name** runs on VieNeu, and an **onboarded voice id** (`lynasa`) runs on Drama-3; the builder resamples and levels so the two blend. Raw audio files are refused: every Drama-3 voice must be onboarded, meaning it has a clean cut, a reviewed transcript and auditioned samples. That is what keeps retries and odd pauses low.
+All voices go in **one cast file**: write `<audiobook dir>/cast.json` next to `script.txt` and build with `--cast <audiobook dir>/cast.json`. There are no separate voice flags. The book keeps its own choices, so reruns and pilots use the same voices. Start from `casts/mixed.json` (the defaults): narration and the other men run on fast VieNeu, and the heroine and the MC's dialogue are cloned with Drama-3. The cast has no engine setting: each voice picks its own. A **VieNeu voice name** runs on VieNeu, and an **onboarded voice id** (`lynasa`) runs on Drama-3; the builder resamples and levels so the two blend. Raw audio files are refused: every Drama-3 voice must be onboarded, meaning it has a clean cut, a reviewed transcript and auditioned samples. That is what keeps retries and odd pauses low.
 
 ```json
-{"engine": "mixed", "voices": {"narrator": "Thiện Minh", "male": "Hải Đăng", "female": "lynasa"}}
+{"voices": {"narrator": "Thiện Minh", "mc": "thien-minh-drama", "male": "Hải Đăng", "female": "lynasa"}}
 ```
 
 | Key in `voices` | Default | Notes |
 |---|---|---|
-| `narrator` | VieNeu **Thiện Minh** | Narration **and** the first-person MC (`ta`/`tôi`): one person, one voice. **Hải Đăng** is the alternative if the user asks. |
+| `narrator` | VieNeu **Thiện Minh** | The narration. **Hải Đăng** is the alternative if the user asks. |
 | `male` | VieNeu **Hải Đăng** | Other men only. Use Thiện Minh if Hải Đăng is the narrator. |
 | `female` | the user's choice | See below. |
-| `mc` | not set (the narrator voice) | Only when the user wants the MC's dialogue to sound different from the narration. |
+| `mc` | **`thien-minh-drama`** while `narrator` is Thiện Minh, else the narrator voice | The first-person MC's dialogue (`ta`/`tôi`). `thien-minh-drama` is the Drama-3 clone of Thiện Minh: the same person as the narration, but it takes `enhance.txt` tags. With another narrator, set `mc` yourself (e.g. `hai-dang-drama` for Hải Đăng); a female first-person narrator needs a female `mc` or none. |
 | `<speaker id>` | not set | A speaker from `script.txt` with their own voice, e.g. a second woman `"Bạch Thanh Thanh": "nika-linh-lan"`. |
 
 The female voice:
@@ -85,9 +85,9 @@ The female voice:
 - **A new file or link** (video, audio, YouTube, stream): run the **voice-onboarding** skill first. That means cutting a clean clip, transcribing and reviewing it, auditioning samples with the user, and approving. Then use the new id. Never put a raw file in the cast; the build refuses it.
 - **Nothing given:** suggest 2–3 onboarded voices whose `fits`/`style` suit the heroine, give the user their `samples/` paths to listen to, and let them pick. If they don't care, use the default (`shirone-mika`).
 
-Only when the user asks for it, set `"engine"`:
-- `"vieneu"`: everyone on VieNeu, Ngọc Huyền for women (`casts/vieneu.json`). Fastest: with the default 4 parallel workers (`--workers`) on the default GGUF backend. If `build.log` says `GGUF unavailable`, the build still works on ONNX; run `brew install audio-cpp` (from the `0xShug0/audio-cpp` tap) for the speedup.
-- `"drama3"`: everyone on Drama-3, using male references made with `make-ref` (`casts/drama3.json`).
+Only when the user asks for it, put everyone on one engine by choosing only that engine's voices:
+- All VieNeu: VieNeu names only, Ngọc Huyền for women and `"mc": "Thiện Minh"` (`casts/vieneu.json`). Fastest: with the default 4 parallel workers (`--workers`) on the default GGUF backend. If `build.log` says `GGUF unavailable`, the build still works on ONNX; run `brew install audio-cpp` (from the `0xShug0/audio-cpp` tap) for the speedup.
+- All Drama-3: onboarded ids only (e.g. `thien-minh-drama`, `hai-dang-drama`, `adam-bua-drama` for the men, cloned from the VieNeu voices) or the `make-ref` references (`casts/drama3.json`).
 
 ### Write the cast file
 
@@ -106,13 +106,13 @@ Do this after step 3, once every speaker has a gender, and before the pilot.
    - **Known characters first:** look every speaker up in `references/characters.md` (main characters only, one voice each across all books of a universe) and use the voice listed there. Match by the character, not just the id: the parser may name her differently, so `RELABEL` to the id in the table during step 2. A listed character keeps her voice even if that breaks the three-voice rule below.
    - **At most three female voices per book**, for characters not yet in `characters.md`: one for the heroine (`female`) and at most two more for the supporting women. With more supporting women than that, give each one of those two voices: the women with the most lines (or who share scenes) get different voices, and minor women reuse one of them. Never add a fourth female voice for an unlisted character, even a one-line one. Prefer voices the book already uses through `characters.md`.
    - **After the build**, add new main characters (recurring across books, or carrying a large part of this one) and their voices to `characters.md`; leave side and minor characters out. Update an entry whenever the user changes that character's voice.
-   - `mc` only on request, as in the table.
+   - `mc` follows the table: leave it out (the default `thien-minh-drama`) unless the narrator isn't Thiện Minh or the user asks for another MC voice.
 4. **Write the file** with the exact ids from `@speaker`, including diacritics and capitals: `"Sương Nguyệt"`, not `"Suong Nguyet"`. A key that isn't a role or a speaker is ignored. If a generic `male`/`female` id is really one named person, `RELABEL` it in step 2 first, so the cast can name them.
    ```json
    {
-     "engine": "mixed",
      "voices": {
        "narrator": "Thiện Minh",
+       "mc": "thien-minh-drama",
        "male": "Hải Đăng",
        "female": "lynasa",
        "Bạch Thanh Thanh": "nika-linh-lan"
@@ -120,18 +120,19 @@ Do this after step 3, once every speaker has a gender, and before the pilot.
    }
    ```
    - Voices are VieNeu names from `references/voices.md` (only the names in `VIENEU_VOICES`) or onboarded ids (`python3 -m viettts voice list`).
-   - Leave out the keys you don't change, or spell out the defaults so the file documents the book. Both build the same.
-5. **Check it.** The build checks the cast before it synthesizes anything. An unknown voice or `engine` stops it with a message naming the bad value. Then read the start of `build.log`:
-   - `[1/4] Planning … MC "ta" uses the narrator voice: narrator=…, male=…, female=…` lists every voice and which one the MC uses.
+   - Leave out the keys you don't change, or spell out the defaults so the file documents the book. Both build the same. Roles left out get the `casts/mixed.json` voices.
+   - Never add an `"engine"` key: the build refuses it. The voices decide the engine.
+5. **Check it.** The build checks the cast before it synthesizes anything. An unknown voice (or a leftover `"engine"` key) stops it with a message naming the bad value. Then read the start of `build.log`:
+   - `[1/4] Planning script.txt (mixed, cast cast.json); MC "ta" uses the mc voice: narrator=…, male=…, female=…` lists every voice and which one the MC uses.
    - `warning: cast key "…" is not a role … or a speaker` means a typo or an id from another volume. The build doesn't stop: that speaker is read with the default voice. Stop it, fix the key and rerun. Only that speaker's lines are made again.
 
 Changing a voice later re-synthesizes only that voice's lines; everything else comes from the cache.
 
-**Drama-3 costs:** about 30 GB of RAM and roughly 40 minutes per 100k characters it voices. In mixed mode it voices only the women's lines, so a full book takes about 15–30 minutes.
+**Drama-3 costs:** about 30 GB of RAM and roughly 40 minutes per 100k characters it voices. In mixed mode it voices only the women's and the MC's dialogue, so a full book takes about 15–30 minutes.
 
 ## 5. Enhance the Drama-3 lines (your job)
 
-Drama-3 takes direction from the text itself: `[a direction]` before words, `[sounds]` where they happen, and paired `<whisper>`/`<emphasis>`/`<soft>`/`<fast>`/`<slow>`/`<stress>`/`<forceful>` tags around a few words. Fitting tags make the heroine sound like she does in the scene, instead of reading every line in one tone. **Read `references/enhance.md` before the first entry**; it has the tag rules, a table of Vietnamese cues and the pitfalls.
+Drama-3 takes direction from the text itself: `[a direction]` before words, `[sounds]` where they happen, and paired `<whisper>`/`<emphasis>`/`<soft>`/`<fast>`/`<slow>`/`<stress>`/`<forceful>` tags around a few words. Fitting tags make the heroine and the MC sound like they do in the scene, instead of reading every line in one tone. **Read `references/enhance.md` before the first entry**; it has the tag rules, a table of Vietnamese cues and the pitfalls.
 
 Tags are **optional**. Most lines read well plain and get no entry; enhance only the lines where the scene calls for a specific delivery: an emotion shift, a whisper, a laugh or sigh the story mentions, a shout, a tease. There is no coverage target, and an empty or missing `enhance.txt` is fine.
 
@@ -142,7 +143,8 @@ L12: [bright, teasing] Sư huynh!
 L14: [playful, mock-scolding] Mặt trời lên cao rồi mà huynh còn ngồi cứng đơ như bia mộ thế kia. [proud, lowering her voice] Xem muội lén tuồn được thứ gì <whisper>qua mắt mấy vị trưởng lão</whisper> thiện phòng này!
 ```
 
-- Read through the lines a Drama-3 voice reads with the step 4 voices (in mixed mode, the women's lines), together with the narration around them. The story usually says how she speaks (`thì thầm`, `cười khúc khích`, `nghẹn ngào` …); those are the lines worth an entry. Flirting and intimate scenes need tags the most; `references/enhance.md` has a section on them.
+- Read through the lines a Drama-3 voice reads with the step 4 voices (in mixed mode, the women's lines **and the MC's dialogue**, `[ta]`/`[tôi]`), together with the narration around them. The story usually says how they speak (`thì thầm`, `cười khúc khích`, `nghẹn ngào`, `giọng khô khan` …); those are the lines worth an entry. Flirting and intimate scenes need tags the most; `references/enhance.md` has a section on them, and one on the MC.
+- **The MC** is one person with the narration (VieNeu Thiện Minh), so keep his directions in the narrator's register: short, calm and consistent with his personality (`[dry, deadpan]`, `[low, firm]`, `[quiet, warm]`). He usually needs fewer and lighter tags than the heroine, and no sounds unless the prose has them.
 - **Only add tags.** Never change a word or punctuation mark. When in doubt, leave the line plain: a wrong tag sounds worse than none.
 - Directions are short English (1–5 words, at most 60 characters). Use sounds only where the story implies them, and paired tags only around a few words, never nested.
 - Go through chapter 1 before the pilot, and the remaining chapters before the full volume (step 7), a chapter or two at a time.
@@ -169,7 +171,7 @@ The pilot is saved as `… (thử 1 chương).m4b`, so it never overwrites the f
 - the heroine's voice and how it fits the character
 - the narrator/MC voice
 - the pacing, and any mispronounced names or words
-- the heroine's acting: emotions that fit the scene, and any tag that sounds wrong (a misplaced laugh or sigh, an odd whisper, or a tag spoken as words)
+- the heroine's and the MC's acting: emotions that fit the scene, and any tag that sounds wrong (a misplaced laugh or sigh, an odd whisper, or a tag spoken as words)
 - any line read by the wrong person (ask for the sentence; you can find its line number in `script.txt`)
 
 Then **stop and wait for their answer.** Apply what they say: fix speakers with an answers file, change voices in `cast.json`, or fix `enhance.txt` entries (then `check`). Run another pilot if voices or tags changed; only the changed lines are synthesized again. Start the full build only after an explicit OK. Chunks from the pilot are cached, so chapter 1 costs nothing again in the full build.

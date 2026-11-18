@@ -1,8 +1,8 @@
 {
-  "_note": "Everyone on VieNeu (fastest). narrator = narration + the first-person MC; add \"mc\" to give the MC a voice of their own. male = other men only.",
-  "engine": "vieneu",
+  "_note": "Everyone on VieNeu (fastest). narrator = narration; mc is pinned to the narrator's VieNeu voice (without it the MC would default to the Drama-3 thien-minh-drama). male = other men only.",
   "voices": {
     "narrator": "Thiện Minh",
+    "mc": "Thiện Minh",
     "male": "Hải Đăng",
     "female": "Ngọc Huyền"
   }

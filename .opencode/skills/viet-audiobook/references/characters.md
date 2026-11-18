@@ -49,7 +49,7 @@ Crossovers: v4 (meimei_v4) also has Khả Khả (`lynasa`, Khả Khả universe)
 
 | Id | Also called | Voice | Who | Books |
 |---|---|---|---|---|
-| ta | Lý Vân Chu, Vân Chu, Sư tôn, Phong chủ Vong Vân Phong | `narrator` (Thiện Minh) | MC; calm, honest Nguyên Anh sword master who indulges his disciple | meimei_v1–v6 |
+| ta | Lý Vân Chu, Vân Chu, Sư tôn, Phong chủ Vong Vân Phong | `narrator` (Thiện Minh) for narration; dialogue `"mc": "thien-minh-drama"` from v3 (Drama-3 clone of Thiện Minh, so he can take tags: dry/deadpan/low directions) | MC; calm, honest Nguyên Anh sword master who indulges his disciple | meimei_v1–v6 |
 | Mị Mị | Cố Niệm, đồ nhi, khôi thủ, Thánh nữ Vong Vân Phong; `female` in v1 | `nina-meowmeow` | Heroine; reincarnated game tester, lazy, lewd and scheming, plays the sweet disciple in public; in v5 split into three soul shards (all her, same voice); in v6 Cố Niệm in Trùng Khánh, speaks `tôi`/`anh` until she remembers | v1–v6 |
 | Hoài Thanh | Đệ tử Hoài Thanh, đồ tôn of Đàm Trưởng lão | `nyan-mikuru` | Bách Thảo Đường inner disciple, earnest and naive; rescued from Xích Đỉnh Tông, calls Mị Mị "sư tỷ" | v3 |
 | Hệ thống | Gia thần, the system panel / banners | Thùy Dung (VieNeu) | Mị Mị's game system. Its banners are narration lines in square brackets (`[MỞ KHÓA NHIỆM VỤ: …]`, `[TÌNH CẢM CỘNG HƯỞNG ↑] ▰▰▱…`); during review, answer each such line `Hệ thống` (`new: Hệ thống \| female` the first time). From v5 it also talks, in lowercase bracket lines (`[ta nói chuyện liên tục đấy chứ…]`), and in v6 through her old phone; the progress-bar line `▰▰▱…` is Hệ thống too | v2–v6 |

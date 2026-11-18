@@ -1,6 +1,6 @@
 # Enhancing Drama-3 lines
 
-You, the agent, direct the heroine's performance by writing Drama-3 tags into `enhance.txt`. Tags are **optional**: most lines need none, and a line without an entry is read plain. Enhance only the lines where the scene calls for a specific delivery. No tool writes tags; `check` validates what you write, and `build` splits it into chunks without breaking a tag. VieNeu would read tags aloud, so the build uses `enhance.txt` only for lines that a Drama-3 voice reads.
+You, the agent, direct the heroine's and the MC's performances by writing Drama-3 tags into `enhance.txt`. Tags are **optional**: most lines need none, and a line without an entry is read plain. Enhance only the lines where the scene calls for a specific delivery. No tool writes tags; `check` validates what you write, and `build` splits it into chunks without breaking a tag. VieNeu would read tags aloud, so the build uses `enhance.txt` only for lines that a Drama-3 voice reads.
 
 ## How Drama-3 takes direction
 
@@ -32,7 +32,7 @@ L19: [giggles] Triệu trưởng lão nốc cạn ba vò đào hoa tửu, giờ 
 
 ## Which lines get Drama-3
 
-With the default **mixed** preset, the women's lines (the `female` role and each female speaker) use Drama-3. Any role or speaker the cast maps to an onboarded voice id uses it too. With `"engine": "drama3"`, every line uses Drama-3, narration included. Entries for lines that VieNeu reads are ignored.
+With the default cast (`casts/mixed.json`), the women's lines (the `female` role and each female speaker) and the MC's dialogue (`mc`, default `thien-minh-drama`) use Drama-3. Any role or speaker the cast maps to an onboarded voice id uses it too. When every voice is a Drama-3 voice (`casts/drama3.json`), every line uses Drama-3, narration included. Entries for lines that VieNeu reads are ignored.
 
 ## Choosing tags (read the context)
 
@@ -56,6 +56,15 @@ Rules of thumb:
 - **Add sounds only where the story implies them** (a written laugh, sigh or gasp). Put no more than one or two in a line.
 - **Paired tags wrap a few words, never a whole line.** For a whole line, use a direction such as `[whispering]`. Don't nest paired tags, and close each one on the same line. A paired `<whisper>` on a short line kept hitting the frame cap with the older weights, so listen for it in the pilot.
 - **Stay in character.** Keep each heroine's tags consistent with her personality (a cold sư tỷ doesn't giggle) and with the onboarded voice's style.
+
+## The MC
+
+With the default cast, the first-person MC's dialogue (`[ta]`/`[tôi]`) runs on `thien-minh-drama`, the Drama-3 clone of the VieNeu narrator, while his narration stays on VieNeu. So his lines can be directed too, but the listener hears one man switching between telling and speaking, so the direction must not turn him into someone else:
+- **Match his personality across the book.** A stoic master stays dry and level (`[dry, deadpan]`, `[calm, matter-of-fact]`, `[flat]`); his warmth and heat show by dropping the voice (`[quiet, warm]`, `[low, firm]`, `[low, husky]`, `[low, commanding]`), not by getting bright or loud.
+- **Take cues from the narration around his line**: `ta nói, giọng khô khan` → `[dry, flat]`; `ta nói sát tai nàng` → `[low, close to her ear]`; `ta nâng cằm nàng lên` before a warning → `[low, serious]`.
+- **Lighter than the heroine.** Prefer one short direction at the start; sounds (`[sighs]`, `[small laugh]`) only where the prose has them; a paired tag at most around one key phrase (`ngươi phải <emphasis>chạy ngay</emphasis>.`).
+- **Check misattributed lines first.** The MC's id often catches lines that are really the heroine's (her boasts quoted inside his narration). Fix those with `apply-review` before tagging, or they will be read in his Drama-3 voice.
+- In `meimei_v3`, 116 MC lines with directions only from this list rendered with 0 rejected takes.
 
 ## Intimate and spicy scenes
 

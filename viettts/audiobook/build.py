@@ -26,20 +26,16 @@ from viettts.voices import registry
 
 from .script import NARRATION, UNKNOWN, read_script
 
-# Presets by the cast's "engine" (default mixed). A VieNeu voice name runs on VieNeu; an onboarded voice id
-# (references/voices/<id>/, see viettts.voices.onboarding) runs on Drama-3. "mixed": fast VieNeu men and
-# a Drama-3 cloned heroine. A cast may add "mc" (the first-person MC, else the narrator voice) and any speaker.
+# The cast picks every voice, and each voice picks its engine: a VieNeu voice name runs on VieNeu; an onboarded
+# voice id (references/voices/<id>/, see viettts.voices.onboarding) runs on Drama-3. Roles a cast leaves out get
+# these defaults (casts/mixed.json): fast VieNeu narration and men, a Drama-3 cloned heroine, and the MC's
+# dialogue on DEFAULT_MC, the Drama-3 clone of the narrator voice, so it takes enhance.txt tags. The MC default
+# applies only with the default narrator; a cast with another narrator keeps the MC on that narrator's voice
+# unless it sets "mc" itself. A cast may also give any speaker a voice.
 VOICES_DIR = ROOT / 'references' / 'voices'
 DEFAULT_FEMALE = 'shirone-mika'
-DEFAULT_VOICES = {
-    'mixed': {'narrator': 'Thiện Minh', 'male': 'Hải Đăng', 'female': DEFAULT_FEMALE},
-    'vieneu': {'narrator': 'Thiện Minh', 'male': 'Hải Đăng', 'female': 'Ngọc Huyền'},
-    'drama3': {
-        'narrator': 'references/vieneu-thien-minh.wav',
-        'male': 'references/vieneu-hai-dang.wav',
-        'female': DEFAULT_FEMALE,
-    },
-}
+DEFAULT_VOICES = {'narrator': 'Thiện Minh', 'male': 'Hải Đăng', 'female': DEFAULT_FEMALE}
+DEFAULT_MC = 'thien-minh-drama'
 # Manual picked
 VIENEU_VOICES = [
     # male voices
@@ -391,16 +387,27 @@ def cmd_verify(args):
 
 # --- build -------------------------------------------------------------------------------------------
 def load_cast(args):
-    """Returns (preset, {role or speaker: (engine, voice)}) from --cast, the only place voices are chosen.
+    """Returns (mix, {role or speaker: (engine, voice)}) from --cast, the only place voices are chosen.
 
     Roles: narrator, mc, male, female; any other key is a speaker id from the script. A voice is a VieNeu
-    name or an onboarded Drama-3 voice id."""
+    name or an onboarded Drama-3 voice id, and that alone decides its engine. mix is "vieneu" or "drama3"
+    when every voice runs on that engine, else "mixed"."""
     cast = json.loads(args.cast.read_text(encoding='utf-8')) if args.cast else {}
-    preset = cast.get('engine', 'mixed')
-    if preset not in DEFAULT_VOICES:
-        raise SystemExit(f'{args.cast}: "engine" must be one of {", ".join(DEFAULT_VOICES)}, not "{preset}".')
-    specs = {**DEFAULT_VOICES[preset], **cast.get('voices', {})}
-    return preset, {key: resolve_voice(spec) for key, spec in specs.items()}
+    if 'engine' in cast:
+        raise SystemExit(
+            f'{args.cast}: remove "engine"; each voice picks its own engine '
+            '(a VieNeu name runs on VieNeu, an onboarded voice id on Drama-3).'
+        )
+    specs = {**DEFAULT_VOICES, **cast.get('voices', {})}
+    if 'mc' not in specs and specs['narrator'] == DEFAULT_VOICES['narrator']:
+        specs['mc'] = DEFAULT_MC
+    voices = {key: resolve_voice(spec) for key, spec in specs.items()}
+    return cast_mix(voices), voices
+
+
+def cast_mix(voices):
+    engines = {engine for engine, _ in voices.values()}
+    return engines.pop() if len(engines) == 1 else 'mixed'
 
 
 ROLES = ('narrator', 'mc', 'male', 'female')
@@ -414,7 +421,7 @@ def unmatched_cast_keys(voices, script):
 def validate_cast(script, cast_path, script_name='script.txt'):
     """Resolve and plan a cast exactly as a build would, without loading a TTS engine."""
     try:
-        preset, voices = load_cast(argparse.Namespace(cast=cast_path))
+        mix, voices = load_cast(argparse.Namespace(cast=cast_path))
     except (OSError, json.JSONDecodeError, SystemExit) as error:
         return None, {}, [str(error)]
     findings = [
@@ -424,7 +431,7 @@ def validate_cast(script, cast_path, script_name='script.txt'):
         plan_units(script, voices, 'fail')
     except SystemExit as error:
         findings.append(str(error))
-    return preset, voices, findings
+    return mix, voices, findings
 
 
 def onboarded_voices():
@@ -721,12 +728,12 @@ def cmd_build(args):
 
     script_path = args.script.resolve()
     script = read_script(script_path.read_text(encoding='utf-8'))
-    preset, voices = load_cast(args)
+    mix, voices = load_cast(args)
     out = script_path.parent
     log = Log(out / 'build.log')
     mc = voice_for(script.narrator, script.speakers, voices, 'narrator', script.narrator)
     log(
-        f'[1/4] Planning {script_path.name} ({preset}{", cast " + args.cast.name if args.cast else ""}); '
+        f'[1/4] Planning {script_path.name} ({mix}{", cast " + args.cast.name if args.cast else ""}); '
         f'MC "{script.narrator}" uses the {mc} voice: ' + ', '.join(f'{k}={voice_label(*v)}' for k, v in voices.items())
     )
     for key in unmatched_cast_keys(voices, script):
@@ -947,7 +954,7 @@ def cmd_build(args):
         raise SystemExit('ffmpeg failed; see the error above.')
     summary = dict(
         script=str(script_path),
-        preset=preset,
+        mix=mix,
         voices={k: dict(engine=e, voice=v) for k, (e, v) in voices.items()},
         vieneu_backend=args.vieneu_backend,
         chapters=len(marks),
@@ -1146,8 +1153,8 @@ def main(argv=None):
     s.add_argument(
         '--cast',
         type=Path,
-        help='All voice choices, JSON: {"engine": "mixed"|"vieneu"|"drama3", "voices": '
-        '{"narrator"|"mc"|"male"|"female"|<speaker>: voice}}. Default: mixed preset (casts/*.json)',
+        help='All voice choices, JSON: {"voices": {"narrator"|"mc"|"male"|"female"|<speaker>: voice}}. '
+        'A VieNeu name runs on VieNeu, an onboarded id on Drama-3; roles left out use casts/mixed.json',
     )
     s.add_argument(
         '--unknown',

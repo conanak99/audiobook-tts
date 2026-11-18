@@ -268,21 +268,28 @@ class BuildHelperTests(unittest.TestCase):
                 path.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
             return load_cast(SimpleNamespace(cast=path))
 
-        preset, voices = cast()  # no --cast: the mixed preset, as casts/mixed.json spells out
-        self.assertEqual(preset, 'mixed')
+        mix, voices = cast()  # no --cast: the defaults, as casts/mixed.json spells out
+        self.assertEqual(mix, 'mixed')
         self.assertEqual(voices, cast(path=ROOT / 'casts' / 'mixed.json')[1])
         self.assertEqual(voices['narrator'], ('vieneu', 'Thiện Minh'))
         self.assertEqual(voices['female'][0], 'drama3')
-        self.assertEqual(cast(path=ROOT / 'casts' / 'vieneu.json'), cast({'engine': 'vieneu'}))
-        self.assertEqual(cast({'engine': 'vieneu'})[1]['female'], ('vieneu', 'Ngọc Huyền'))
+        self.assertEqual(voices['mc'][0], 'drama3')  # the MC's dialogue defaults to thien-minh-drama
+        self.assertTrue(voices['mc'][1]['ref_audio'][0].endswith('voices/thien-minh-drama/reference-1.wav'))
+        # another narrator keeps the MC on the narrator voice, as before (e.g. a female first-person narrator)
+        self.assertNotIn('mc', cast({'voices': {'narrator': 'Hải Đăng'}})[1])
+        # the engine follows the voices: a VieNeu name runs on VieNeu, an onboarded id on Drama-3
+        all_vieneu = {'voices': {'mc': 'Thiện Minh', 'female': 'Ngọc Huyền'}}
+        self.assertEqual(cast(all_vieneu), cast(path=ROOT / 'casts' / 'vieneu.json'))
+        self.assertEqual(cast(all_vieneu)[0], 'vieneu')
+        self.assertEqual(cast({'voices': {'female': 'Ngọc Huyền'}})[0], 'mixed')  # the MC is still Drama-3
         self.assertEqual(cast(path=ROOT / 'casts' / 'drama3.json')[0], 'drama3')
         _, voices = cast({'voices': {'mc': 'Đức Trí', 'female': 'lynasa', 'Sương Nguyệt': 'Thùy Dung'}})
         self.assertEqual(voices['mc'], ('vieneu', 'Đức Trí'))
-        self.assertEqual(voices['male'], ('vieneu', 'Hải Đăng'))  # roles left out keep the preset's voice
+        self.assertEqual(voices['male'], ('vieneu', 'Hải Đăng'))  # roles left out keep the default voice
         self.assertEqual(voice_for('ta', {'ta': 'male'}, voices, 'fail', 'ta'), 'mc')
         self.assertEqual(voice_for('Sương Nguyệt', {'Sương Nguyệt': 'female'}, voices, 'fail', 'ta'), 'Sương Nguyệt')
         with self.assertRaises(SystemExit):
-            cast({'engine': 'fast'})
+            cast({'engine': 'vieneu', 'voices': {}})  # "engine" is gone: the voices decide
 
     def test_cast_keys_that_match_nothing_are_reported(self):
         from viettts.audiobook.build import unmatched_cast_keys
