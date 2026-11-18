@@ -32,12 +32,16 @@ The table below is regenerated from `voice.json`; don't edit it by hand.
 - Choose by `style`/`fits`, and play the user that voice's samples. Fewer sample retries means a more stable voice, so builds are faster with fewer repairs. Several women in one book can each get their own voice with per-speaker cast entries, e.g. `"Bạch Thanh Thanh": "nika-linh-lan"`.
 - These voices are cut from public videos/streams. Personal listening is fine. Before an audiobook is shared or published, tell the user to get permission through the voice's licensing contact.
 
-## Male voices (VieNeu)
+## VieNeu voices
 
 | VieNeu voice | Style | Default role |
 | --- | --- | --- |
 | **Thiện Minh** | Male, Northern, storytelling | `narrator`, which also voices the MC |
 | **Hải Đăng** | Male, Northern, natural | `male` (other men); the alternative narrator |
+| **Thùy Dung** | Female (VieNeu) | A game system or panel (`Hệ thống`): bracket banners such as `[ĐÃ MỞ KHÓA NHIỆM VỤ: …]`, its own lowercase lines, and `▰▰▱` progress bars, which the build skips |
+| **Adam bựa** | Male, comic | A comic, important side character (Liễu lão thư lại in Mị Mị v4) |
+
+A system voice keeps banners apart from the narration without using up one of the 3 Drama-3 women. VieNeu reads banner text in capitals and the brackets without trouble, and `check` flags its lines with "female speaker uses words men say", which is expected for system text. Give the system its own speaker even when a whole banner and its description are split over two script lines. In Mị Mị v2–v6, 9–44 lines per book went to it with no failures.
 
 Builds accept only the VieNeu voices in `VIENEU_VOICES` (`viettts/audiobook/build.py`). To use another VieNeu preset, add its name to the list first; its GGUF voice files are created on first use.
 

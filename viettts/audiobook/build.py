@@ -536,7 +536,7 @@ def plan_units(script, voices, unknown, title_text=True, enhanced=None):
                         f'Script line {line.number} has no speaker ([?]). Fix it, or pass --unknown narrator.'
                     )
                 text = spoken(line.text)
-                if not text:
+                if not re.search(r'\w', text):  # nothing to read: a progress bar ▰▰▱, a lone dash or emoji
                     continue
                 key = voice_for(line.speaker, script.speakers, voices, unknown, script.narrator)
                 tagged = spoken(enhanced.get(line.number, ''))

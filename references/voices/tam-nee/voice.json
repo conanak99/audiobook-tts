@@ -1,106 +1,107 @@
 {
-	"id": "tam-nee",
-	"status": "onboarded",
-	"transcript_reviewed": true,
-	"source": {
-		"input": "/Users/harry.pham/Desktop/tam_nee.mp3"
-	},
-	"references": [
-		{
-			"n": 1,
-			"file": "reference-1.wav",
-			"source_start": 800.37,
-			"transcript_reviewed": true,
-			"gain_db": -2.1,
-			"duration": 15.38,
-			"speech_pct": 95.6,
-			"longest_pause": 0.37,
-			"mean_db": -20.1,
-			"lufs": -20.0,
-			"peak_db": -2.0,
-			"words_per_s": 3.71
-		},
-		{
-			"n": 2,
-			"file": "reference-2.wav",
-			"source_start": 1373.04,
-			"transcript_reviewed": true,
-			"gain_db": 0.8,
-			"duration": 13.99,
-			"speech_pct": 95.4,
-			"longest_pause": 0.42,
-			"mean_db": -20.8,
-			"lufs": -21.1,
-			"peak_db": -2.0,
-			"words_per_s": 3.57
-		}
-	],
-	"samples": [
-		{
-			"file": "references/voices/tam-nee/samples/sample-1.wav",
-			"text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
-			"duration": 7.66,
-			"speech_pct": 81.8,
-			"longest_pause": 0.43,
-			"mean_db": -21.9,
-			"lufs": -22.1,
-			"peak_db": -5.1
-		},
-		{
-			"file": "references/voices/tam-nee/samples/sample-2.wav",
-			"text": "Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!",
-			"duration": 6.69,
-			"speech_pct": 79.3,
-			"longest_pause": 0.52,
-			"mean_db": -21.3,
-			"lufs": -21.2,
-			"peak_db": -8.2
-		},
-		{
-			"file": "references/voices/tam-nee/samples/sample-3.wav",
-			"text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
-			"duration": 7.01,
-			"speech_pct": 63.5,
-			"longest_pause": 0.82,
-			"mean_db": -22.9,
-			"lufs": -22.5,
-			"peak_db": -3.3
-		},
-		{
-			"file": "references/voices/tam-nee/samples/sample-4.wav",
-			"text": "[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!",
-			"duration": 4.09,
-			"speech_pct": 100.0,
-			"longest_pause": 0,
-			"mean_db": -20.9,
-			"lufs": -20.3,
-			"peak_db": -8.2
-		},
-		{
-			"file": "references/voices/tam-nee/samples/sample-5.wav",
-			"text": "[low, sultry] Huynh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...",
-			"duration": 7.01,
-			"speech_pct": 52.6,
-			"longest_pause": 0.66,
-			"mean_db": -24.1,
-			"lufs": -22.9,
-			"peak_db": -6.3
-		}
-	],
-	"metrics": {
-		"duration": 29.37,
-		"longest_pause": 0.42
-	},
-	"name": "Tam-nee",
-	"updated": "2026-11-17T21:27:23",
-	"sample_retries": 3,
-	"samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
-	"gender": "female",
-	"style": "mature, warm, gently sultry; mid-low pitch, calm conversational tone",
-	"accent": "Southern",
-	"fits": "onee-sama, older-sister characters, flirty mentors, gentle narration",
-	"approved": "2026-11-17T21:27:23",
-	"notes": [
-		"2026-11-17: Samples: 3 retries, all on the intimate/sultry tagged line; prefer lighter tags in books."
-	]
+  "id": "tam-nee",
+  "status": "onboarded",
+  "transcript_reviewed": true,
+  "source": {
+    "input": "/Users/harry.pham/Desktop/tam_nee.mp3"
+  },
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source_start": 800.37,
+      "transcript_reviewed": true,
+      "gain_db": -2.1,
+      "duration": 15.38,
+      "speech_pct": 95.6,
+      "longest_pause": 0.37,
+      "mean_db": -20.1,
+      "lufs": -20.0,
+      "peak_db": -2.0,
+      "words_per_s": 3.71
+    },
+    {
+      "n": 2,
+      "file": "reference-2.wav",
+      "source_start": 1373.04,
+      "transcript_reviewed": true,
+      "gain_db": 0.8,
+      "duration": 13.99,
+      "speech_pct": 95.4,
+      "longest_pause": 0.42,
+      "mean_db": -20.8,
+      "lufs": -21.1,
+      "peak_db": -2.0,
+      "words_per_s": 3.57
+    }
+  ],
+  "samples": [
+    {
+      "file": "references/voices/tam-nee/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+      "duration": 7.66,
+      "speech_pct": 81.8,
+      "longest_pause": 0.43,
+      "mean_db": -21.9,
+      "lufs": -22.1,
+      "peak_db": -5.1
+    },
+    {
+      "file": "references/voices/tam-nee/samples/sample-2.wav",
+      "text": "Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!",
+      "duration": 6.69,
+      "speech_pct": 79.3,
+      "longest_pause": 0.52,
+      "mean_db": -21.3,
+      "lufs": -21.2,
+      "peak_db": -8.2
+    },
+    {
+      "file": "references/voices/tam-nee/samples/sample-3.wav",
+      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+      "duration": 7.01,
+      "speech_pct": 63.5,
+      "longest_pause": 0.82,
+      "mean_db": -22.9,
+      "lufs": -22.5,
+      "peak_db": -3.3
+    },
+    {
+      "file": "references/voices/tam-nee/samples/sample-4.wav",
+      "text": "[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!",
+      "duration": 4.09,
+      "speech_pct": 100.0,
+      "longest_pause": 0,
+      "mean_db": -20.9,
+      "lufs": -20.3,
+      "peak_db": -8.2
+    },
+    {
+      "file": "references/voices/tam-nee/samples/sample-5.wav",
+      "text": "[low, sultry] Huynh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...",
+      "duration": 7.01,
+      "speech_pct": 52.6,
+      "longest_pause": 0.66,
+      "mean_db": -24.1,
+      "lufs": -22.9,
+      "peak_db": -6.3
+    }
+  ],
+  "metrics": {
+    "duration": 29.37,
+    "longest_pause": 0.42
+  },
+  "name": "Tam-nee",
+  "updated": "2026-11-18T14:29:00",
+  "sample_retries": 3,
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
+  "gender": "female",
+  "style": "mature, warm, gently sultry; mid-low pitch, calm conversational tone",
+  "accent": "Southern",
+  "fits": "onee-sama, older-sister characters, flirty mentors, gentle narration",
+  "approved": "2026-11-17T21:27:23",
+  "notes": [
+    "2026-11-17: Samples: 3 retries, all on the intimate/sultry tagged line; prefer lighter tags in books.",
+    "2026-11-18: 2026-11-18: bà Hồ, the night-shift convenience-store auntie in Mị Mị v6 (19 lines, tags like [gruff, kind], [blunt, matter-of-fact]): 0 rejected takes. Fits mature, plain-spoken older women, not only flirty onee-sama roles."
+  ]
 }

@@ -222,6 +222,15 @@ class BuildHelperTests(unittest.TestCase):
             voice_for('Ai đó', {'Ai đó': '?'}, voices, 'fail')
         self.assertEqual(voice_for('Ai đó', {'Ai đó': '?'}, voices, 'narrator'), 'narrator')
 
+    def test_lines_without_words_are_skipped(self):
+        text = write_script(build_book(STORY))
+        old = '[narrator] Ta hé mở một mắt.'
+        self.assertIn(old, text)
+        text = text.replace(old, '[narrator] ▰▰▰▱▱\n[narrator] [🔒 ??? —\n' + old, 1)
+        ((_, units),) = plan_units(read_script(text), {'narrator': 'N', 'male': 'M', 'female': 'F'}, 'fail')
+        self.assertFalse(any(t in ('▰▰▰▱▱', '[🔒 ??? —') for _, t, _ in units))
+        self.assertIn(('narrator', 'Ta hé mở một mắt.', PAUSES_MS['segment']), units)
+
     def test_drama3_cache_follows_model_revision(self):
         from unittest import mock
 
