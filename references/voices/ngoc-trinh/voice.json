@@ -1,0 +1,102 @@
+{
+  "id": "ngoc-trinh",
+  "status": "onboarded",
+  "transcript_reviewed": true,
+  "source": {
+    "input": "/Users/harry.pham/Desktop/private-hub/audiobook-tts/outputs/voice-onboarding/ngoc-trinh/source.wav"
+  },
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source_start": 0.0,
+      "transcript_reviewed": true,
+      "gain_db": 4.9,
+      "duration": 15.02,
+      "speech_pct": 96.5,
+      "longest_pause": 0.27,
+      "mean_db": -24.6,
+      "lufs": -24.6,
+      "peak_db": -2.0,
+      "words_per_s": 4.79
+    },
+    {
+      "n": 2,
+      "file": "reference-2.wav",
+      "source_start": 17.02,
+      "transcript_reviewed": true,
+      "gain_db": 3.8,
+      "duration": 13.06,
+      "speech_pct": 97.3,
+      "longest_pause": 0.35,
+      "mean_db": -24.3,
+      "lufs": -24.4,
+      "peak_db": -2.0,
+      "words_per_s": 5.51
+    }
+  ],
+  "samples": [
+    {
+      "file": "references/voices/ngoc-trinh/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+      "duration": 6.13,
+      "speech_pct": 85.9,
+      "longest_pause": 0.37,
+      "mean_db": -21.9,
+      "lufs": -22.0,
+      "peak_db": -4.1
+    },
+    {
+      "file": "references/voices/ngoc-trinh/samples/sample-2.wav",
+      "text": "Đệ lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay tỷ có chuyện vui muốn kể cho đệ nghe!",
+      "duration": 4.74,
+      "speech_pct": 87.5,
+      "longest_pause": 0.33,
+      "mean_db": -21.3,
+      "lufs": -21.3,
+      "peak_db": -5.0
+    },
+    {
+      "file": "references/voices/ngoc-trinh/samples/sample-3.wav",
+      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+      "duration": 5.94,
+      "speech_pct": 68.8,
+      "longest_pause": 0.81,
+      "mean_db": -22.9,
+      "lufs": -22.4,
+      "peak_db": -2.7
+    },
+    {
+      "file": "references/voices/ngoc-trinh/samples/sample-4.wav",
+      "text": "[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!",
+      "duration": 3.99,
+      "speech_pct": 93.3,
+      "longest_pause": 0.27,
+      "mean_db": -21.9,
+      "lufs": -21.1,
+      "peak_db": -4.6
+    },
+    {
+      "file": "references/voices/ngoc-trinh/samples/sample-5.wav",
+      "text": "[low, sultry] Anh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...",
+      "duration": 7.16,
+      "speech_pct": 48.5,
+      "longest_pause": 0.71,
+      "mean_db": -25.7,
+      "lufs": -24.1,
+      "peak_db": -2.8
+    }
+  ],
+  "metrics": {
+    "duration": 28.08,
+    "longest_pause": 0.35
+  },
+  "name": "Ngọc Trinh",
+  "updated": "2026-11-19T10:39:09",
+  "sample_retries": 0,
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
+  "gender": "female",
+  "style": "Clear, stern, cool",
+  "fits": "Cool, composed or stern women; ice queens; senior sisters; strict teachers; authority figures",
+  "approved": "2026-11-19T10:39:09"
+}

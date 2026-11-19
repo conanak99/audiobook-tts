@@ -1,0 +1,102 @@
+{
+  "id": "pong-kyubi",
+  "status": "onboarded",
+  "transcript_reviewed": true,
+  "source": {
+    "input": "/Users/harry.pham/Desktop/private-hub/audiobook-tts/outputs/voice-onboarding/pong-kyubi/source.wav"
+  },
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source_start": 0.0,
+      "transcript_reviewed": true,
+      "gain_db": 8.1,
+      "duration": 14.0,
+      "speech_pct": 91.4,
+      "longest_pause": 0.4,
+      "mean_db": -24.6,
+      "lufs": -24.5,
+      "peak_db": -2.0,
+      "words_per_s": 4.71
+    },
+    {
+      "n": 2,
+      "file": "reference-2.wav",
+      "source_start": 16.0,
+      "transcript_reviewed": true,
+      "gain_db": 11.5,
+      "duration": 12.36,
+      "speech_pct": 96.5,
+      "longest_pause": 0.22,
+      "mean_db": -22.6,
+      "lufs": -22.8,
+      "peak_db": -2.0,
+      "words_per_s": 5.42
+    }
+  ],
+  "samples": [
+    {
+      "file": "references/voices/pong-kyubi/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+      "duration": 6.08,
+      "speech_pct": 88.0,
+      "longest_pause": 0.38,
+      "mean_db": -22.3,
+      "lufs": -22.5,
+      "peak_db": -5.5
+    },
+    {
+      "file": "references/voices/pong-kyubi/samples/sample-2.wav",
+      "text": "Đệ lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay tỷ có chuyện vui muốn kể cho đệ nghe!",
+      "duration": 4.74,
+      "speech_pct": 89.0,
+      "longest_pause": 0.28,
+      "mean_db": -21.5,
+      "lufs": -21.6,
+      "peak_db": -7.2
+    },
+    {
+      "file": "references/voices/pong-kyubi/samples/sample-3.wav",
+      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+      "duration": 5.57,
+      "speech_pct": 84.4,
+      "longest_pause": 0.39,
+      "mean_db": -22.3,
+      "lufs": -21.9,
+      "peak_db": -6.2
+    },
+    {
+      "file": "references/voices/pong-kyubi/samples/sample-4.wav",
+      "text": "[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!",
+      "duration": 4.18,
+      "speech_pct": 93.3,
+      "longest_pause": 0,
+      "mean_db": -21.5,
+      "lufs": -20.9,
+      "peak_db": -7.9
+    },
+    {
+      "file": "references/voices/pong-kyubi/samples/sample-5.wav",
+      "text": "[low, sultry] Anh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...",
+      "duration": 7.94,
+      "speech_pct": 45.2,
+      "longest_pause": 1.47,
+      "mean_db": -26.0,
+      "lufs": -22.9,
+      "peak_db": -8.7
+    }
+  ],
+  "metrics": {
+    "duration": 26.36,
+    "longest_pause": 0.4
+  },
+  "name": "Pong Kyubi",
+  "updated": "2026-11-19T10:39:09",
+  "sample_retries": 0,
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
+  "gender": "female",
+  "style": "Sassy, seductive onee-sama",
+  "fits": "Sassy, seductive older sisters; femme fatales; flirty, teasing mature women",
+  "approved": "2026-11-19T10:39:09"
+}

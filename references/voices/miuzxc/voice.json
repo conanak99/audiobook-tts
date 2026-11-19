@@ -1,0 +1,102 @@
+{
+  "id": "miuzxc",
+  "status": "onboarded",
+  "transcript_reviewed": true,
+  "source": {
+    "input": "/Users/harry.pham/Desktop/private-hub/audiobook-tts/outputs/voice-onboarding/miuzxc/source.wav"
+  },
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source_start": 0.0,
+      "transcript_reviewed": true,
+      "gain_db": -1.2,
+      "duration": 15.36,
+      "speech_pct": 89.3,
+      "longest_pause": 0.36,
+      "mean_db": -19.8,
+      "lufs": -20.0,
+      "peak_db": -2.4,
+      "words_per_s": 3.39
+    },
+    {
+      "n": 2,
+      "file": "reference-2.wav",
+      "source_start": 17.36,
+      "transcript_reviewed": true,
+      "gain_db": -3.3,
+      "duration": 11.23,
+      "speech_pct": 95.6,
+      "longest_pause": 0.25,
+      "mean_db": -19.8,
+      "lufs": -20.0,
+      "peak_db": -3.4,
+      "words_per_s": 2.85
+    }
+  ],
+  "samples": [
+    {
+      "file": "references/voices/miuzxc/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+      "duration": 7.34,
+      "speech_pct": 81.1,
+      "longest_pause": 0.45,
+      "mean_db": -22.1,
+      "lufs": -22.3,
+      "peak_db": -6.9
+    },
+    {
+      "file": "references/voices/miuzxc/samples/sample-2.wav",
+      "text": "Đệ lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay tỷ có chuyện vui muốn kể cho đệ nghe!",
+      "duration": 6.18,
+      "speech_pct": 83.9,
+      "longest_pause": 0.45,
+      "mean_db": -21.4,
+      "lufs": -21.5,
+      "peak_db": -7.1
+    },
+    {
+      "file": "references/voices/miuzxc/samples/sample-3.wav",
+      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+      "duration": 6.22,
+      "speech_pct": 87.8,
+      "longest_pause": 0.4,
+      "mean_db": -21.5,
+      "lufs": -21.7,
+      "peak_db": -7.3
+    },
+    {
+      "file": "references/voices/miuzxc/samples/sample-4.wav",
+      "text": "[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!",
+      "duration": 5.48,
+      "speech_pct": 90.3,
+      "longest_pause": 0.3,
+      "mean_db": -21.6,
+      "lufs": -21.5,
+      "peak_db": -6.8
+    },
+    {
+      "file": "references/voices/miuzxc/samples/sample-5.wav",
+      "text": "[low, sultry] Anh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...",
+      "duration": 6.37,
+      "speech_pct": 69.8,
+      "longest_pause": 0.94,
+      "mean_db": -23.1,
+      "lufs": -22.3,
+      "peak_db": -5.5
+    }
+  ],
+  "metrics": {
+    "duration": 26.59,
+    "longest_pause": 0.36
+  },
+  "name": "Miuzxc",
+  "updated": "2026-11-19T10:39:09",
+  "sample_retries": 0,
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
+  "gender": "female",
+  "style": "Young, teasing, whiny, impatient",
+  "fits": "Young, spoiled or impatient girls; teasing little sisters; playful, whiny love interests; cheeky assistants",
+  "approved": "2026-11-19T10:39:09"
+}
