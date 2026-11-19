@@ -75,7 +75,7 @@ python3 $S refs <id> --music --reverb             # replace the references (eith
 ```
 
 - Music removal keeps the vocals stem of the MelBand-Roformer vocals model (Kimberley Jensen, vocals SDR 12.6). If it leaves music in or eats words, try `--music-model model_bs_roformer_ep_317_sdr_12.9755.ckpt` (BS-Roformer Viperx).
-- Echo removal keeps the dry stem of the MelBand-Roformer de-reverb model (anvuew, SDR 19.2). If it sounds robotic or "underwater", use `--reverb-model dereverb_mel_band_roformer_less_aggressive_anvuew_sdr_18.8050.ckpt`.
+- Echo removal keeps the dry stem of an anvuew MelBand-Roformer de-reverb model, **picked per clip by its channels**: the mono model for mono or dual-mono clips (left = right, which is what `cut` makes), the stereo one (SDR 19.2) only for real stereo. The stereo de-reverb Roformers (anvuew, Sucial, BS-Roformer) pass mono input through unchanged (measured: under −50 dB difference), so don't force them onto references. The script prints the choice and stores it in `cleaned`. If echo is still audible, use `--reverb-model UVR-DeEcho-DeReverb.pth` (or `UVR-De-Echo-Normal.pth` for slap-back echo).
 - With both flags, music is removed first and echo second. That's the order that works, because de-reverb models expect a voice alone.
 - Both run through `audio-separator` (UVR models). On first use, the script creates its own Python 3.12 venv with uv in `~/.cache/viettts/dereverb` (takes a few minutes; the system Python has no torch wheels). The models are downloaded and cached there too.
 - Each clip goes back to 48 kHz mono and is levelled to −20 LUFS. The script updates the measurements in `voice.json` (each reference gets `cleaned: [models]`) and clears the old samples.

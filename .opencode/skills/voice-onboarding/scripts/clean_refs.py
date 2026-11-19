@@ -27,6 +27,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import wave
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]
@@ -41,9 +42,12 @@ MODELS = CACHE / 'models'
 PACKAGES = ['audio-separator[cpu]', 'audioread', 'torch', 'onnxruntime']
 # Music removal keeps the vocals stem. Alternative: model_bs_roformer_ep_317_sdr_12.9755.ckpt (BS-Roformer).
 MUSIC_MODEL = 'vocals_mel_band_roformer.ckpt'
-# Echo removal keeps the dry stem. Gentler alternative if it sounds robotic or "underwater":
-#   dereverb_mel_band_roformer_less_aggressive_anvuew_sdr_18.8050.ckpt
-REVERB_MODEL = 'dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt'
+# Echo removal keeps the dry stem. The stereo de-reverb Roformers (anvuew 19.17, Sucial big/super-big/echo,
+# BS-Roformer deverb) pass mono or dual-mono input through untouched, so by default each clip gets the model
+# matching its channels. Stronger alternative for slap-back echo: UVR-DeEcho-DeReverb.pth (or UVR-De-Echo-Normal.pth).
+MONO_REVERB_MODEL = 'dereverb_mel_band_roformer_mono_anvuew.ckpt'
+STEREO_REVERB_MODEL = 'dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt'
+DUAL_MONO_DB = 40  # side channel this far under mid: left and right are the same signal
 KEEP = dict(music=('(vocals)',), reverb=('(noreverb)', '(dry)'))
 FADES = 'afade=t=in:d=0.02,areverse,afade=t=in:d=0.03,areverse'
 
@@ -59,8 +63,25 @@ def ensure_venv():
     subprocess.run(['uv', 'pip', 'install', '-q', '-p', str(VENV), *PACKAGES], check=True)
 
 
-def separate(wav, model, step, out, extra_filter=None):
-    """Run one model on a clip and write the kept stem to `out` as 48 kHz mono 16-bit."""
+def mean_db(wav, pan):
+    log = ob.ffmpeg('-i', str(wav), '-af', f'pan=mono|c0={pan},volumedetect', '-f', 'null', '-', capture=True)
+    return float(log.rsplit('mean_volume:', 1)[1].split('dB', 1)[0])
+
+
+def is_stereo(wav):
+    """True only for real stereo: two channels that differ (dual-mono counts as mono)."""
+    with wave.open(str(wav), 'rb') as w:
+        if w.getnchannels() != 2:
+            return False
+    return mean_db(wav, '0.5*c0-0.5*c1') > mean_db(wav, '0.5*c0+0.5*c1') - DUAL_MONO_DB
+
+
+def reverb_model_for(wav, chosen):
+    return chosen or (STEREO_REVERB_MODEL if is_stereo(wav) else MONO_REVERB_MODEL)
+
+
+def separate(wav, model, step, out, extra_filter=None, final=True):
+    """Run one model on a clip and write the kept stem to `out` (48 kHz mono 16-bit when final, else as is)."""
     with tempfile.TemporaryDirectory() as tmp:
         result = subprocess.run(
             [
@@ -74,7 +95,9 @@ def separate(wav, model, step, out, extra_filter=None):
         if result.returncode or len(keep) != 1:
             raise SystemExit(f'audio-separator ({model}) failed on {wav.name}:\n{(result.stderr or result.stdout)[-800:]}')
         af = ['-af', extra_filter] if extra_filter else []
-        ob.ffmpeg('-i', str(keep[0]), '-ac', '1', '-ar', '48000', *af, '-c:a', 'pcm_s16le', str(out))
+        # Intermediate stems keep their channels so the next step's model can be picked by them.
+        fmt = ['-ac', '1', '-ar', '48000'] if final else []
+        ob.ffmpeg('-i', str(keep[0]), *fmt, *af, '-c:a', 'pcm_s16le', str(out))
     return out
 
 
@@ -98,15 +121,21 @@ def cmd_refs(args):
     ensure_venv()
     out_dir = work / 'cleaned'
     out_dir.mkdir(parents=True, exist_ok=True)
-    print(f'Cleaning {len(refs)} reference(s) of {vid}: {", ".join(f"{s} ({models[s]})" for s in steps)} ...', flush=True)
+    names = {s: models[s] or 'auto: mono/stereo model by channels' for s in steps}
+    print(f'Cleaning {len(refs)} reference(s) of {vid}: {", ".join(f"{s} ({names[s]})" for s in steps)} ...', flush=True)
     for r in refs:
         current = originals / r['file']
+        used = []
         with tempfile.TemporaryDirectory() as tmp:
             for i, step in enumerate(steps):
                 last = i == len(steps) - 1
                 out = out_dir / r['file'] if last else Path(tmp) / f'{step}.wav'
+                model = reverb_model_for(current, models[step]) if step == 'reverb' else models[step]
+                if step == 'reverb' and not models[step]:
+                    print(f'  {r["file"]}: {"stereo" if model == STEREO_REVERB_MODEL else "mono"} -> {model}', flush=True)
+                used.append(model)
                 # Short fades on the final clip so the stem's edges don't click.
-                current = separate(current, models[step], step, out, FADES if last else None)
+                current = separate(current, model, step, out, FADES if last else None, final=last)
         if args.preview:
             print(f'  {current.relative_to(ROOT)}')
             continue
@@ -115,7 +144,7 @@ def cmd_refs(args):
         before = r.get('lufs')
         gain, _, after = ob.level(target)
         r.pop('dereverb', None)
-        r.update(ob.measure(target), cleaned=[models[s] for s in steps], gain_db=round(r.get('gain_db', 0) + gain, 2))
+        r.update(ob.measure(target), cleaned=used, gain_db=round(r.get('gain_db', 0) + gain, 2))
         print(
             f'  {r["file"]}  speech {r["speech_pct"]}%  pause ≤{r["longest_pause"]}s  '
             f'{before} -> {after} LUFS ({gain:+.1f} dB)'
@@ -165,7 +194,7 @@ def main():
     s.add_argument('--music', action='store_true', help='Remove background music (runs first)')
     s.add_argument('--reverb', action='store_true', help='Remove room echo / reverb')
     s.add_argument('--music-model', default=MUSIC_MODEL)
-    s.add_argument('--reverb-model', default=REVERB_MODEL)
+    s.add_argument('--reverb-model', help='Default: picked per clip by its channels (mono or stereo de-reverb model)')
     s.add_argument('--preview', action='store_true', help='Only write cleaned clips for listening')
     s.set_defaults(func=cmd_refs)
     s = sub.add_parser('source', help='Remove music from a stretch of the source, before voice candidates')
