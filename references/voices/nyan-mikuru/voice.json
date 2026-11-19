@@ -13,13 +13,15 @@
       "transcript_reviewed": true,
       "gain_db": -9.2,
       "duration": 13.28,
-      "speech_pct": 90.3,
-      "longest_pause": 0.43,
-      "mean_db": -22.2,
+      "speech_pct": 82.3,
+      "longest_pause": 0.62,
+      "mean_db": -22.4,
       "lufs": -20.1,
-      "peak_db": -8.9,
+      "peak_db": -8.5,
       "words_per_s": 2.71,
-      "dereverb": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt"
+      "cleaned": [
+        "dereverb_mel_band_roformer_mono_anvuew.ckpt"
+      ]
     },
     {
       "n": 2,
@@ -28,73 +30,75 @@
       "transcript_reviewed": true,
       "gain_db": -9.2,
       "duration": 13.24,
-      "speech_pct": 95.3,
-      "longest_pause": 0.23,
-      "mean_db": -20.7,
-      "lufs": -20.0,
-      "peak_db": -9.0,
+      "speech_pct": 85.8,
+      "longest_pause": 0.47,
+      "mean_db": -20.9,
+      "lufs": -20.1,
+      "peak_db": -8.1,
       "words_per_s": 3.1,
-      "dereverb": "dereverb_mel_band_roformer_anvuew_sdr_19.1729.ckpt"
+      "cleaned": [
+        "dereverb_mel_band_roformer_mono_anvuew.ckpt"
+      ]
     }
   ],
   "samples": [
     {
       "file": "references/voices/nyan-mikuru/samples/sample-1.wav",
       "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
-      "duration": 7.76,
-      "speech_pct": 94.2,
-      "longest_pause": 0,
-      "mean_db": -21.4,
-      "lufs": -21.0,
-      "peak_db": -6.7
+      "duration": 7.57,
+      "speech_pct": 77.4,
+      "longest_pause": 0.54,
+      "mean_db": -22.2,
+      "lufs": -21.6,
+      "peak_db": -6.5
     },
     {
       "file": "references/voices/nyan-mikuru/samples/sample-2.wav",
-      "text": "Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!",
-      "duration": 5.76,
-      "speech_pct": 100.0,
-      "longest_pause": 0,
-      "mean_db": -21.3,
-      "lufs": -20.5,
-      "peak_db": -5.9
+      "text": "Đệ lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay tỷ có chuyện vui muốn kể cho đệ nghe!",
+      "duration": 6.08,
+      "speech_pct": 72.1,
+      "longest_pause": 0.51,
+      "mean_db": -22.1,
+      "lufs": -20.7,
+      "peak_db": -6.8
     },
     {
       "file": "references/voices/nyan-mikuru/samples/sample-3.wav",
       "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
-      "duration": 7.57,
-      "speech_pct": 94.5,
-      "longest_pause": 0,
-      "mean_db": -21.6,
-      "lufs": -20.3,
-      "peak_db": -4.4
+      "duration": 8.13,
+      "speech_pct": 78.5,
+      "longest_pause": 0.31,
+      "mean_db": -22.9,
+      "lufs": -21.1,
+      "peak_db": -6.6
     },
     {
       "file": "references/voices/nyan-mikuru/samples/sample-4.wav",
       "text": "[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!",
-      "duration": 5.71,
-      "speech_pct": 91.0,
-      "longest_pause": 0,
-      "mean_db": -21.7,
-      "lufs": -20.0,
-      "peak_db": -7.0
+      "duration": 5.06,
+      "speech_pct": 86.6,
+      "longest_pause": 0.24,
+      "mean_db": -21.8,
+      "lufs": -20.6,
+      "peak_db": -5.8
     },
     {
       "file": "references/voices/nyan-mikuru/samples/sample-5.wav",
-      "text": "[low, sultry] Huynh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...",
-      "duration": 7.2,
-      "speech_pct": 90.1,
-      "longest_pause": 0.27,
-      "mean_db": -22.4,
-      "lufs": -20.8,
-      "peak_db": -6.8
+      "text": "[low, sultry] Anh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...",
+      "duration": 8.5,
+      "speech_pct": 75.3,
+      "longest_pause": 0.48,
+      "mean_db": -23.1,
+      "lufs": -21.3,
+      "peak_db": -7.1
     }
   ],
   "metrics": {
     "duration": 26.52,
-    "longest_pause": 0.43
+    "longest_pause": 0.62
   },
   "name": "Nyan Mikuru",
-  "updated": "2026-11-18T11:21:52",
+  "updated": "2026-11-19T22:48:42",
   "sample_retries": 0,
   "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
   "gender": "female",
@@ -102,6 +106,7 @@
   "fits": "young girlfriend / GFE heroines, sweet tender romance, intimate scenes",
   "approved": "2026-11-17T21:11:56",
   "notes": [
-    "2026-11-18: 2026-11-18: Hoài Thanh in Mị Mị v3 (5 lines, 7 chunks, tearful/awed/frightened tags): no plain fallbacks, verify clean. Main character in the Mị Mị universe from now on."
+    "2026-11-18: 2026-11-18: Hoài Thanh in Mị Mị v3 (5 lines, 7 chunks, tearful/awed/frightened tags): no plain fallbacks, verify clean. Main character in the Mị Mị universe from now on.",
+    "2026-11-19: 2026-11-19: references de-reverbed again with the mono anvuew model (the earlier stereo-model pass had left them unchanged); samples regenerated, 0 retries, user confirmed they sound better."
   ]
 }
