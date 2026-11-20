@@ -15,8 +15,8 @@ Narrator and MC: Hàn Thần (`ta`) on VieNeu **Thiện Minh**. Other men defaul
 |---|---|---|---|---|
 | ta | Hàn Thần | `narrator` (Thiện Minh) | MC | shuangyue_v1–v5 |
 | Sương Nguyệt | Nguyệt nhi, Tiểu Nguyệt, Sương Ma Nữ | `shirone-mika` | Heroine; bratty, possessive ice-cultivator sư muội | v1–v5 |
-| Mộc Liên Hoa | Mộc trưởng lão | `tam-nee` | Hợp Hoan elder, wry schemer with lưu ảnh thạch | shuangyue_v4–v5, mahua_v4–v5 |
-| Cơ Hồng Loa | Cơ tông chủ | `fuyuki-inari` | Hợp Hoan sect head, calm and dry | v4, v5 |
+| Mộc Liên Hoa | Mộc trưởng lão | `tam-nee` | Hợp Hoan elder, wry schemer with lưu ảnh thạch | shuangyue_v4–v5, mahua_v4–v5, maomao_v4 |
+| Cơ Hồng Loa | Cơ tông chủ | `fuyuki-inari` | Hợp Hoan sect head, calm and dry | v4, v5, maomao_v4 |
 | Bạch Thanh Thanh | Liên Hoa Tiên Tử | `fuyuki-inari` | Thúy Liên Cốc healer, prim; engaged to Ngưu Mãnh | v3, v5 |
 | Hỏa Linh | Hỏa Linh phu nhân | `fuyuki-inari` | Phoenix wife of Ngạo Côn, dry judge | v3, v5 |
 | Đoạn Thanh | Đoạn Tình lão tổ; voice of the gate and lanterns of Uyên Ương Bí Cảnh | `tam-nee` | Weary ghost ancestor, v5's main antagonist | v5 |
@@ -38,7 +38,7 @@ Narrator and MC: Ma Hoa's unnamed sư đệ (`ta`) on VieNeu **Thiện Minh**. O
 | Id | Also called | Voice | Who | Books |
 |---|---|---|---|---|
 | ta | sư đệ, tiểu tử, dược liệu, đạo lữ, phu quân | `narrator` (Thiện Minh) | MC; Ma Hoa's unnamed junior disciple and partner | mahua_v1–v5 |
-| Ma Hoa | Hoa sư tỷ, Ma đan sư, bánh quẩy nhỏ | `azu-livyatan` | Heroine; deadpan Hợp Hoan alchemist whose composure shifts selectively | mahua_v1–v5 |
+| Ma Hoa | Hoa sư tỷ, Ma đan sư, bánh quẩy nhỏ | `azu-livyatan` | Heroine; deadpan Hợp Hoan alchemist whose composure shifts selectively | mahua_v1–v5, maomao_v4 |
 | Bách Vị Tiên Nhân | gương mặt đá, vị tiên nhân, lão già | Hải Đăng | Deceased trial creator and voice of Bách Vị Bia | mahua_v3 |
 
 ## Mị Mị universe (Cầu Đạo Tông)
@@ -54,4 +54,15 @@ Crossovers: v4 (meimei_v4) also has Khả Khả (`lynasa`, Khả Khả universe)
 | Hoài Thanh | Đệ tử Hoài Thanh, đồ tôn of Đàm Trưởng lão | `nyan-mikuru` | Bách Thảo Đường inner disciple, earnest and naive; rescued from Xích Đỉnh Tông, calls Mị Mị "sư tỷ" | v3 |
 | Hệ thống | Gia thần, the system panel / banners | Thùy Dung (VieNeu) | Mị Mị's game system. Its banners are narration lines in square brackets (`[MỞ KHÓA NHIỆM VỤ: …]`, `[TÌNH CẢM CỘNG HƯỞNG ↑] ▰▰▱…`); during review, answer each such line `Hệ thống` (`new: Hệ thống \| female` the first time). From v5 it also talks, in lowercase bracket lines (`[ta nói chuyện liên tục đấy chứ…]`), and in v6 through her old phone; the progress-bar line `▰▰▱…` is Hệ thống too | v2–v6 |
 | Đàm Trưởng lão | Đàm (v2) | Hải Đăng | Bách Thảo Đường elder, grandfatherly, always fooled by Mị Mị's act | v1–v3, v5, v6 |
-| Liễu lão thư lại | Liễu, họ Liễu, Liễu chưởng quỹ; `Liễu` in the parses | Adam bựa (VieNeu) | Important side character: vain, theatrical scribe of Thiên Mặc Đường in Hạ Trúc Cốc who writes popular romance stories | keke_v3, keke_v5, meimei_v4 |
+| Liễu lão thư lại | Liễu, họ Liễu, Liễu chưởng quỹ; `Liễu` in the parses | `adam-bua-drama` (Drama-3) | Important side character: vain, theatrical scribe of Thiên Mặc Đường in Hạ Trúc Cốc who writes popular romance stories | keke_v3, keke_v5, meimei_v4, maomao_v1–v2 |
+
+## Lý Miêu Miêu universe (Cầu Đạo Tông, maomao)
+
+Narrator and MC: the unnamed ngoại môn phụ bếp (`ta`) on VieNeu **Hải Đăng** for narration; his dialogue is `"mc": "hai-dang-drama"` (Drama-3 clone of Hải Đăng, so he takes dry/low/deadpan directions). Other men use VieNeu **Thiện Minh**, since Hải Đăng is the narrator. Liễu lão thư lại (listed under the Mị Mị universe) uses `adam-bua-drama` here too, with tags. Breath tags on Miêu Miêu occasionally hit the frame cap; the build falls back to plain for those lines.
+
+| Id | Also called | Voice | Who | Books |
+|---|---|---|---|---|
+| ta | sư đệ, tên tạp dịch, tên bếp phó, tên phụ bếp ngoại môn | `narrator` (Hải Đăng) for narration; dialogue `"mc": "hai-dang-drama"` | MC; reincarnated backend engineer turned calm, dry kitchen hand who "blackmails" Miêu Miêu | maomao_v1–v5 |
+| Miêu Miêu | Lý Miêu Miêu, Tiểu Ma Nữ, bản ma nữ, sư tỷ; `Vệt` in the v1 parse | `shirone-mika` | Heroine; bratty, haughty 18-year-old Kim Đan prodigy of Vong Vân Phong who craves being dominated | maomao_v1–v5 |
+| Mị Mị | Mị Mị phu nhân, mẫu thân | `nina-meowmeow` | Miêu Miêu's gamer-mother (transmigrator from Earth); cheeky, teasing, speaks in game slang. Same voice as the Mị Mị universe | maomao_v3–v5 |
+| Lý Vân Chu | Vân Chu, Phong chủ, phụ thân | `thien-minh-drama` | Miêu Miêu's father, stern, dry sword master; appears briefly in v3–v4, and has a large part in v5. Same voice as the Mị Mị universe | maomao_v3–v5 |
