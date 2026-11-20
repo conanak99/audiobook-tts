@@ -195,6 +195,15 @@ python3 -m viettts audiobook build <script.txt> --cast <audiobook dir>/cast.json
 - The build stops on `[?]` lines. Use `--unknown narrator` only if the user accepts reading them in the narrator's voice.
 - Afterwards, record what you learned about the female voice (retries, repairs, how it fits) with `python3 -m viettts voice note <id> "<note>"`; notes stay in voice.json, not the compact voices table.
 
+### Queuing several volumes
+
+Only one Drama-3 build should run at a time (about 30 GB of RAM). To run several volumes, verifies and copies one after another, write one shell script that runs them in sequence (`build A; verify A; build B; verify B; …`) and start it as a single **background** command. Do not poll it.
+
+- **Never wait on another build with `while kill -0 <pid>`.** A build started as a background command leaves its wrapper shell as a **zombie** (`ps` shows state `Z`, `<defunct>`) after it finishes, and `kill -0` still succeeds on a zombie. The wait loop then spins forever and the whole queue looks stuck, with no log and nothing built.
+- If a build is still running and you need to start the queue behind it, wait on its real state instead. Poll for the build process by command line (`pgrep -f "viettts audiobook build"`), which does not match a zombie, or check that the target `.m4b` exists. The simplest option is to start the queue only after the running build's completion notice arrives.
+- If a queue seems stuck, check `ps -p <pid> -o pid,stat,command` before anything else. State `Z` means a zombie: kill the queue script (`pkill -f queue.sh`), remove the wait loop and start it again. A finished build resumes from the cache, so nothing is lost.
+- Put each build's output in its own file and have the script print the `verify` result, the `m4b` path and the `grep -c "without tags" <dir>/build.log` count per volume, so one notice reports everything.
+
 ## 8. Verify and report
 
 ```sh

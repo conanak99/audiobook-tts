@@ -23,6 +23,7 @@ The table below is regenerated from `voice.json`; don't edit it by hand.
 | `azu-livyatan` | Azu Livyatan | female | Soft, breathy, teasing young voice (≈ 225 Hz) | Teasing or seductive heroine | 1 × (14.82s) = 14.82s |
 | `fuyuki-inari` | Fuyuki Inari | female | Calm, a bit sassy; Southern | Calm or a bit sassy heroines | 2 × (14.52s, 13.91s) = 28.43s |
 | `hai-dang-drama` | Hải Đăng (Drama-3) | male | clear, mid-low male; steady, neutral | other men, MC when Hải Đăng narrates, elders, rivals | 2 × (11.61s, 12.31s) = 23.92s |
+| `hoai-thanh-awai` | Hoài Thanh (Awai) | female | Young, bright, mid-high pitch; cute-genki, cheerful, energetic streamer tone | Cute genki girls, cheerful heroines, playful younger sisters, energetic schoolgirls, idol/streamer characters | 2 × (11.9s, 13.7s) = 25.6s |
 | `lynasa` | Lynasa | female | Sweet, melodic (≈ 265 Hz); Southern | Southern characters, girlfriend roleplay | 1 × (17.5s) = 17.5s |
 | `miuzxc` | Miuzxc | female | Young, teasing, whiny, impatient | Young, spoiled or impatient girls; teasing little sisters; playful, whiny love interests; cheeky assistants | 2 × (15.36s, 11.23s) = 26.59s |
 | `ngoc-trinh` | Ngọc Trinh | female | Clear, stern, cool | Cool, composed or stern women; ice queens; senior sisters; strict teachers; authority figures | 2 × (15.02s, 13.06s) = 28.08s |

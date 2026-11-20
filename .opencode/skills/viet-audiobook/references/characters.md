@@ -16,7 +16,7 @@ Narrator and MC: Hàn Thần (`ta`) on VieNeu **Thiện Minh**. Other men defaul
 | ta | Hàn Thần | `narrator` (Thiện Minh) | MC | shuangyue_v1–v5 |
 | Sương Nguyệt | Nguyệt nhi, Tiểu Nguyệt, Sương Ma Nữ | `shirone-mika` | Heroine; bratty, possessive ice-cultivator sư muội | v1–v5 |
 | Mộc Liên Hoa | Mộc trưởng lão | `tam-nee` | Hợp Hoan elder, wry schemer with lưu ảnh thạch | shuangyue_v4–v5, mahua_v4–v5, maomao_v4 |
-| Cơ Hồng Loa | Cơ tông chủ | `fuyuki-inari` | Hợp Hoan sect head, calm and dry | v4, v5, maomao_v4 |
+| Cơ Hồng Loa | Cơ tông chủ | `fuyuki-inari` | Hợp Hoan sect head, calm and dry | v4, v5, maomao_v4, chunchun_v1 |
 | Bạch Thanh Thanh | Liên Hoa Tiên Tử | `fuyuki-inari` | Thúy Liên Cốc healer, prim; engaged to Ngưu Mãnh | v3, v5 |
 | Hỏa Linh | Hỏa Linh phu nhân | `fuyuki-inari` | Phoenix wife of Ngạo Côn, dry judge | v3, v5 |
 | Đoạn Thanh | Đoạn Tình lão tổ; voice of the gate and lanterns of Uyên Ương Bí Cảnh | `tam-nee` | Weary ghost ancestor, v5's main antagonist | v5 |
@@ -66,3 +66,23 @@ Narrator and MC: the unnamed ngoại môn phụ bếp (`ta`) on VieNeu **Hải �
 | Miêu Miêu | Lý Miêu Miêu, Tiểu Ma Nữ, bản ma nữ, sư tỷ; `Vệt` in the v1 parse | `shirone-mika` | Heroine; bratty, haughty 18-year-old Kim Đan prodigy of Vong Vân Phong who craves being dominated | maomao_v1–v5 |
 | Mị Mị | Mị Mị phu nhân, mẫu thân | `nina-meowmeow` | Miêu Miêu's gamer-mother (transmigrator from Earth); cheeky, teasing, speaks in game slang. Same voice as the Mị Mị universe | maomao_v3–v5 |
 | Lý Vân Chu | Vân Chu, Phong chủ, phụ thân | `thien-minh-drama` | Miêu Miêu's father, stern, dry sword master; appears briefly in v3–v4, and has a large part in v5. Same voice as the Mị Mị universe | maomao_v3–v5 |
+
+## Vu Xuân Quyển universe (Hàn Sơn Phong, chunchun)
+
+Narrator and MC: Hàn Lập (`ta`) on VieNeu **Hải Đăng** for narration; his dialogue is `"mc": "hai-dang-drama"`. Other men use VieNeu **Thiện Minh**, since Hải Đăng is the narrator. Sương Nguyệt (his mother), Ma Hoa (called Ma di) and Cơ Hồng Loa keep their voices from the other universes. Tô Khả Khả is on `pong-kyubi` in this universe, not `lynasa`, so she does not sound like Tiểu Xuân.
+
+| Id | Also called | Voice | Who | Books |
+|---|---|---|---|---|
+| ta | Hàn Lập, Lập sư đệ, Lập nhi, tiểu tử rùa | `narrator` (Hải Đăng) for narration; dialogue `"mc": "hai-dang-drama"` | MC; cunning formation master of Hàn Sơn Phong, son of Hàn Thần and Sương Nguyệt | chunchun_v1 |
+| Tiểu Xuân | Vu Xuân Quyển, Xuân Xuân, Tiểu Xuân, nem cuốn | `lynasa` | Heroine; loud, hot-headed body-cultivator of Yên Vân Phong, Tô Khả Khả's disciple, treats everything as a duel | chunchun_v1 |
+| Sương Nguyệt | Sương Nguyệt phu nhân, mẫu thân | `shirone-mika` | MC's mother here; same voice as the Thanh Vân Tông universe | chunchun_v1 |
+| Ma Hoa | Ma di, Ma Hoa di | `azu-livyatan` | Tiểu Xuân's alchemist mother; same voice as the Ma Hoa universe | chunchun_v1 |
+| Khả Khả | Tô Khả Khả, Tô Khả Khả Đại, Tô trưởng lão, sư phụ | `pong-kyubi` | Tiểu Xuân's master; boisterous, lewd Yên Vân Tông elder (id `Tô Khả Khả Đại` in v1, `Khả Khả` in v2) | chunchun_v1–v2 |
+| Vu thúc | Vu thúc | Đức Trí (VieNeu) | Tiểu Xuân's father, Ma Hoa's husband; huge, gentle and resigned | chunchun_v2 |
+| Diệp Nhi | Ngao Chu Diệp, tiểu nha đầu rồng phượng | `nyan-mikuru` | Daughter of Ngạo Côn (Chân Long) and Hỏa Linh (Chân Phượng); lonely 18-year-old Nguyên Anh child-like dragon who calls Hàn Lập her toy. Will become a female MC in another series, so keep this voice | chunchun_v5 |
+| Hỏa Linh | Hỏa Linh phu nhân | `fuyuki-inari` | Phoenix mother of Diệp Nhi, dry judge; same voice as the Thanh Vân Tông universe | chunchun_v5 |
+| Ngạo Côn | Chân Long | Đức Trí (VieNeu) | Boisterous dragon father of Diệp Nhi; Hàn Thần's old rival | chunchun_v5 |
+| Vinh Điệp | Vinh Điệp (danh đào) | `ngoc-trinh` | Stern, flamboyant director of the Hí Cảnh Phường theatre (Hợp Hoan Phong); smokes a pipe, dresses Tiểu Xuân for 《Hồ Ly Tế Ty》 | chunchun_v4, chunchun_v6 |
+| Lộc Lộc | Tô Lộc Lộc, tiểu sư muội | `pong-kyubi` | Tiểu Xuân's lazy, sleepy junior sister, Tô Khả Khả's disciple; will be a female lead in another series, so keep this voice | chunchun_v6 |
+| Mộc Liên Hoa | Mộc | `tam-nee` | Hợp Hoan elder who scores the khảo hạch (voice per the Thanh Vân Tông universe) | chunchun_v4 |
+| Bạch Thanh Thanh | Bạch trưởng lão | `fuyuki-inari` | Prim healer of Thúy Liên Cốc (voice per the Thanh Vân Tông universe) | chunchun_v6 |

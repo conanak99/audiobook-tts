@@ -1,0 +1,102 @@
+{
+  "id": "hoai-thanh-awai",
+  "status": "onboarded",
+  "transcript_reviewed": true,
+  "source": {
+    "input": "/Users/harry.pham/Desktop/private-hub/audiobook-tts/outputs/voice-onboarding/hoai-thanh-awai/source.wav"
+  },
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source_start": 0,
+      "transcript_reviewed": true,
+      "gain_db": -6.5,
+      "duration": 11.9,
+      "speech_pct": 95.7,
+      "longest_pause": 0.31,
+      "mean_db": -19.6,
+      "lufs": -20.0,
+      "peak_db": -6.8,
+      "words_per_s": 3.87
+    },
+    {
+      "n": 2,
+      "file": "reference-2.wav",
+      "source_start": 13.9,
+      "transcript_reviewed": true,
+      "gain_db": -6.1,
+      "duration": 13.7,
+      "speech_pct": 100.0,
+      "longest_pause": 0,
+      "mean_db": -19.6,
+      "lufs": -20.0,
+      "peak_db": -6.4,
+      "words_per_s": 4.09
+    }
+  ],
+  "samples": [
+    {
+      "file": "references/voices/hoai-thanh-awai/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+      "duration": 6.04,
+      "speech_pct": 95.6,
+      "longest_pause": 0.27,
+      "mean_db": -21.5,
+      "lufs": -22.0,
+      "peak_db": -8.1
+    },
+    {
+      "file": "references/voices/hoai-thanh-awai/samples/sample-2.wav",
+      "text": "Đệ lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay tỷ có chuyện vui muốn kể cho đệ nghe!",
+      "duration": 5.43,
+      "speech_pct": 90.5,
+      "longest_pause": 0.28,
+      "mean_db": -21.3,
+      "lufs": -21.5,
+      "peak_db": -8.8
+    },
+    {
+      "file": "references/voices/hoai-thanh-awai/samples/sample-3.wav",
+      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+      "duration": 5.43,
+      "speech_pct": 82.4,
+      "longest_pause": 0.38,
+      "mean_db": -21.8,
+      "lufs": -22.1,
+      "peak_db": -10.0
+    },
+    {
+      "file": "references/voices/hoai-thanh-awai/samples/sample-4.wav",
+      "text": "[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!",
+      "duration": 4.04,
+      "speech_pct": 100.0,
+      "longest_pause": 0,
+      "mean_db": -21.5,
+      "lufs": -21.4,
+      "peak_db": -8.1
+    },
+    {
+      "file": "references/voices/hoai-thanh-awai/samples/sample-5.wav",
+      "text": "[low, sultry] Anh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...",
+      "duration": 5.53,
+      "speech_pct": 81.0,
+      "longest_pause": 0.43,
+      "mean_db": -22.2,
+      "lufs": -22.0,
+      "peak_db": -8.2
+    }
+  ],
+  "metrics": {
+    "duration": 25.6,
+    "longest_pause": 0.31
+  },
+  "name": "Hoài Thanh (Awai)",
+  "updated": "2026-11-20T21:41:18",
+  "sample_retries": 1,
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
+  "gender": "female",
+  "style": "Young, bright, mid-high pitch; cute-genki, cheerful, energetic streamer tone",
+  "fits": "Cute genki girls, cheerful heroines, playful younger sisters, energetic schoolgirls, idol/streamer characters",
+  "approved": "2026-11-20T21:41:18"
+}
