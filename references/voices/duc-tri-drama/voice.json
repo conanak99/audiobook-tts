@@ -1,0 +1,105 @@
+{
+  "id": "duc-tri-drama",
+  "status": "onboarded",
+  "transcript_reviewed": true,
+  "source": {
+    "input": "/Users/harry.pham/Desktop/private-hub/audiobook-tts/outputs/voice-onboarding/duc-tri-drama/vieneu/source.wav"
+  },
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source_start": 0.0,
+      "transcript_reviewed": true,
+      "gain_db": 2.7,
+      "duration": 14.83,
+      "speech_pct": 73.8,
+      "longest_pause": 0.86,
+      "mean_db": -20.3,
+      "lufs": -20.7,
+      "peak_db": -2.0,
+      "words_per_s": 2.83
+    },
+    {
+      "n": 2,
+      "file": "reference-2.wav",
+      "source_start": 16.33,
+      "transcript_reviewed": true,
+      "gain_db": 2.7,
+      "duration": 12.96,
+      "speech_pct": 75.8,
+      "longest_pause": 0.81,
+      "mean_db": -20.1,
+      "lufs": -20.7,
+      "peak_db": -2.0,
+      "words_per_s": 3.01
+    }
+  ],
+  "samples": [
+    {
+      "file": "references/voices/duc-tri-drama/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+      "duration": 8.59,
+      "speech_pct": 82.0,
+      "longest_pause": 0.61,
+      "mean_db": -21.9,
+      "lufs": -22.8,
+      "peak_db": -8.7
+    },
+    {
+      "file": "references/voices/duc-tri-drama/samples/sample-2.wav",
+      "text": "Đệ lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay tỷ có chuyện vui muốn kể cho đệ nghe!",
+      "duration": 7.01,
+      "speech_pct": 79.9,
+      "longest_pause": 0.52,
+      "mean_db": -21.5,
+      "lufs": -22.3,
+      "peak_db": -8.6
+    },
+    {
+      "file": "references/voices/duc-tri-drama/samples/sample-3.wav",
+      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+      "duration": 6.58,
+      "speech_pct": 70.3,
+      "longest_pause": 0.6,
+      "mean_db": -22.3,
+      "lufs": -23.2,
+      "peak_db": -9.5
+    },
+    {
+      "file": "references/voices/duc-tri-drama/samples/sample-4.wav",
+      "text": "[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!",
+      "duration": 5.57,
+      "speech_pct": 84.9,
+      "longest_pause": 0.46,
+      "mean_db": -21.9,
+      "lufs": -22.0,
+      "peak_db": -7.9
+    },
+    {
+      "file": "references/voices/duc-tri-drama/samples/sample-5.wav",
+      "text": "[low, sultry] Anh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...",
+      "duration": 6.02,
+      "speech_pct": 63.1,
+      "longest_pause": 0.66,
+      "mean_db": -22.6,
+      "lufs": -23.4,
+      "peak_db": -9.1
+    }
+  ],
+  "metrics": {
+    "duration": 27.79,
+    "longest_pause": 0.86
+  },
+  "name": "Đức Trí (Drama-3)",
+  "updated": "2026-11-23T16:11:08",
+  "sample_retries": 0,
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
+  "gender": "male",
+  "style": "deep, slow, booming older male; heavy and deliberate",
+  "fits": "big blustering elders, dragon fathers, gentle giants (Ngao Côn, Vu thúc, Ngưu Mãnh)",
+  "approved": "2026-11-23T16:11:08",
+  "notes": [
+    "2026-11-23: 2026-11-23: Synthetic: 2 references made with VieNeu Đức Trí (texts written in Ngao Côn's register, pauses tightened); transcripts are the exact TTS input. Slow speaker (~2.9 words/s); samples 0 retries."
+  ]
+}

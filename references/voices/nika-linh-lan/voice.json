@@ -1,61 +1,63 @@
 {
-	"id": "nika-linh-lan",
-	"name": "Nika Linh Lan",
-	"gender": "female",
-	"status": "onboarded",
-	"style": "Airy, youthful, quiet low-talk (≈ 225 Hz)",
-	"fits": "Shy or sleepy heroine",
-	"contact": "nijigen.official@gmail.com | fb.com/nijigen.project",
-	"source": {
-		"input": "https://www.youtube.com/watch?v=xi-KWknE9m0"
-	},
-	"metrics": {
-		"duration": 18.62,
-		"longest_pause": 0
-	},
-	"transcript_reviewed": true,
-	"notes": [],
-	"updated": "2026-11-16T22:46:50",
-	"samples": [
-		{
-			"file": "references/voices/nika-linh-lan/samples/sample-1.wav",
-			"text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
-			"duration": 6.46,
-			"speech_pct": 79.8,
-			"longest_pause": 0.43,
-			"mean_db": -22.1
-		},
-		{
-			"file": "references/voices/nika-linh-lan/samples/sample-2.wav",
-			"text": "Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!",
-			"duration": 6.13,
-			"speech_pct": 74.3,
-			"longest_pause": 0.6,
-			"mean_db": -21.6
-		},
-		{
-			"file": "references/voices/nika-linh-lan/samples/sample-3.wav",
-			"text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
-			"duration": 6.32,
-			"speech_pct": 65.4,
-			"longest_pause": 0.61,
-			"mean_db": -22.4
-		}
-	],
-	"sample_retries": 0,
-	"references": [
-		{
-			"n": 1,
-			"file": "reference-1.wav",
-			"source_start": 1188.0,
-			"transcript_reviewed": true,
-			"words_per_s": 4.51,
-			"duration": 18.62,
-			"speech_pct": 100.0,
-			"longest_pause": 0,
-			"mean_db": -17.8
-		}
-	],
-	"approved": "2026-11-16T22:27:39",
-	"samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a"
+  "id": "nika-linh-lan",
+  "name": "Nika Linh Lan",
+  "gender": "female",
+  "status": "onboarded",
+  "style": "Airy, youthful, quiet low-talk (≈ 225 Hz)",
+  "fits": "Shy or sleepy heroine",
+  "contact": "nijigen.official@gmail.com | fb.com/nijigen.project",
+  "source": {
+    "input": "https://www.youtube.com/watch?v=xi-KWknE9m0"
+  },
+  "metrics": {
+    "duration": 18.62,
+    "longest_pause": 0
+  },
+  "transcript_reviewed": true,
+  "notes": [
+    "2026-11-23: chunmei_v1 (Xuân Mai, cold haughty sư tỷ): 252 tagged lines incl. screams/moans, 0 fell back to plain, 0 silences over 2.5 s. Takes cold/curt, flustered and breathless directions well."
+  ],
+  "updated": "2026-11-23T12:56:03",
+  "samples": [
+    {
+      "file": "references/voices/nika-linh-lan/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+      "duration": 6.46,
+      "speech_pct": 79.8,
+      "longest_pause": 0.43,
+      "mean_db": -22.1
+    },
+    {
+      "file": "references/voices/nika-linh-lan/samples/sample-2.wav",
+      "text": "Huynh lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay muội có chuyện vui muốn kể cho huynh nghe!",
+      "duration": 6.13,
+      "speech_pct": 74.3,
+      "longest_pause": 0.6,
+      "mean_db": -21.6
+    },
+    {
+      "file": "references/voices/nika-linh-lan/samples/sample-3.wav",
+      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+      "duration": 6.32,
+      "speech_pct": 65.4,
+      "longest_pause": 0.61,
+      "mean_db": -22.4
+    }
+  ],
+  "sample_retries": 0,
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source_start": 1188.0,
+      "transcript_reviewed": true,
+      "words_per_s": 4.51,
+      "duration": 18.62,
+      "speech_pct": 100.0,
+      "longest_pause": 0,
+      "mean_db": -17.8
+    }
+  ],
+  "approved": "2026-11-16T22:27:39",
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a"
 }

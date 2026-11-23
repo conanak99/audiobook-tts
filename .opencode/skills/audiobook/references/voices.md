@@ -21,6 +21,7 @@ The table below is regenerated from `voice.json`; don't edit it by hand.
 | --- | --- | --- | --- | --- | --- |
 | `adam-bua-drama` | Adam bựa (Drama-3) | male | playful, cheeky male; lively, a bit roguish | comic or roguish men, smug villains, cheeky side characters | 2 × (14.09s, 14.82s) = 28.91s |
 | `azu-livyatan` | Azu Livyatan | female | Soft, breathy, teasing young voice (≈ 225 Hz) | Teasing or seductive heroine | 1 × (14.82s) = 14.82s |
+| `duc-tri-drama` | Đức Trí (Drama-3) | male | deep, slow, booming older male; heavy and deliberate | big blustering elders, dragon fathers, gentle giants (Ngao Côn, Vu thúc, Ngưu Mãnh) | 2 × (14.83s, 12.96s) = 27.79s |
 | `fuyuki-inari` | Fuyuki Inari | female | Calm, a bit sassy; Southern | Calm or a bit sassy heroines | 2 × (14.52s, 13.91s) = 28.43s |
 | `hai-dang-drama` | Hải Đăng (Drama-3) | male | clear, mid-low male; steady, neutral | other men, MC when Hải Đăng narrates, elders, rivals | 2 × (11.61s, 12.31s) = 23.92s |
 | `hoai-thanh-awai` | Hoài Thanh (Awai) | female | Young, bright, mid-high pitch; cute-genki, cheerful, energetic streamer tone | Cute genki girls, cheerful heroines, playful younger sisters, energetic schoolgirls, idol/streamer characters | 2 × (11.9s, 13.7s) = 25.6s |

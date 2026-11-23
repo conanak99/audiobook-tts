@@ -98,7 +98,7 @@
     "longest_pause": 0.62
   },
   "name": "Nyan Mikuru",
-  "updated": "2026-11-19T22:48:42",
+  "updated": "2026-11-23T15:05:20",
   "sample_retries": 0,
   "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
   "gender": "female",
@@ -107,6 +107,7 @@
   "approved": "2026-11-17T21:11:56",
   "notes": [
     "2026-11-18: 2026-11-18: Hoài Thanh in Mị Mị v3 (5 lines, 7 chunks, tearful/awed/frightened tags): no plain fallbacks, verify clean. Main character in the Mị Mị universe from now on.",
-    "2026-11-19: 2026-11-19: references de-reverbed again with the mono anvuew model (the earlier stereo-model pass had left them unchanged); samples regenerated, 0 retries, user confirmed they sound better."
+    "2026-11-19: 2026-11-19: references de-reverbed again with the mono anvuew model (the earlier stereo-model pass had left them unchanged); samples regenerated, 0 retries, user confirmed they sound better.",
+    "2026-11-23: zhuye_v1 (Diệp Nhi, 257 lines, 314 tagged entries incl. breathless/panting/sobbing directions): 530 Drama-3 chunks, only 4 retried takes on the frame cap, 0 fell back to plain, 0 silences >2.5 s. Handles loud genki, possessive, teary and spicy directions well."
   ]
 }
