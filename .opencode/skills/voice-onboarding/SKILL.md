@@ -22,7 +22,7 @@ Each voice ends up in `references/voices/<id>/`:
 
 Only onboarded voices can be used for audiobooks.
 
-`approve` regenerates the voice table in `.opencode/skills/viet-audiobook/references/voices.md`.
+`approve` regenerates the voice table in `.opencode/skills/audiobook/references/voices.md`.
 Notes, samples and source remain in `voice.json`; sample audio lives in `references/voices/<id>/samples/`.
 
 What to get from the user (ask only for what is missing):
@@ -141,7 +141,7 @@ python3 -m viettts voice approve <id> --name "<Name>" --gender female --style "<
 
 This marks the voice `onboarded` and regenerates the voices table. Add anything noteworthy with `python3 -m viettts voice note <id> "<text>"`; notes stay in `voice.json` and are not included in the table. Use `python3 -m viettts voice list` to see every voice and its status.
 
-Tell the user the id. They can use it with the viet-audiobook skill, in the book's cast (`"female": "<id>"` in `cast.json`).
+Tell the user the id. They can use it with the audiobook skill, in the book's cast (`"female": "<id>"` in `cast.json`).
 
 ## After a Drama-3 model change
 

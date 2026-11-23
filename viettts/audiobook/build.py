@@ -72,7 +72,7 @@ def spoken(text):
     return ' '.join(text.split())
 
 
-# --- enhance: Drama-3 performance tags (.opencode/skills/viet-audiobook/references/enhance.md) --------
+# --- enhance: Drama-3 performance tags (.opencode/skills/audiobook/references/enhance.md) --------
 # enhance.txt next to script.txt holds "L<n>: <line with tags>" for Drama-3 lines; script.txt stays plain.
 SCOPE_TAGS = ('whisper', 'emphasis', 'soft', 'fast', 'slow', 'stress', 'forceful')
 TAG = re.compile(r'\[[^\[\]]*\]|</?(?:' + '|'.join(SCOPE_TAGS) + r')>')

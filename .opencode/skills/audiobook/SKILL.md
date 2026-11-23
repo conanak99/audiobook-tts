@@ -9,6 +9,8 @@ Run every command from the vietTTS repository root (the directory containing `vi
 
 Typical request: the user gives a story (`story_vn.md`) and a **female voice**: either an onboarded voice (see `references/voices.md`) or a new video/audio file. Drama-3 works only with **onboarded** voices, so onboard a new file first with the **voice-onboarding** skill. Everything else has a default; don't ask about engines or male voices unless the user brings them up.
 
+A script with no narrator and no quotes, where one or two women speak every line to the listener (a voice drama, ASMR or audio roleplay), goes to the **voice-drama** skill instead: it skips parse and the speaker review.
+
 Pipeline: **parse → you review speakers → check → voices (you write `cast.json`) → you enhance the Drama-3 lines → pilot: build chapter 1 → the user listens and approves → full volume (background) → verify.** The rules attribute ~93% of quotes; you, the agent, are the reviewer for the rest, and the director of the heroine's performance. Never hand either job to a local LLM: a 4B model scored 54% (chance) on speakers.
 
 ## 1. Parse
@@ -167,7 +169,7 @@ python3 -m viettts audiobook build <script.txt> --cast <audiobook dir>/cast.json
 python3 -m viettts audiobook verify <script.txt> --partial
 ```
 
-The pilot is saved as `… (thử 1 chương).m4b`, so it never overwrites the full volume. Give the user its path (they can AirDrop it to BookPlayer) and ask them to check:
+The pilot is saved as `… (thử 1 chương).m4b`, so it never overwrites the full volume. Give the user its path and ask them to check:
 - the heroine's voice and how it fits the character
 - the narrator/MC voice
 - the pacing, and any mispronounced names or words
@@ -210,4 +212,4 @@ Only one Drama-3 build should run at a time (about 30 GB of RAM). To run several
 python3 -m viettts audiobook verify <script.txt>        # add --partial after a --chapters or --only build
 ```
 
-It checks the codec, that the chapters match the script, the tags, `media_type=2`, the cover, and that no silence is longer than 2.5 s. If the silence check fails (usually Drama-3 copying pauses from a breathy reference), run `python3 -m viettts audiobook repair <script.txt> --dry-run` first. Without `--dry-run`, it deletes the cached chunks that contain a pause over 1.5 s. **After it finishes**, rerun the build; never run repair and build in parallel. The worker retries such takes up to four times and shortens pauses inside chunks, so a second repair is rarely needed. If one reference voice keeps causing this, suggest a cleaner reference to the user, for example `make-ref` from a VieNeu voice. Report the M4B path, its duration and size, the voices used, how many review answers you changed from the rules' guesses, and how many Drama-3 lines you enhanced. Remind the user they can AirDrop the file to BookPlayer.
+It checks the codec, that the chapters match the script, the tags, `media_type=2`, the cover, and that no silence is longer than 2.5 s. If the silence check fails (usually Drama-3 copying pauses from a breathy reference), run `python3 -m viettts audiobook repair <script.txt> --dry-run` first. Without `--dry-run`, it deletes the cached chunks that contain a pause over 1.5 s. **After it finishes**, rerun the build; never run repair and build in parallel. The worker retries such takes up to four times and shortens pauses inside chunks, so a second repair is rarely needed. If one reference voice keeps causing this, suggest a cleaner reference to the user, for example `make-ref` from a VieNeu voice. Report the M4B path, its duration and size, the voices used, how many review answers you changed from the rules' guesses, and how many Drama-3 lines you enhanced.

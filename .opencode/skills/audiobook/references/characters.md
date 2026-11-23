@@ -69,20 +69,45 @@ Narrator and MC: the unnamed ngoại môn phụ bếp (`ta`) on VieNeu **Hải �
 
 ## Vu Xuân Quyển universe (Hàn Sơn Phong, chunchun)
 
-Narrator and MC: Hàn Lập (`ta`) on VieNeu **Hải Đăng** for narration; his dialogue is `"mc": "hai-dang-drama"`. Other men use VieNeu **Thiện Minh**, since Hải Đăng is the narrator. Sương Nguyệt (his mother), Ma Hoa (called Ma di) and Cơ Hồng Loa keep their voices from the other universes. Tô Khả Khả is on `pong-kyubi` in this universe, not `lynasa`, so she does not sound like Tiểu Xuân.
+Narrator and MC: Hàn Lập (`ta`) on VieNeu **Hải Đăng** for narration; his dialogue is `"mc": "hai-dang-drama"`. Other men use VieNeu **Thiện Minh**, since Hải Đăng is the narrator. Sương Nguyệt (his mother), Ma Hoa (called Ma di) and Cơ Hồng Loa keep their voices from the other universes. Tô Khả Khả is on `lynasa` in every universe (canon), so Tiểu Xuân, her disciple, is on `hoai-thanh-awai` to keep the two apart.
 
 | Id | Also called | Voice | Who | Books |
 |---|---|---|---|---|
 | ta | Hàn Lập, Lập sư đệ, Lập nhi, tiểu tử rùa | `narrator` (Hải Đăng) for narration; dialogue `"mc": "hai-dang-drama"` | MC; cunning formation master of Hàn Sơn Phong, son of Hàn Thần and Sương Nguyệt | chunchun_v1 |
-| Tiểu Xuân | Vu Xuân Quyển, Xuân Xuân, Tiểu Xuân, nem cuốn | `lynasa` | Heroine; loud, hot-headed body-cultivator of Yên Vân Phong, Tô Khả Khả's disciple, treats everything as a duel | chunchun_v1 |
+| Tiểu Xuân | Vu Xuân Quyển, Xuân Xuân, Tiểu Xuân, nem cuốn | `lynasa`  | Heroine; loud, hot-headed body-cultivator of Yên Vân Phong, Tô Khả Khả's disciple, treats everything as a duel | chunchun_v1 |
 | Sương Nguyệt | Sương Nguyệt phu nhân, mẫu thân | `shirone-mika` | MC's mother here; same voice as the Thanh Vân Tông universe | chunchun_v1 |
 | Ma Hoa | Ma di, Ma Hoa di | `azu-livyatan` | Tiểu Xuân's alchemist mother; same voice as the Ma Hoa universe | chunchun_v1 |
-| Khả Khả | Tô Khả Khả, Tô Khả Khả Đại, Tô trưởng lão, sư phụ | `pong-kyubi` | Tiểu Xuân's master; boisterous, lewd Yên Vân Tông elder (id `Tô Khả Khả Đại` in v1, `Khả Khả` in v2) | chunchun_v1–v2 |
+| Khả Khả | Tô Khả Khả, Tô Khả Khả Đại, Tô trưởng lão, sư phụ | `pong-kyubi` (only for this series) | Tiểu Xuân's master; boisterous, lewd Yên Vân Tông elder (id `Tô Khả Khả Đại` in v1, `Khả Khả` in v2) | chunchun_v1–v2 |
 | Vu thúc | Vu thúc | Đức Trí (VieNeu) | Tiểu Xuân's father, Ma Hoa's husband; huge, gentle and resigned | chunchun_v2 |
 | Diệp Nhi | Ngao Chu Diệp, tiểu nha đầu rồng phượng | `nyan-mikuru` | Daughter of Ngạo Côn (Chân Long) and Hỏa Linh (Chân Phượng); lonely 18-year-old Nguyên Anh child-like dragon who calls Hàn Lập her toy. Will become a female MC in another series, so keep this voice | chunchun_v5 |
 | Hỏa Linh | Hỏa Linh phu nhân | `fuyuki-inari` | Phoenix mother of Diệp Nhi, dry judge; same voice as the Thanh Vân Tông universe | chunchun_v5 |
 | Ngạo Côn | Chân Long | Đức Trí (VieNeu) | Boisterous dragon father of Diệp Nhi; Hàn Thần's old rival | chunchun_v5 |
 | Vinh Điệp | Vinh Điệp (danh đào) | `ngoc-trinh` | Stern, flamboyant director of the Hí Cảnh Phường theatre (Hợp Hoan Phong); smokes a pipe, dresses Tiểu Xuân for 《Hồ Ly Tế Ty》 | chunchun_v4, chunchun_v6 |
-| Lộc Lộc | Tô Lộc Lộc, tiểu sư muội | `pong-kyubi` | Tiểu Xuân's lazy, sleepy junior sister, Tô Khả Khả's disciple; will be a female lead in another series, so keep this voice | chunchun_v6 |
+| Lộc Lộc | Tô Lộc Lộc, tiểu sư muội | `pong-kyubi` | Tiểu Xuân's lazy, sleepy junior sister, Tô Khả Khả's daughter; female lead of the Tô Lộc Lộc series (see below), so keep this voice | chunchun_v6, lulu_v1 |
 | Mộc Liên Hoa | Mộc | `tam-nee` | Hợp Hoan elder who scores the khảo hạch (voice per the Thanh Vân Tông universe) | chunchun_v4 |
 | Bạch Thanh Thanh | Bạch trưởng lão | `fuyuki-inari` | Prim healer of Thúy Liên Cốc (voice per the Thanh Vân Tông universe) | chunchun_v6 |
+
+## Tô Lộc Lộc universe (Huyết Liên Giáo, lulu)
+
+Narrator and MC: the unnamed thiếu chủ / Huyết Liên Thánh Tử (`ta`) on VieNeu **Hải Đăng** for narration; his dialogue is `"mc": "hai-dang-drama"`. Other men use VieNeu **Thiện Minh**, since Hải Đăng is the narrator. Characters from the Vu Xuân Quyển universe keep their voices.
+
+| Id | Also called | Voice | Who | Books |
+|---|---|---|---|---|
+| ta | Dạ Vấn Thiên, Thiếu chủ, Thánh Tử, Lãnh Chúa / Minh Hà Chi Chủ, chủ nhân | `narrator` (Hải Đăng) for narration; dialogue `"mc": "hai-dang-drama"` | MC; broke, over-dramatic would-be kidnapper of Huyết Liên Giáo | lulu_v1–v6 |
+| Lộc Lộc | Tô Lộc Lộc, đỉnh lô, ái nữ Yên Vân | `pong-kyubi` | Heroine; sleepy, seemingly naive "hostage" who is secretly in control | lulu_v1–v6 |
+| Khả Khả | Tô Khả Khả, Thái Thượng Trưởng lão, Mẹ | `lynasa` | Lộc Lộc's mother, boisterous Nguyên Anh elder fond of duck and plum wine; same voice as the Khả Khả universe | lulu_v1–v5 |
+| Miêu Miêu | Lý Miêu Miêu | `shirone-mika` | Lộc Lộc's friend from Vong Vân Phong; same voice as the Lý Miêu Miêu universe | lulu_v1–v2, lulu_v4 |
+| Hồng Tiểu Muội | Hồng Loan (her "stage name", which she hates), lão nương, bà | `ngoc-trinh` (stern, cool; split from Lộc Lộc's `pong-kyubi` because they trade many lines) | Mạc Tà's wife; fierce, motherly ma-đạo cook and seamstress of Huyết Liên Giáo, one of the MC's two remaining disciples; recurs in later volumes | lulu_v1–v6 |
+| Mạc Tà | Mạc lão, lão phu | Thiện Minh (VieNeu, the `male` role) | Hồng Tiểu Muội's husband; lazy, theatrical elder of Huyết Liên Giáo with a villain laugh he practises at the well; always calls his wife by the wrong name; recurs in later volumes | lulu_v1–v6 |
+| Ma Hoa | Ma Hoa di nương, Ma trưởng lão | `azu-livyatan` | Lộc Lộc's "di nương"; deadpan Hợp Hoan alchemist and business architect who coaches the pair in v2. Same voice as the Ma Hoa universe | lulu_v2 |
+| Mộc Liên Hoa | Mộc di, Mộc trưởng lão | `tam-nee` | Hợp Hoan elder who buys the stage play and the role-play room; same voice as the Thanh Vân Tông universe | lulu_v2, lulu_v6 |
+| Liễu lão thư lại | Liễu tiên sinh, Liễu chưởng quỹ | `adam-bua-drama` (Drama-3) | Vain, theatrical author of the 《Cô Ngạo Thiếu Chủ》 books; same voice as the Mị Mị universe. | lulu_v2, lulu_v4 |
+| Phụ thân | Tảo Địa Đệ Tử, người quét rác, Thái Thượng Trưởng (parser id), nhạc phụ | Thiện Minh (VieNeu, the `male` role) | Lộc Lộc's father, Khả Khả's husband; terse, dry sweeper of Yên Vân Phong and master of traps and formations; coaches the MC in v3 (speaker id `phụ thân`) | lulu_v1, lulu_v3 |
+| Khúc Trinh | Khúc quả phụ, Tiểu Âm, Khúc thẩm | `ngoc-trinh` | Will have her own series later, so keep this voice. Weary widow in a weeping mask who sells the relics of dead sects at the bottom of Quỷ Cốc Khư Thị and smokes a long pipe; gives Lộc Lộc the paired jade tokens in v4 | lulu_v4 |
+| Bếp Trưởng | Bếp Trưởng Vong Vân Phong, phu quân Miêu Miêu, vị đầu bếp | Thiện Minh (VieNeu, the `male` role) | Miêu Miêu's husband and the kitchen-hand MC of the Lý Miêu Miêu books (there `hai-dang-drama`); here a terse, deadpan cook who walks through walls. Not on `hai-dang-drama` in the lulu books because that is the MC's voice | lulu_v4 |
+| Từ Mẫu | Tiểu Từ, Từ di, bậc trưởng bối cao niên nhất Thúy Liên Cốc | `tam-nee` | Ancient Nguyên Anh trung kỳ matriarch of Thúy Liên Cốc; dry, immobile and terrifying; Ân Tiểu Liên's sworn sister who loved the MC's father; main figure of v5 | lulu_v5–v6 |
+| Bạch Thanh Thanh | Bạch trưởng lão, Liên Hoa Tiên Tử | `fuyuki-inari` | Prim, easily flustered chief healer of Thúy Liên Cốc, Ngưu Mãnh's wife; voice per the Thanh Vân Tông universe | lulu_v5–v6 |
+| Ngưu Mãnh | Ngưu Mãnh | Đức Trí (VieNeu) | Bạch Thanh Thanh's huge, gentle husband who carries her parasol and feeds everyone | lulu_v5–v6 |
+| Hàn Lập | Hàn thiếu gia | Thiện Minh (VieNeu, the `male` role) | Tiểu Xuân's husband and formation master (the MC of the Vu Xuân Quyển books, there on `hai-dang-drama`); deadpan, clinical and unflappable. Not on `hai-dang-drama` here because that is the MC's voice | lulu_v5–v6 |
+| Tiểu Xuân | Vu Xuân Quyển, Xuân Xuân sư tỷ | `lynasa` in lulu_v5–v6 (Khả Khả has no lines there); `hoai-thanh-awai` in the Vu Xuân Quyển books, where Khả Khả is on `lynasa` | Lộc Lộc's senior sister, a loud body-cultivator in a silver fox coat who cannot conceive after four years; in the lulu books she keeps her original lynasa voice | lulu_v5–v6 |
+| Cơ Hồng Loa | Cơ tông chủ, bản tông chủ | `fuyuki-inari` | Sharp, calm sect head of Hợp Hoan Tông in expensive crimson; rents the MC's book stall at the spring fair; voice per the Thanh Vân Tông universe | lulu_v6 |

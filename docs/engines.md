@@ -45,7 +45,7 @@ python3 -m viettts speak --engine drama3 --tagged-input /path/tagged.txt
 
 The standalone default is the retained synthetic Mai Chi reference, `references/maichi-synthetic.wav`. It is a reference asset, not a model dependency or named Drama-3 preset.
 
-Standalone story mode splits ordinary Markdown into at most 120-character chunks. Tagged mode preserves one chunk per nonempty line, at most 300 UTF-8 bytes, with balanced tags (currently `<whisper>` and bracketed directions/events). Audiobook enhancement supports additional scoped tags; see the [enhancement guide](../.opencode/skills/viet-audiobook/references/enhance.md).
+Standalone story mode splits ordinary Markdown into at most 120-character chunks. Tagged mode preserves one chunk per nonempty line, at most 300 UTF-8 bytes, with balanced tags (currently `<whisper>` and bracketed directions/events). Audiobook enhancement supports additional scoped tags; see the [enhancement guide](../.opencode/skills/audiobook/references/enhance.md).
 
 Standalone outputs include `drama3.wav`, numbered chunks, `text.txt`, `performance.jsonl`, and `summary.json`. A failed run can resume with `--resume-dir outputs/<failed-run>` using the same text, model, seed, and reference. Generation at the frame cap is rejected; listening is still needed to detect missing or incorrect words.
 

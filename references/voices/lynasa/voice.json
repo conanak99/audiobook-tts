@@ -17,10 +17,11 @@
   "notes": [
     "2026-11-17: Khả Khả v1: user approved pilot with vocals-only replacement reference. Full mixed build 12 chapters, 99.8 min; 79 directed lines. Full build generated 553 Drama-3 chunks with one rejected take retried successfully, no tag fallbacks. Final verification: no silence over 2.5 seconds.",
     "2026-11-17: Khả Khả v2: full mixed build, 12 chapters / 90.0 min. Lynasa voiced women with 117 directed lines; 419 Drama-3 chunks / 23,136 characters completed in 11m01s with no rejected takes and no tag fallbacks. Verification passed, including zero silence over 2.5 seconds. Voice fit remained consistent with approved v1.",
-    "2026-11-17: Khả Khả v3 completed successfully in mixed mode: 488 Drama-3 chunks / 30,872 characters, with 156 directed lines. Two chunks each hit the 128-frame cap twice, then succeeded on the third attempt; no without-tags fallback occurred. Full 101.3-minute M4B verification passed, including zero silence over 2.5 seconds. Lynasa fit Khả Khả's shifting role-play voices and vulnerable unmasked ending."
+    "2026-11-17: Khả Khả v3 completed successfully in mixed mode: 488 Drama-3 chunks / 30,872 characters, with 156 directed lines. Two chunks each hit the 128-frame cap twice, then succeeded on the third attempt; no without-tags fallback occurred. Full 101.3-minute M4B verification passed, including zero silence over 2.5 seconds. Lynasa fit Khả Khả's shifting role-play voices and vulnerable unmasked ending.",
+    "2026-11-23: NTR girlfriend voice drama (7 ch, 598 short lines, 524 tagged, 929 chunks, 21.5 min synth): 0 long silences; ~12 frame-cap retries; 2 chunks fell back to plain, both short lines with a heavy -ing direction ([whimpering] Không được..., [moaning, ecstatic] + [moans]); [weak, pleading] / [ecstatic, breathy] passed first time."
   ],
   "accent": "Southern",
-  "updated": "2026-11-17T20:50:59",
+  "updated": "2026-11-23T11:24:18",
   "samples": [
     {
       "file": "references/voices/lynasa/samples/sample-1.wav",
