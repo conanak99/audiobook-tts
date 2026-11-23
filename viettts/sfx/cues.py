@@ -29,6 +29,7 @@ from . import library as lib
 LOOP_GAIN_DB = -14.0
 ONESHOT_GAIN_DB = -8.0
 CLEAR_GAIN_DB = -5.0  # a clear one-shot plays alone, nearer the voice's level
+SFX_LEVEL_DB = -3.0  # every cue, on top of its gain= or default: the overall SFX level under the voice
 MIN_LOOP_S = 0.25
 LOOP_FADE_IN_S = 0.3
 LOOP_FADE_OUT_S = 0.5
@@ -198,7 +199,7 @@ def place(
                 kind=sound['kind'],
                 start_s=round(start, 3),
                 seconds=round(seconds, 3),
-                gain_db=default_gain if gain is None else gain,
+                gain_db=(default_gain if gain is None else gain) + SFX_LEVEL_DB,
                 fade_in_s=round(fade_in, 3),
                 fade_out_s=round(fade_out, 3),
                 room_s=float('inf') if gap else round(chapter_end - start, 3),  # clear: the chapter grows

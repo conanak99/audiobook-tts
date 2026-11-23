@@ -68,7 +68,9 @@ def cmd_remove(args):
 
 
 def cmd_generate(args):
-    extra = [*args.ids, *(['--force'] if args.force else []), '--seeds', args.seeds, '--steps', str(args.steps)]
+    extra = [*args.ids, *(['--force'] if args.force else []), '--seeds', args.seeds]
+    if args.steps is not None:
+        extra += ['--steps', str(args.steps)]
     command, env = uv_command('sfx', '-m', 'viettts.sfx.generate', *extra)
     sys.exit(subprocess.run(command, env=env).returncode)
 
@@ -286,7 +288,7 @@ def main(argv=None):
     s.add_argument('ids', nargs='*', help='Default: every sound missing takes')
     s.add_argument('--force', action='store_true', help='Render every take of the given ids again')
     s.add_argument('--seeds', default='0,1,2', help='Seeds to try in order, e.g. 3,4,5 for a fresh take')
-    s.add_argument('--steps', type=int, default=100)
+    s.add_argument('--steps', type=int, help='Denoising steps (default: viettts.sfx.generate.STEPS)')
     s.set_defaults(func=cmd_generate)
     for name, func, text in (
         ('timeline', cmd_timeline, 'Write timeline.json (line start/end times) for a built book'),

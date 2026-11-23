@@ -124,10 +124,16 @@ def finish(x, rate, kind):
     return x.astype(np.float32)
 
 
+def rank(kind, passed, peak_db, active):
+    """Sort key for tries (higher is better): a passing try first, then a loop's steadiest try (sound in
+    most of it, so its bed has no gaps) or a one-shot's clearest (loudest hit)."""
+    return (passed, active, peak_db) if kind == 'loop' else (passed, peak_db, active)
+
+
 def render(pipe, sound, seconds, seeds, steps):
-    """The first take that passes the gate, else the loudest: (passed, seed, peak_db, active, samples), and
-    the seeds it tried."""
-    best, tried = None, []
+    """The first take that passes the gate, else the best by rank(): (passed, seed, peak_db, active,
+    samples), and the seeds it tried."""
+    best, best_key, tried = None, None, []
     for seed in seeds:
         tried.append(seed)
         audio = pipe(
@@ -140,8 +146,9 @@ def render(pipe, sound, seconds, seeds, steps):
         x = audio[0, 0].detach().float().cpu().numpy()
         peak_db, active = measure(x, pipe.sample_rate)
         passed = peak_db >= MIN_PEAK_DBFS and active >= MIN_ACTIVE[sound['kind']]
-        if best is None or (passed, peak_db) > (best[0], best[2]):
-            best = (passed, seed, peak_db, active, x)
+        key = rank(sound['kind'], passed, peak_db, active)
+        if best_key is None or key > best_key:
+            best, best_key = (passed, seed, peak_db, active, x), key
         if passed:
             break
     assert best is not None
@@ -216,7 +223,7 @@ def main(argv=None):
             release_memory()
             flag = '' if passed else f'  <- failed the gate on seeds {tried}; best kept, listen to it'
             print(
-                f'[{done}/{total}] {rel} (take {n}/{lib.takes_wanted(sound)}, {seconds:g}s) seed={seed} peak={peak_db:.1f}dB '
+                f'[{done}/{total}] {rel} (take {n}/{lib.takes_wanted(sound)}, {seconds:g}s) seed={seed} steps={args.steps} peak={peak_db:.1f}dB '
                 f'active={active:.2f} {time.perf_counter() - started:.0f}s{flag}',
                 flush=True,
             )
