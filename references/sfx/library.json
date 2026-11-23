@@ -26,6 +26,14 @@
      "raw_peak_db": -2.6,
      "active": 0.59,
      "passed_gate": true
+    },
+    {
+     "file": "bed/bed-creak-fast-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -0.7,
+     "active": 0.68,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -36,7 +44,7 @@
    "kind": "loop",
    "seconds": 10,
    "prompt": "A bed creaking at a steady medium rhythm, mattress springs squeaking with every push, close up",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
    "rendered": [
     {
@@ -45,6 +53,22 @@
      "seed": 1,
      "raw_peak_db": -25.5,
      "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/bed-creak-medium-2.wav",
+     "seconds": 6.0,
+     "seed": 4,
+     "raw_peak_db": -26.1,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/bed-creak-medium-3.wav",
+     "seconds": 15.0,
+     "seed": 5,
+     "raw_peak_db": -22.9,
+     "active": 0.98,
      "passed_gate": true
     }
    ],
@@ -56,7 +80,7 @@
    "kind": "loop",
    "seconds": 10,
    "prompt": "An old wooden bed creaking slowly and rhythmically, mattress springs squeaking, in a quiet bedroom",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
    "rendered": [
     {
@@ -65,6 +89,22 @@
      "seed": 0,
      "raw_peak_db": -27.3,
      "active": 0.99,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/bed-creak-slow-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -23.5,
+     "active": 0.92,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/bed-creak-slow-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -15.7,
+     "active": 0.85,
      "passed_gate": true
     }
    ],
@@ -76,7 +116,7 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "A body falling back onto a bed, soft thump on the mattress and a bounce of the springs",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
    "rendered": [
     {
@@ -85,6 +125,22 @@
      "seed": 0,
      "raw_peak_db": -20.2,
      "active": 0.16,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/bed-fall-onto-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -3.4,
+     "active": 0.2,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/bed-fall-onto-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -20.1,
+     "active": 0.47,
      "passed_gate": true
     }
    ],
@@ -96,7 +152,7 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "Someone sitting down heavily on the edge of a soft bed, mattress springs creaking once",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
    "rendered": [
     {
@@ -105,6 +161,22 @@
      "seed": 0,
      "raw_peak_db": -21.2,
      "active": 0.16,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/bed-sit-down-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -6.5,
+     "active": 0.35,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/bed-sit-down-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -12.6,
+     "active": 0.43,
      "passed_gate": true
     }
    ],
@@ -126,6 +198,22 @@
      "raw_peak_db": -20.2,
      "active": 0.36,
      "passed_gate": true
+    },
+    {
+     "file": "bed/blanket-pull-2.wav",
+     "seconds": 2.0,
+     "seed": 3,
+     "raw_peak_db": -28.7,
+     "active": 0.42,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/blanket-pull-3.wav",
+     "seconds": 3.0,
+     "seed": 4,
+     "raw_peak_db": -29.4,
+     "active": 1.0,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -136,9 +224,34 @@
    "kind": "loop",
    "seconds": 10,
    "prompt": "A wooden headboard banging fast against the wall, bed frame rattling and creaking hard",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "bed/headboard-knock-fast.wav",
+     "seconds": 10.0,
+     "seed": 0,
+     "raw_peak_db": -4.9,
+     "active": 0.79,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/headboard-knock-fast-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -12.0,
+     "active": 0.96,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/headboard-knock-fast-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -7.0,
+     "active": 0.97,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -147,9 +260,34 @@
    "kind": "loop",
    "seconds": 10,
    "prompt": "A wooden headboard slowly knocking against a bedroom wall in a steady rhythm, bed frame creaking",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "bed/headboard-knock-slow.wav",
+     "seconds": 10.0,
+     "seed": 0,
+     "raw_peak_db": -22.1,
+     "active": 0.53,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/headboard-knock-slow-2.wav",
+     "seconds": 6.0,
+     "seed": 2,
+     "raw_peak_db": -10.0,
+     "active": 0.6,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/headboard-knock-slow-3.wav",
+     "seconds": 15.0,
+     "seed": 3,
+     "raw_peak_db": -14.1,
+     "active": 0.33,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -167,6 +305,22 @@
      "seed": 0,
      "raw_peak_db": -19.7,
      "active": 0.61,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/sheets-rustle-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -21.3,
+     "active": 0.47,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/sheets-rustle-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -7.8,
+     "active": 0.52,
      "passed_gate": true
     }
    ],
@@ -186,6 +340,22 @@
      "seed": 0,
      "raw_peak_db": -0.0,
      "active": 0.28,
+     "passed_gate": true
+    },
+    {
+     "file": "body/cum-spurt-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": 0.0,
+     "active": 0.48,
+     "passed_gate": true
+    },
+    {
+     "file": "body/cum-spurt-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -0.1,
+     "active": 0.39,
      "passed_gate": true
     }
    ],
@@ -208,6 +378,22 @@
      "raw_peak_db": -27.0,
      "active": 0.11,
      "passed_gate": true
+    },
+    {
+     "file": "body/kiss-smack-2.wav",
+     "seconds": 2.0,
+     "seed": 3,
+     "raw_peak_db": -24.5,
+     "active": 0.06,
+     "passed_gate": true
+    },
+    {
+     "file": "body/kiss-smack-3.wav",
+     "seconds": 3.0,
+     "seed": 5,
+     "raw_peak_db": -0.4,
+     "active": 0.01,
+     "passed_gate": false
     }
    ],
    "takes": 3
@@ -228,6 +414,22 @@
      "raw_peak_db": -24.7,
      "active": 0.55,
      "passed_gate": true
+    },
+    {
+     "file": "body/kisses-wet-2.wav",
+     "seconds": 6.0,
+     "seed": 4,
+     "raw_peak_db": -43.7,
+     "active": 1.0,
+     "passed_gate": false
+    },
+    {
+     "file": "body/kisses-wet-3.wav",
+     "seconds": 15.0,
+     "seed": 6,
+     "raw_peak_db": -30.7,
+     "active": 0.99,
+     "passed_gate": false
     }
    ],
    "takes": 3
@@ -247,6 +449,22 @@
      "seed": 2,
      "raw_peak_db": -22.8,
      "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/lick-wet-2.wav",
+     "seconds": 6.0,
+     "seed": 4,
+     "raw_peak_db": -30.0,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/lick-wet-3.wav",
+     "seconds": 15.0,
+     "seed": 7,
+     "raw_peak_db": -26.7,
+     "active": 0.48,
      "passed_gate": true
     }
    ],
@@ -268,6 +486,22 @@
      "raw_peak_db": -24.1,
      "active": 0.83,
      "passed_gate": true
+    },
+    {
+     "file": "body/lube-rub-hands-2.wav",
+     "seconds": 6.0,
+     "seed": 2,
+     "raw_peak_db": -31.0,
+     "active": 1.0,
+     "passed_gate": false
+    },
+    {
+     "file": "body/lube-rub-hands-3.wav",
+     "seconds": 15.0,
+     "seed": 5,
+     "raw_peak_db": -29.3,
+     "active": 0.99,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -278,9 +512,34 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "A plastic bottle of lotion squeezed, a wet squirt and a small splat, close up",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "body/lube-squirt.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -0.1,
+     "active": 0.12,
+     "passed_gate": true
+    },
+    {
+     "file": "body/lube-squirt-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -0.1,
+     "active": 0.13,
+     "passed_gate": true
+    },
+    {
+     "file": "body/lube-squirt-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -1.4,
+     "active": 0.1,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -298,6 +557,22 @@
      "seed": 2,
      "raw_peak_db": -11.1,
      "active": 0.86,
+     "passed_gate": true
+    },
+    {
+     "file": "body/skin-caress-2.wav",
+     "seconds": 6.0,
+     "seed": 5,
+     "raw_peak_db": -21.8,
+     "active": 0.8,
+     "passed_gate": true
+    },
+    {
+     "file": "body/skin-caress-3.wav",
+     "seconds": 15.0,
+     "seed": 8,
+     "raw_peak_db": -19.0,
+     "active": 0.78,
      "passed_gate": true
     }
    ],
@@ -319,6 +594,22 @@
      "raw_peak_db": -2.4,
      "active": 0.36,
      "passed_gate": true
+    },
+    {
+     "file": "body/skin-slap-fast-2.wav",
+     "seconds": 6.0,
+     "seed": 4,
+     "raw_peak_db": 0.0,
+     "active": 0.49,
+     "passed_gate": true
+    },
+    {
+     "file": "body/skin-slap-fast-3.wav",
+     "seconds": 15.0,
+     "seed": 6,
+     "raw_peak_db": -2.5,
+     "active": 0.64,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -338,6 +629,22 @@
      "seed": 0,
      "raw_peak_db": -7.0,
      "active": 0.52,
+     "passed_gate": true
+    },
+    {
+     "file": "body/skin-slap-medium-2.wav",
+     "seconds": 6.0,
+     "seed": 2,
+     "raw_peak_db": -4.1,
+     "active": 0.28,
+     "passed_gate": false
+    },
+    {
+     "file": "body/skin-slap-medium-3.wav",
+     "seconds": 15.0,
+     "seed": 6,
+     "raw_peak_db": -1.1,
+     "active": 0.64,
      "passed_gate": true
     }
    ],
@@ -359,6 +666,22 @@
      "raw_peak_db": -7.8,
      "active": 0.54,
      "passed_gate": true
+    },
+    {
+     "file": "body/skin-slap-slow-2.wav",
+     "seconds": 6.0,
+     "seed": 4,
+     "raw_peak_db": -23.8,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/skin-slap-slow-3.wav",
+     "seconds": 15.0,
+     "seed": 5,
+     "raw_peak_db": -13.4,
+     "active": 0.55,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -379,6 +702,22 @@
      "raw_peak_db": -10.7,
      "active": 0.38,
      "passed_gate": true
+    },
+    {
+     "file": "body/slurp-sloppy-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -15.6,
+     "active": 0.56,
+     "passed_gate": true
+    },
+    {
+     "file": "body/slurp-sloppy-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -6.4,
+     "active": 0.61,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -389,9 +728,34 @@
    "kind": "loop",
    "seconds": 10,
    "prompt": "A hand spanking bare skin, several sharp loud slaps with short pauses between them",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "body/spank-series.wav",
+     "seconds": 10.0,
+     "seed": 2,
+     "raw_peak_db": -0.0,
+     "active": 0.1,
+     "passed_gate": false
+    },
+    {
+     "file": "body/spank-series-2.wav",
+     "seconds": 6.0,
+     "seed": 3,
+     "raw_peak_db": -1.1,
+     "active": 0.06,
+     "passed_gate": false
+    },
+    {
+     "file": "body/spank-series-3.wav",
+     "seconds": 15.0,
+     "seed": 7,
+     "raw_peak_db": -0.0,
+     "active": 0.09,
+     "passed_gate": false
+    }
+   ],
    "takes": 3
   },
   {
@@ -400,9 +764,18 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "A single sharp hand slap on bare skin in a quiet room",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "body/spank-single.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": 0.0,
+     "active": 0.05,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -419,6 +792,22 @@
      "seed": 0,
      "raw_peak_db": -24.2,
      "active": 0.46,
+     "passed_gate": true
+    },
+    {
+     "file": "body/squirt-drip-2.wav",
+     "seconds": 6.0,
+     "seed": 2,
+     "raw_peak_db": -28.5,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/squirt-drip-3.wav",
+     "seconds": 15.0,
+     "seed": 3,
+     "raw_peak_db": -16.9,
+     "active": 0.48,
      "passed_gate": true
     }
    ],
@@ -439,6 +828,22 @@
      "seed": 0,
      "raw_peak_db": -0.1,
      "active": 0.85,
+     "passed_gate": true
+    },
+    {
+     "file": "body/squirt-gush-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -0.5,
+     "active": 0.86,
+     "passed_gate": true
+    },
+    {
+     "file": "body/squirt-gush-3.wav",
+     "seconds": 4.5,
+     "seed": 2,
+     "raw_peak_db": -0.9,
+     "active": 0.92,
      "passed_gate": true
     }
    ],
@@ -461,6 +866,22 @@
      "raw_peak_db": -0.6,
      "active": 0.47,
      "passed_gate": true
+    },
+    {
+     "file": "body/squirt-splash-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -1.1,
+     "active": 0.85,
+     "passed_gate": true
+    },
+    {
+     "file": "body/squirt-splash-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -5.8,
+     "active": 0.55,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -480,6 +901,22 @@
      "seed": 0,
      "raw_peak_db": -0.1,
      "active": 0.03,
+     "passed_gate": false
+    },
+    {
+     "file": "body/suck-pop-2.wav",
+     "seconds": 2.0,
+     "seed": 3,
+     "raw_peak_db": -10.0,
+     "active": 0.05,
+     "passed_gate": true
+    },
+    {
+     "file": "body/suck-pop-3.wav",
+     "seconds": 3.0,
+     "seed": 5,
+     "raw_peak_db": 0.0,
+     "active": 0.01,
      "passed_gate": false
     }
    ],
@@ -501,6 +938,22 @@
      "raw_peak_db": -20.5,
      "active": 0.34,
      "passed_gate": true
+    },
+    {
+     "file": "body/wet-fingering-2.wav",
+     "seconds": 6.0,
+     "seed": 4,
+     "raw_peak_db": -9.6,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/wet-fingering-3.wav",
+     "seconds": 15.0,
+     "seed": 6,
+     "raw_peak_db": -11.0,
+     "active": 0.25,
+     "passed_gate": false
     }
    ],
    "takes": 3
@@ -520,6 +973,22 @@
      "seed": 0,
      "raw_peak_db": -0.0,
      "active": 0.67,
+     "passed_gate": true
+    },
+    {
+     "file": "body/wet-squelch-fast-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -5.9,
+     "active": 0.71,
+     "passed_gate": true
+    },
+    {
+     "file": "body/wet-squelch-fast-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -0.3,
+     "active": 0.55,
      "passed_gate": true
     }
    ],
@@ -541,6 +1010,22 @@
      "raw_peak_db": -11.2,
      "active": 0.39,
      "passed_gate": true
+    },
+    {
+     "file": "body/wet-squelch-slow-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -27.8,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/wet-squelch-slow-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -6.8,
+     "active": 0.83,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -560,6 +1045,22 @@
      "seed": 0,
      "raw_peak_db": -0.1,
      "active": 0.51,
+     "passed_gate": true
+    },
+    {
+     "file": "props/call-end-beep-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -1.4,
+     "active": 0.82,
+     "passed_gate": true
+    },
+    {
+     "file": "props/call-end-beep-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -6.3,
+     "active": 0.65,
      "passed_gate": true
     }
    ],
@@ -636,6 +1137,22 @@
      "raw_peak_db": 0.0,
      "active": 0.71,
      "passed_gate": true
+    },
+    {
+     "file": "props/phone-ringtone-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -0.1,
+     "active": 0.54,
+     "passed_gate": true
+    },
+    {
+     "file": "props/phone-ringtone-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -0.1,
+     "active": 0.56,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -656,6 +1173,22 @@
      "raw_peak_db": -0.7,
      "active": 0.18,
      "passed_gate": true
+    },
+    {
+     "file": "props/tea-cup-saucer-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -10.0,
+     "active": 0.26,
+     "passed_gate": true
+    },
+    {
+     "file": "props/tea-cup-saucer-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -5.6,
+     "active": 0.12,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -675,6 +1208,22 @@
      "seed": 0,
      "raw_peak_db": -24.9,
      "active": 0.24,
+     "passed_gate": true
+    },
+    {
+     "file": "props/tea-sip-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -23.6,
+     "active": 0.33,
+     "passed_gate": true
+    },
+    {
+     "file": "props/tea-sip-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -20.7,
+     "active": 0.1,
      "passed_gate": true
     }
    ],
@@ -729,6 +1278,22 @@
      "raw_peak_db": -6.1,
      "active": 0.15,
      "passed_gate": true
+    },
+    {
+     "file": "scene/door-close-lock-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": 0.0,
+     "active": 0.32,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/door-close-lock-3.wav",
+     "seconds": 4.5,
+     "seed": 2,
+     "raw_peak_db": -0.7,
+     "active": 0.11,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -760,6 +1325,22 @@
      "raw_peak_db": -23.9,
      "active": 0.35,
      "passed_gate": true
+    },
+    {
+     "file": "scene/door-knock-soft-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -9.9,
+     "active": 0.22,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/door-knock-soft-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -19.9,
+     "active": 0.75,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -779,6 +1360,22 @@
      "seed": 1,
      "raw_peak_db": -16.3,
      "active": 0.99,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/footsteps-hallway-2.wav",
+     "seconds": 6.0,
+     "seed": 2,
+     "raw_peak_db": -20.5,
+     "active": 0.99,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/footsteps-hallway-3.wav",
+     "seconds": 15.0,
+     "seed": 3,
+     "raw_peak_db": -21.6,
+     "active": 0.98,
      "passed_gate": true
     }
    ],
@@ -833,6 +1430,22 @@
      "raw_peak_db": -1.9,
      "active": 1.0,
      "passed_gate": true
+    },
+    {
+     "file": "scene/station-plaza-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -4.0,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/station-plaza-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -0.1,
+     "active": 1.0,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -863,6 +1476,22 @@
      "seed": 0,
      "raw_peak_db": -11.1,
      "active": 0.1,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/belt-unbuckle-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -1.6,
+     "active": 0.07,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/belt-unbuckle-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -10.9,
+     "active": 0.17,
      "passed_gate": true
     }
    ],
@@ -906,6 +1535,22 @@
      "raw_peak_db": -8.4,
      "active": 0.19,
      "passed_gate": false
+    },
+    {
+     "file": "undress/clothes-rustle-2.wav",
+     "seconds": 6.0,
+     "seed": 5,
+     "raw_peak_db": -9.0,
+     "active": 0.36,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/clothes-rustle-3.wav",
+     "seconds": 15.0,
+     "seed": 8,
+     "raw_peak_db": -39.1,
+     "active": 1.0,
+     "passed_gate": false
     }
    ],
    "takes": 3
@@ -925,6 +1570,22 @@
      "seed": 1,
      "raw_peak_db": -18.8,
      "active": 0.49,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/fabric-slide-off-2.wav",
+     "seconds": 2.0,
+     "seed": 3,
+     "raw_peak_db": -29.8,
+     "active": 0.5,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/fabric-slide-off-3.wav",
+     "seconds": 4.5,
+     "seed": 5,
+     "raw_peak_db": -23.9,
+     "active": 0.56,
      "passed_gate": true
     }
    ],
@@ -979,6 +1640,22 @@
      "raw_peak_db": -21.4,
      "active": 0.35,
      "passed_gate": true
+    },
+    {
+     "file": "undress/towel-drop-2.wav",
+     "seconds": 2.0,
+     "seed": 2,
+     "raw_peak_db": -23.1,
+     "active": 0.49,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/towel-drop-3.wav",
+     "seconds": 3.0,
+     "seed": 3,
+     "raw_peak_db": -17.3,
+     "active": 0.07,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -1009,6 +1686,22 @@
      "seed": 0,
      "raw_peak_db": -14.1,
      "active": 0.5,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/zipper-jeans-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -0.0,
+     "active": 0.62,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/zipper-jeans-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -9.0,
+     "active": 0.83,
      "passed_gate": true
     }
    ],

@@ -63,15 +63,17 @@ Em tới trước nhà ga rồi nè.
 
 ## Steps
 
-1. **Survey.** Count the tracks and the cues in each, note duplicates and long silences, and ask the user what to drop.
+The helper is `.opencode/skills/translate/scripts/parse_cues.py` (call it `$TC` below). Run it from the repository root with `python3`.
+
+1. **Survey.** Run `python3 $TC /abs/path/source.md --summary` to count the tracks, the cues in each, duplicate tracks, and silence gaps (`>= 8 s` and `3–8 s`), and ask the user what to drop. To inspect a track's cues with exact gap annotations (`[GAP >= 8s: MUST BREAK]`, `[GAP 3-8s: CHECK TURN]`), run `python3 $TC /abs/path/source.md --track N`.
 2. **Decide pronouns.** Before writing a line, list who she talks to in each track and the pronoun pair for each (see the style guide). Keep this short list in mind or in the reply; every step after this one follows it.
 3. **Translate in small steps.** Long writes time out or get cut off. Never write the whole script in one go:
    - Translate **one track per step, at most ~60 cues or ~3,000 characters**. Split a longer track at a scene change into several steps.
-   - Write the scene breaks as you go, from that piece's timestamps.
+   - Write the scene breaks as you go, from that piece's timestamps (`python3 $TC /abs/path/source.md --track N`).
    - The first step creates `script_vn.md`, and each later step **appends** to it. After each step, check that the file ends where you expect (the last cue of that piece) before going on.
    - If a step is cut off, rewrite only that piece, not the whole file.
    - For a big script (over ~400 cues), up to 3 `general` subagents can work in parallel. Give each one whole tracks, this whole skill, the pronoun list, and its own `script_vn_partN.md`. Tell each to work in steps of ~60 cues too. Merge the parts in track order.
-4. **Review** each track against the source, also in pieces of ~60 cues. Use a subagent for a big script. Check, in order:
+4. **Review** each track against the source, also in pieces of ~60 cues. Use a subagent for a big script. First run `python3 $TC /abs/path/source.md --verify outputs/voice-dramas/<slug>/script_vn.md [--drop N]` to verify line counts, `>= 8 s` breaks, `< 3 s` breaks, and leftover characters/brackets automatically. Then check, in order:
    1. **Count:** each track has exactly as many lines as cues, in order, with nothing merged, split or skipped. Track numbers are `1, 2, 3 …`.
    2. **Meaning:** negations and who does what to whom (`不要` "don't" vs `不用` "no need", `被` passive, `讓我` "let me" vs "make me").
    3. **Pronouns:** the same pair through a track, and no stray `tôi` in an `em – anh` track.
@@ -80,7 +82,7 @@ Em tới trước nhà ga rồi nè.
    5. **Speech:** lines that read like subtitles or a literal translation get rewritten as speech, and dropped pacing marks (`...`, `~`, stutters, repeated cries) are put back.
    6. **Scenes:** a blank line at every silence of 8 s or more and at every clear change, none inside a running exchange, and no track broken after every line.
 
-   Fix with targeted edits, then recheck the counts.
+   Fix with targeted edits, then recheck with `python3 $TC /abs/path/source.md --verify outputs/voice-dramas/<slug>/script_vn.md`.
 5. **Hand off.** Tell the user the track, line and scene counts, what you dropped, what the review fixed, and any line you're still unsure of. Then continue with **voice-drama** on `script_vn.md` in the same folder.
 
 ## Style guide
