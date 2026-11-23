@@ -13,7 +13,8 @@ from viettts.paths import ROOT
 
 def cmd_worker(args):
     # The build helpers are stdlib-only; SDKs stay inside this worker.
-    from viettts.audiobook.build import MAX_SILENCE_S, clock, frame_budget, level, longest_silence, squeeze
+    from viettts.audiobook.audio import MAX_SILENCE_S, level, longest_silence, squeeze
+    from viettts.audiobook.workers import clock, frame_budget
 
     os.environ['HF_HUB_DISABLE_SYMLINKS'] = '1'
     for name, suffix in [

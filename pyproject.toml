@@ -34,7 +34,7 @@ warn_redundant_casts = true
 show_error_codes = true
 
 [[tool.mypy.overrides]]
-module = ["vieneu", "vieneu_utils.*", "soundfile", "mlx.*", "mlx_audio.*", "huggingface_hub"]
+module = ["vieneu", "vieneu_utils.*", "soundfile", "mlx.*", "mlx_audio.*", "huggingface_hub", "torch", "torchaudio.*", "moss_soundeffect_v2.*"]
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]

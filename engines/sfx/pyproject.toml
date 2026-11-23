@@ -1,0 +1,15 @@
+[project]
+name = "viettts-sfx"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  # MOSS-SoundEffect v2 (text-to-audio DiT); viettts.sfx.generate patches it for Apple MPS at runtime.
+  "moss-soundeffect-v2 @ git+https://github.com/OpenMOSS/MOSS-TTS@934d6826b084c46a0d033402174d5f8ac4ed2519#subdirectory=moss_soundeffect_v2",
+  "torch==2.9.0",
+  "torchaudio==2.9.0",
+  "huggingface-hub>=0.34",
+  "soundfile>=0.13.1",
+]
+
+[tool.uv]
+package = false

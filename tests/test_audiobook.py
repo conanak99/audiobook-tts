@@ -1,26 +1,11 @@
 import unittest
 from unittest import mock
 
-from viettts.audiobook.build import (
-    PAUSES_MS,
-    TaggedText,
-    cache_key,
-    ffmeta_escape,
-    ffmetadata,
-    load_cast,
-    match_enhance,
-    plan_units,
-    read_enhance,
-    resolve_voice,
-    shard,
-    slugify,
-    split_tagged,
-    spoken,
-    tag_problems,
-    trim_edges,
-    untagged,
-    voice_for,
-)
+from viettts.audiobook.audio import trim_edges
+from viettts.audiobook.cast import load_cast, resolve_voice, voice_for
+from viettts.audiobook.enhance import match_enhance, read_enhance
+from viettts.audiobook.layout import PAUSES_MS, cache_key, plan_units
+from viettts.audiobook.m4b import ffmeta_escape, ffmetadata
 from viettts.audiobook.script import (
     apply_review,
     build_book,
@@ -31,6 +16,9 @@ from viettts.audiobook.script import (
     segment,
     write_script,
 )
+from viettts.audiobook.tags import TaggedText, split_tagged, spoken, tag_problems, untagged
+from viettts.audiobook.workers import shard
+from viettts.text import slugify
 
 STORY = """# Sương Nguyệt — Tập Một
 
@@ -56,6 +44,11 @@ Ta hé mở một mắt. "Muội lại tới."
 
 Nàng ghi chữ "cấm vào" lên cửa. Sương Nguyệt cười.
 """
+
+
+def without_lines(chapters):
+    """plan_units() chapters with each unit's script line number dropped: (key, text, pause)."""
+    return [(title, [unit[:3] for unit in units]) for title, units in chapters]
 
 
 def speakers_of(book):
@@ -207,16 +200,20 @@ class BuildHelperTests(unittest.TestCase):
     def test_voices_and_units(self):
         script = read_script(write_script(build_book(STORY)))
         voices = {'narrator': 'N', 'male': 'M', 'female': 'F'}
-        ((title, units),) = plan_units(script, voices, 'fail')
+        ((title, units),) = without_lines(plan_units(script, voices, 'fail'))
         self.assertEqual(units[0], ('narrator', 'Sương Nguyệt — Tập Một', PAUSES_MS['title']))
         self.assertEqual(units[1], ('narrator', 'Chương 1: Mở Đầu', PAUSES_MS['title']))
         self.assertIn(('female', 'Sư huynh!', PAUSES_MS['segment']), units)
         self.assertIn(('narrator', 'Muội lại tới.', PAUSES_MS['paragraph']), units)  # the MC speaks as the narrator
-        ((_, own),) = plan_units(script, {**voices, 'mc': 'C'}, 'fail')  # the cast gave the MC a voice
+        ((_, own),) = without_lines(plan_units(script, {**voices, 'mc': 'C'}, 'fail'))  # the cast gave the MC a voice
         self.assertIn(('mc', 'Muội lại tới.', PAUSES_MS['paragraph']), own)
         self.assertIn(('narrator', 'Chương 1: Mở Đầu', PAUSES_MS['title']), own)
         self.assertEqual(voice_for('ta', {'ta': 'male'}, {**voices, 'ta': 'X'}, 'fail', 'ta'), 'ta')
         self.assertEqual(units[-1][2], PAUSES_MS['chapter_end'])
+        ((_, numbered),) = plan_units(script, voices, 'fail')
+        lines = {line.text: line.number for _, ps in script.chapters for p in ps for line in p}
+        self.assertEqual([u[3] for u in numbered[:2]], [None, None])  # the book and chapter titles
+        self.assertIn(('female', 'Sư huynh!', PAUSES_MS['segment'], lines['Sư huynh!']), numbered)
         self.assertEqual(voice_for('narrator', {}, voices, 'fail'), 'narrator')
         with self.assertRaises(SystemExit):
             voice_for('Ai đó', {'Ai đó': '?'}, voices, 'fail')
@@ -227,14 +224,16 @@ class BuildHelperTests(unittest.TestCase):
         old = '[narrator] Ta hé mở một mắt.'
         self.assertIn(old, text)
         text = text.replace(old, '[narrator] ▰▰▰▱▱\n[narrator] [🔒 ??? —\n' + old, 1)
-        ((_, units),) = plan_units(read_script(text), {'narrator': 'N', 'male': 'M', 'female': 'F'}, 'fail')
+        ((_, units),) = without_lines(
+            plan_units(read_script(text), {'narrator': 'N', 'male': 'M', 'female': 'F'}, 'fail')
+        )
         self.assertFalse(any(t in ('▰▰▰▱▱', '[🔒 ??? —') for _, t, _ in units))
         self.assertIn(('narrator', 'Ta hé mở một mắt.', PAUSES_MS['segment']), units)
 
     def test_drama3_cache_follows_model_revision(self):
         from unittest import mock
 
-        from viettts.audiobook import build as run_audiobook
+        from viettts.audiobook import layout as run_audiobook
 
         vieneu, drama3 = cache_key('vieneu', 'Hải Đăng', 'Chào.'), cache_key('drama3', {'ref': 'a'}, 'Chào.')
         with mock.patch.object(run_audiobook, 'DRAMA3_REVISION', 'older'):
@@ -258,7 +257,6 @@ class BuildHelperTests(unittest.TestCase):
         import json
         import tempfile
         from pathlib import Path
-        from types import SimpleNamespace
 
         from viettts.paths import ROOT
 
@@ -266,7 +264,7 @@ class BuildHelperTests(unittest.TestCase):
             if data is not None:
                 path = Path(tempfile.mkdtemp()) / 'cast.json'
                 path.write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
-            return load_cast(SimpleNamespace(cast=path))
+            return load_cast(path)
 
         mix, voices = cast()  # no --cast: the defaults, as casts/mixed.json spells out
         self.assertEqual(mix, 'mixed')
@@ -292,7 +290,7 @@ class BuildHelperTests(unittest.TestCase):
             cast({'engine': 'vieneu', 'voices': {}})  # "engine" is gone: the voices decide
 
     def test_cast_keys_that_match_nothing_are_reported(self):
-        from viettts.audiobook.build import unmatched_cast_keys
+        from viettts.audiobook.cast import unmatched_cast_keys
 
         script = read_script(write_script(build_book(STORY)))  # speakers: ta, Sương Nguyệt
         voices = dict.fromkeys(['narrator', 'mc', 'male', 'female', 'Sương Nguyệt', 'ta', 'Suong Nguyet'], 'v')
@@ -320,7 +318,7 @@ class BuildHelperTests(unittest.TestCase):
                 parse_chapter_spec(bad, 11)
 
     def test_volume_from_folder_and_title(self):
-        from viettts.audiobook.build import source_volume, volume_title
+        from viettts.audiobook.m4b import source_volume, volume_title
 
         self.assertEqual(source_volume('/s/_archived/meimei_v2/story_vn.md'), 2)
         self.assertEqual(source_volume('/s/foo_vol3/story_vn.md'), 3)
@@ -331,7 +329,7 @@ class BuildHelperTests(unittest.TestCase):
         self.assertEqual(volume_title('Sương Nguyệt', None), ('', 'Sương Nguyệt'))
 
     def test_frame_budget(self):
-        from viettts.audiobook.build import frame_budget
+        from viettts.audiobook.workers import frame_budget
 
         self.assertEqual(frame_budget('Người,'), 128)
         self.assertEqual(frame_budget('a' * 60 + '... b.'), 66 * 3 + 40 + 15 * 4)  # '...' is 3 breaks too
@@ -388,7 +386,7 @@ class EnhanceTests(unittest.TestCase):
         )
 
     def test_sounds_and_directions(self):
-        from viettts.audiobook.build import is_sound
+        from viettts.audiobook.tags import is_sound
 
         for sound in ['[sighs]', '[small laugh]', '[shaky breath]', '[soft moan]', '[gasps]', '[pause]', '[pants]']:
             self.assertTrue(is_sound(sound), sound)
@@ -423,19 +421,23 @@ class EnhanceTests(unittest.TestCase):
         matched, stale = match_enhance(moved, entries)
         self.assertEqual(matched, {line.number + 1: '[bright, teasing] Sư huynh!'})
         self.assertEqual(stale, [(999, '[x] Không có.')])
-        ((_, units),) = plan_units(
-            script,
-            {'narrator': ('vieneu', 'N'), 'male': ('vieneu', 'M'), 'female': ('drama3', {})},
-            'fail',
-            enhanced={line.number: entries[line.number]},
+        ((_, units),) = without_lines(
+            plan_units(
+                script,
+                {'narrator': ('vieneu', 'N'), 'male': ('vieneu', 'M'), 'female': ('drama3', {})},
+                'fail',
+                enhanced={line.number: entries[line.number]},
+            )
         )
         self.assertIn(('female', '[bright, teasing] Sư huynh!', PAUSES_MS['segment']), units)
         self.assertTrue(any(isinstance(t, TaggedText) for _, t, _ in units))
-        ((_, units),) = plan_units(
-            script,
-            {'narrator': 'N', 'male': 'M', 'female': ('vieneu', 'F')},
-            'fail',
-            enhanced={line.number: entries[line.number]},
+        ((_, units),) = without_lines(
+            plan_units(
+                script,
+                {'narrator': 'N', 'male': 'M', 'female': ('vieneu', 'F')},
+                'fail',
+                enhanced={line.number: entries[line.number]},
+            )
         )
         self.assertIn(('female', 'Sư huynh!', PAUSES_MS['segment']), units)  # VieNeu would read the tags
 
@@ -511,13 +513,13 @@ class VieneuBackendTests(unittest.TestCase):
         import tempfile
         from pathlib import Path
 
-        from viettts.audiobook import build
+        from viettts.audiobook import workers
 
         process = mock.Mock(stdout=iter([]), wait=mock.Mock(return_value=0))
-        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(build.subprocess, 'Popen', return_value=process):
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.object(workers.subprocess, 'Popen', return_value=process):
             for engine in ('vieneu', 'drama3'):
-                build.run_workers(engine, [dict(id='a', text='hi')], Path(tmp), 2, 1, mock.Mock(), 'onnx')
-            commands = [call.args[0] for call in build.subprocess.Popen.call_args_list]
+                workers.WorkerPool(engine, Path(tmp), 2, 1, mock.Mock(), 'onnx').run([dict(id='a', text='hi')])
+            commands = [call.args[0] for call in workers.subprocess.Popen.call_args_list]
         self.assertEqual(commands[0][-2:], ['--backend', 'onnx'])
         self.assertNotIn('--backend', commands[1])
 
@@ -580,7 +582,7 @@ class AudioHelperTests(unittest.TestCase):
         self.assertEqual(sessions, [['000000-0', '000000-1', '000001-0', '000003-0'], ['000001-0', '000003-0']])
 
     def test_squeeze_shortens_only_long_inner_pauses(self):
-        from viettts.audiobook.build import longest_silence, squeeze
+        from viettts.audiobook.audio import longest_silence, squeeze
 
         r = 44100
 

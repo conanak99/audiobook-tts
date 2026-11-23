@@ -51,7 +51,7 @@ The table below is regenerated from `voice.json`; don't edit it by hand.
 
 A system voice keeps banners apart from the narration without using up one of the 3 Drama-3 women. VieNeu reads banner text in capitals and the brackets without trouble, and `check` flags its lines with "female speaker uses words men say", which is expected for system text. Give the system its own speaker even when a whole banner and its description are split over two script lines. In Mị Mị v2–v6, 9–44 lines per book went to it with no failures.
 
-Builds accept only the VieNeu voices in `VIENEU_VOICES` (`viettts/audiobook/build.py`). To use another VieNeu preset, add its name to the list first; its GGUF voice files are created on first use.
+Builds accept only the VieNeu voices in `VIENEU_VOICES` (`viettts/audiobook/cast.py`). To use another VieNeu preset, add its name to the list first; its GGUF voice files are created on first use.
 
 An all-Drama-3 cast (`casts/drama3.json`) gives the men the synthetic references `references/vieneu-thien-minh.wav` and `references/vieneu-hai-dang.wav`.
 

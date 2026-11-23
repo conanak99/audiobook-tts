@@ -45,9 +45,9 @@ class PackageTests(unittest.TestCase):
             [
                 sys.executable,
                 '-c',
-                'import viettts.cli, viettts.audiobook.build, viettts.voices.onboarding; '
+                'import viettts.cli, viettts.audiobook.cli, viettts.sfx.cli, viettts.voices.onboarding; '
                 'import sys; assert not '
-                '({"numpy", "soundfile", "vieneu", "mlx", "mlx_audio"} & sys.modules.keys())',
+                '({"numpy", "soundfile", "torch", "vieneu", "mlx", "mlx_audio"} & sys.modules.keys())',
             ],
             cwd=ROOT,
             capture_output=True,
@@ -170,13 +170,11 @@ class PackageTests(unittest.TestCase):
         result = self.cli('voice', 'list')
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn('shirone-mika', result.stdout)
-        from types import SimpleNamespace
-
-        from viettts.audiobook.build import load_cast
+        from viettts.audiobook.cast import load_cast
 
         for path in (ROOT / 'casts').glob('*.json'):
             self.assertNotIn('engine', json.loads(path.read_text()))  # each voice picks its own engine
-            mix, voices = load_cast(SimpleNamespace(cast=path))
+            mix, voices = load_cast(path)
             self.assertEqual(mix, path.stem)  # casts/<mix>.json
             self.assertEqual(set(voices), set(json.loads(path.read_text())['voices']))
 

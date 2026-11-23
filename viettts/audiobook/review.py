@@ -1,10 +1,14 @@
 """Parse stories and review attributed scripts without loading a TTS engine."""
 
+import json
 from datetime import datetime
 
 from viettts.paths import ROOT
 from viettts.text import slugify
 
+from .cast import load_cast, unmatched_cast_keys, voice_label
+from .enhance import check_enhance, enhance_path
+from .layout import plan_units
 from .script import UNKNOWN, apply_review, build_book, check_script, export_review, read_script, write_script
 
 OUTPUTS = ROOT / 'outputs' / 'audiobooks'
@@ -74,9 +78,23 @@ def cmd_apply_review(args):
     print(f'Applied {changes} answers (backup: {backup.name}); {left} review items still open.')
 
 
-def cmd_check(args):
-    from .build import check_enhance, enhance_path, validate_cast, voice_label
+def validate_cast(script, cast_path, script_name='script.txt'):
+    """Resolve and plan a cast exactly as a build would, without loading a TTS engine."""
+    try:
+        mix, voices = load_cast(cast_path)
+    except (OSError, json.JSONDecodeError, SystemExit) as error:
+        return None, {}, [str(error)]
+    findings = [
+        f'key "{key}" is not a role or a speaker in {script_name}' for key in unmatched_cast_keys(voices, script)
+    ]
+    try:
+        plan_units(script, voices, 'fail')
+    except SystemExit as error:
+        findings.append(str(error))
+    return mix, voices, findings
 
+
+def cmd_check(args):
     script_path = args.script.resolve()
     text = script_path.read_text(encoding='utf-8')
     script = read_script(text)

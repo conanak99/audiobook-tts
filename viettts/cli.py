@@ -9,8 +9,8 @@ def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog='python3 -m viettts', description=__doc__)
     parser.add_argument(
         'command',
-        choices=['audiobook', 'voice', 'speak'],
-        help='Build audiobooks, onboard voices, or synthesize speech',
+        choices=['audiobook', 'voice', 'sfx', 'speak'],
+        help='Build audiobooks, onboard voices, add sound effects, or synthesize speech',
     )
     # Leave each command's options/help to its own parser.
     if not argv or argv[0] in ('-h', '--help'):
@@ -18,11 +18,15 @@ def main(argv: list[str] | None = None) -> None:
         return
     command = parser.parse_args(argv[:1]).command
     if command == 'audiobook':
-        from .audiobook.build import main as run
+        from .audiobook.cli import main as run
 
         return run(argv[1:])
     if command == 'voice':
         from .voices.onboarding import main as run
+
+        return run(argv[1:])
+    if command == 'sfx':
+        from .sfx.cli import main as run
 
         return run(argv[1:])
     engine_parser = argparse.ArgumentParser(

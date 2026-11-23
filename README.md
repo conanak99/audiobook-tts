@@ -16,6 +16,7 @@ From this repository:
 ```sh
 uv sync --locked --project engines/vieneu
 uv sync --locked --project engines/drama3
+uv sync --locked --project engines/sfx      # optional: sound effects (MOSS-SoundEffect v2, ~10 GB model)
 ```
 
 The orchestration package uses only the standard library. Engine commands automatically launch Python in their isolated, locked uv environments. Drama-3 needs Apple Silicon and substantial RAM/disk; see [setup](docs/setup.md).
@@ -50,6 +51,17 @@ python3 -m viettts voice approve my-voice --gender female
 
 Transcription uses NanoGPT and needs `NANOGPT_API_KEY` or `--key-file`; never commit secrets. Existing approved voices: `python3 -m viettts voice list`.
 
+## Add sound effects
+
+```sh
+python3 -m viettts sfx timeline outputs/voice-dramas/<slug>/script.txt --show
+# Write sfx.txt beside the script ("L9-L14: bed-creak-medium", "L30: door-knock-soft at=end"), then:
+python3 -m viettts sfx check outputs/voice-dramas/<slug>/script.txt
+python3 -m viettts sfx mix outputs/voice-dramas/<slug>/script.txt
+```
+
+The mix is a second book, `<Title> (SFX).m4b`; the voice-only one is kept. Sounds come from `references/sfx/` (`python3 -m viettts sfx list`); add one with `sfx add` and render it with `sfx generate` (MOSS-SoundEffect v2 on the Apple GPU).
+
 ## Test speech
 
 ```sh
@@ -60,7 +72,7 @@ python3 -m viettts --help
 
 ## Layout & development
 
-`viettts/audiobook/` owns attribution, review, and builds; `viettts/voices/` owns onboarding and the registry; `viettts/engines/` owns synthesis runners and workers. `viettts/text.py` and `viettts/paths.py` hold shared helpers. `engines/` contains only the two runtime environments.
+`viettts/audiobook/` owns attribution, review, and builds; `viettts/voices/` owns onboarding and the registry; `viettts/engines/` owns synthesis runners and workers; `viettts/sfx/` owns the sound-effect library and mixing. `viettts/text.py` and `viettts/paths.py` hold shared helpers. `engines/` contains only the runtime environments (VieNeu, Drama-3, and SFX).
 
 `references/` and `casts/` are reusable inputs. Model weights live in `models/` or `.cache/`; generated books and audio live in `outputs/` (ignored by Git). Cleanup does not remove these assets.
 

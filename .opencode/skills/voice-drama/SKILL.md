@@ -88,6 +88,9 @@ python3 -m viettts audiobook verify <dir>/script.txt
 - Report the M4B path, duration, size, voice, the number of tagged lines, the dropped chapters. 
 - Record what you learned about the voice with `python3 -m viettts voice note <id> "…"`.
 
+**Optional step**
+- Confirm with user to add sound effects (bed, kisses, doors, phone …). It goes on top of the finished build with the **sfx** skill, as a second `(SFX)` M4B.
+
 ## Lessons from earlier builds
 
 - Short lines (most under 60 characters) take tags well; long lines with several sounds are the ones that hit the frame cap.

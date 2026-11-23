@@ -21,7 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT))
-from viettts.audiobook.build import spoken, untagged  # noqa: E402
+from viettts.audiobook.tags import spoken, untagged  # noqa: E402
 
 HEADING = re.compile(r'^(?:#{1,3}\s*(.+)|(\d{1,3})|(?:chương|chapter|track|part|phần)\s*(\d{1,3})\b.*)$', re.I)
 IMAGES = ('.jpg', '.jpeg', '.png', '.webp')

@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def uv_command(engine: str, *args: str) -> tuple[list[str], dict[str, str]]:
     """Run Python in one engine's locked environment with this package importable."""
-    if engine not in ('vieneu', 'drama3'):
+    if engine not in ('vieneu', 'drama3', 'sfx'):
         raise ValueError(f'Unsupported engine: {engine}')
     env = os.environ.copy()
     env.setdefault('UV_CACHE_DIR', str(ROOT / '.uv' / 'cache'))

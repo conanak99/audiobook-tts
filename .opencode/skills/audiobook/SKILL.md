@@ -212,4 +212,9 @@ Only one Drama-3 build should run at a time (about 30 GB of RAM). To run several
 python3 -m viettts audiobook verify <script.txt>        # add --partial after a --chapters or --only build
 ```
 
-It checks the codec, that the chapters match the script, the tags, `media_type=2`, the cover, and that no silence is longer than 2.5 s. If the silence check fails (usually Drama-3 copying pauses from a breathy reference), run `python3 -m viettts audiobook repair <script.txt> --dry-run` first. Without `--dry-run`, it deletes the cached chunks that contain a pause over 1.5 s. **After it finishes**, rerun the build; never run repair and build in parallel. The worker retries such takes up to four times and shortens pauses inside chunks, so a second repair is rarely needed. If one reference voice keeps causing this, suggest a cleaner reference to the user, for example `make-ref` from a VieNeu voice. Report the M4B path, its duration and size, the voices used, how many review answers you changed from the rules' guesses, and how many Drama-3 lines you enhanced.
+It checks the codec, that the chapters match the script, the tags, `media_type=2`, the cover, and that no silence is longer than 2.5 s.
+If the silence check fails (usually Drama-3 copying pauses from a breathy reference), run `python3 -m viettts audiobook repair <script.txt> --dry-run` first. Without `--dry-run`, it deletes the cached chunks that contain a pause over 1.5 s. **After it finishes**, rerun the build; never run repair and build in parallel. 
+The worker retries such takes up to four times and shortens pauses inside chunks, so a second repair is rarely needed. If one reference voice keeps causing this, suggest a cleaner reference to the user, for example `make-ref` from a VieNeu voice. 
+Report the M4B path, its duration and size, the voices used, how many review answers you changed from the rules' guesses, and how many Drama-3 lines you enhanced.
+
+To add sound effects afterwards (optional, ask user first), use the **sfx** skill: it mixes a second `(SFX)` M4B and keeps this one.
