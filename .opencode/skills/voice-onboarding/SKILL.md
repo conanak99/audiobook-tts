@@ -17,7 +17,7 @@ Each voice ends up in `references/voices/<id>/`:
 
 **Reference guidance** (Fish Audio's voice-cloning guide, the Drama-3 tech report, and the MLX runtime limits):
 - 15–20 s per clip, ideally **2 clips that form one paragraph**. Drama-3 clones from all of them together; going from 1 to 3 references measurably raised speaker similarity.
-- Together they may be **at most 30 s**, with up to 4 clips and 1,024 transcript characters (MLX). `cut` trims clips inside natural pauses to fit.
+- Together they may be **at most 40 s**, with up to 4 clips. `cut` trims clips inside natural pauses to fit. That cap is ours, not Drama-3's: mlx_audio (what our worker runs) checks no reference length. The "4 clips, 30 s, 1,024 transcript characters" figures you may see come from sglang-omni's native MLX server, which we don't use. Every chunk of a book attends over all references, so more audio costs memory and time for a small similarity gain.
 - One speaker, steady volume and tone, and about 0.5 s pauses between sentences. No music, laughter or whispering.
 
 Only onboarded voices can be used for audiobooks.
@@ -46,10 +46,18 @@ python3 -m viettts voice candidates "<file or URL>" --id "<Name>" [--from 18:00 
 ## 2. Cut
 
 ```sh
-python3 -m viettts voice cut <id> --candidate 1 --candidate 4      # or --start 18:42.5 --duration 16 [--media <file>]
+python3 -m viettts voice cut <id> --candidate 1 --candidate 4                  # two candidates
+python3 -m viettts voice cut <id> --start 18:42.5 --duration 16 [--media <file>]   # one manual window
+python3 -m viettts voice cut <id> --clip a.mp4 18:42.5 16 --clip b.wav 3:05 17     # windows of different files
 ```
 
-This writes `reference-1.wav`, `reference-2.wav` (48 kHz mono, cleaned) and a draft `voice.json`. If the clips add up to more than 30 s (`--max-total`), each is shortened to its share, ending inside a natural pause. Pass on any warnings: a clip under 10 s, a long pause, or a low speech ratio. A new cut replaces the voice's old references.
+This writes `reference-1.wav`, `reference-2.wav` (48 kHz mono, cleaned) and a draft `voice.json`. If the clips add up to more than 40 s (`--max-total`), each is shortened to its share, ending inside a natural pause.
+
+Where the clips come from:
+- `--candidate` and `--start/--duration` cut from **one** source: the file `candidates` used, or `--media`. `--start/--duration` gives a single clip.
+- **Clips from different files** (two videos, or a candidate plus a window of another file): use `--clip MEDIA START DURATION`, once per clip. Each one names its own local file (download a URL first). The flags can be mixed. References are numbered candidates first, then `--start`, then the `--clip`s in order.
+- Don't write `candidates.json` by hand or join sources into one file to get two clips: `--clip` does it, and the trim still lands in a pause (the window is rendered to `outputs/voice-onboarding/<id>/clip-N.wav` to find them).
+- `voice.json` stores each reference's `source`; `source.input` becomes a list when there are several files. Pass on any warnings: a clip under 10 s, a long pause, or a low speech ratio. A new cut replaces the voice's old references.
 
 **Volume match:** `cut` levels every reference to **−20 LUFS**, where the approved voices sit. It uses linear gain only, with no compression, and keeps the true peak at or below −2 dBTP. It prints each clip's loudness and the gain applied, and stores `lufs`, `peak_db` and `gain_db` per reference in `voice.json`. If a clip ends more than 1 LU under the target, the peak ceiling limited the gain: the source is spiky (shouts, laughter, plosives). Prefer another candidate over pushing it louder. Never boost a reference by hand with a fixed number of dB; measure it first.
 
@@ -60,7 +68,7 @@ python3 -m viettts voice level --all --dry-run      # measure only: LUFS, true p
 python3 -m viettts voice level <id> [<id> ...]      # level in place (skips clips within 0.5 dB of the target)
 ```
 
-A changed reference makes its samples outdated, so regenerate them with `voice samples <id>` and ask the user to listen again. Audiobook builds key their cache on the reference *paths*, not their contents, so a rebuild silently reuses chunks cloned from the old audio. Tell the user that only lines that aren't cached yet use the new reference. (Builds level every chunk's output anyway, so the finished book's loudness doesn't change; matched references mainly make cloning behave the same across voices.)
+A changed reference makes its samples outdated, so regenerate them with `voice samples <id>` and ask the user to listen again. Audiobook builds key their cache on the reference *paths* and *transcripts*, not the audio, so a rebuild silently reuses chunks cloned from the old audio when only the audio changed (leveling, music/echo removal). Tell the user that only lines that aren't cached yet use the new reference. A re-cut with new transcripts gets new cache keys, so every line is voiced again. (Builds level every chunk's output anyway, so the finished book's loudness doesn't change; matched references mainly make cloning behave the same across voices.)
 
 ## 2b. Clean-up: remove music and echo (optional, ask the user)
 

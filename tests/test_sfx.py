@@ -129,7 +129,9 @@ class CueTests(unittest.TestCase):
     def test_a_loop_fills_its_span_including_the_pause(self):
         (p,), problems = self.place('L9-L10: creak gain=-18\n')
         self.assertEqual(problems, [])
-        self.assertEqual((p['chapter'], p['start_s'], p['seconds'], p['gain_db']), (1, 4.0, 5.0, -18.0))
+        self.assertEqual(
+            (p['chapter'], p['start_s'], p['seconds'], p['gain_db']), (1, 4.0, 5.0, -18.0 + cue_file.SFX_LEVEL_DB)
+        )
         self.assertEqual((p['fade_in_s'], p['fade_out_s']), (cue_file.LOOP_FADE_IN_S, cue_file.LOOP_FADE_OUT_S))
         (late,), _ = self.place('L9-L10: creak at=1.5 len=2\n')
         self.assertEqual((late['start_s'], late['seconds']), (5.5, 2.0))
@@ -140,7 +142,7 @@ class CueTests(unittest.TestCase):
         # takes in book order: 4.0 s gets take 1 (2 s), 5.8 s take 2 (1.2 s, cut by len=1), 9.0 s take 3 (3 s)
         self.assertEqual([(p['start_s'], p['seconds']) for p in placed], [(4.0, 2.0), (9.0, 3.0), (5.8, 1.0)])
         self.assertEqual([p['fade_out_s'] for p in placed], [0.0, 0.0, cue_file.ONESHOT_FADE_OUT_S])
-        self.assertEqual(placed[0]['gain_db'], cue_file.ONESHOT_GAIN_DB)
+        self.assertEqual(placed[0]['gain_db'], cue_file.ONESHOT_GAIN_DB + cue_file.SFX_LEVEL_DB)
         (cut,), _ = self.place('L12: knock at=end\n')  # 19.5 s + 2 s runs past the 20 s chapter
         self.assertEqual(cut['seconds'], 0.5)
         self.assertGreater(cut['fade_out_s'], 0)
@@ -199,6 +201,23 @@ class CueTests(unittest.TestCase):
         self.assertIn('at=start or at=<seconds>', messages[5])
         self.assertIn('gain', messages[6])
         self.assertIn('would last', messages[7])
+
+
+class PickTests(unittest.TestCase):
+    def best(self, kind, tries):
+        from viettts.sfx.generate import rank
+
+        return max(tries, key=lambda t: rank(kind, *t[1:]))[0]
+
+    def test_a_weak_loop_keeps_its_steadiest_try_and_a_weak_one_shot_its_loudest(self):
+        tries = [('burst', False, -3.0, 0.12), ('steady', False, -9.0, 0.27), ('faint', False, -28.0, 0.2)]
+        self.assertEqual(self.best('loop', tries), 'steady')
+        self.assertEqual(self.best('oneshot', tries), 'burst')
+
+    def test_a_passing_try_always_wins(self):
+        tries = [('loud', False, -1.0, 0.9), ('ok', True, -20.0, 0.35)]
+        self.assertEqual(self.best('loop', tries), 'ok')
+        self.assertEqual(self.best('oneshot', tries), 'ok')
 
 
 class TimelineTests(unittest.TestCase):

@@ -79,6 +79,7 @@ def main():
     p.add_argument('--models', default=','.join(MODELS))
     p.add_argument('--key-file', type=Path)
     p.add_argument('--write', action='store_true', help='Write the consensus transcript to <clip>.txt')
+    p.add_argument('--language', default='vi', help='ISO 639-1 code of the spoken language (default: vi)')
     args = p.parse_args()
     key = os.environ.get('NANOGPT_API_KEY') or (args.key_file.read_text().strip() if args.key_file else '')
     if not key:
@@ -87,7 +88,7 @@ def main():
         results, errors = {}, {}
         for model in args.models.split(','):
             try:
-                results[model] = transcribe(clip, model, key)
+                results[model] = transcribe(clip, model, key, args.language)
             except RuntimeError as error:
                 errors[model] = str(error)
         if not results:

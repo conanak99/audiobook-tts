@@ -287,7 +287,10 @@ def cmd_candidates(args):
 
 
 # --- references ------------------------------------------------------------------------------------------
-MAX_TOTAL_S = 30.0  # Drama-3 MLX: up to 4 references, at most 30 s together (sglang-omni MLX server limits)
+# Our own cap, not a model limit: mlx_audio checks no reference length (sglang-omni's native MLX server
+# allows 30 s, its GPU server 60 s per reference). Every chunk attends over the references, so more audio
+# costs memory and time for little gain. Up to 4 clips.
+MAX_TOTAL_S = 40.0
 
 
 def refs_of(vid):
@@ -312,8 +315,18 @@ def trim_point(path, limit):
 
 
 # --- cut ---------------------------------------------------------------------------------------------------
+def local_media(path, flag):
+    media = Path(path).expanduser().resolve()
+    if not media.is_file():
+        raise SystemExit(f'{flag}: no such file: {media}')
+    return media
+
+
 def cmd_cut(args):
-    """Cut one or more windows into reference-1.wav, reference-2.wav, ... (<= 30 s together)."""
+    """Cut one or more windows into reference-1.wav, reference-2.wav, ... (<= 30 s together).
+
+    Clips come from --candidate (the candidates source), --start/--duration (--media or that source) and
+    --clip MEDIA START DURATION (each from its own file), in that order."""
     vid = slugify(args.id)
     work = WORK / vid
     info = (
@@ -321,36 +334,77 @@ def cmd_cut(args):
         if (work / 'candidates.json').is_file()
         else {}
     )
+
+    def default_media():
+        if args.media:
+            return local_media(args.media, '--media'), None
+        media = Path(info.get('source', ''))
+        if not info.get('source') or not media.is_file():
+            raise SystemExit('Source media not found; pass --media.')
+        return media, info.get('url')
+
     picks = []
-    if args.candidate:
-        for n in args.candidate:
-            cand = next((c for c in info.get('candidates', []) if c['n'] == n), None)
-            if not cand:
-                raise SystemExit(f'No candidate {n}; run candidates first.')
-            picks.append(
-                dict(
-                    cut_at=cand['cut_at'],
-                    source_time=cand['source_time'],
-                    duration=cand['duration'],
-                    preview=ROOT / cand['file'],
-                )
+    for n in args.candidate or []:
+        cand = next((c for c in info.get('candidates', []) if c['n'] == n), None)
+        if not cand:
+            raise SystemExit(f'No candidate {n}; run candidates first.')
+        media, url = default_media()
+        picks.append(
+            dict(
+                media=media,
+                url=url,
+                cut_at=cand['cut_at'],
+                source_time=cand['source_time'],
+                duration=cand['duration'],
+                preview=ROOT / cand['file'],
             )
-    else:
+        )
+    if args.start is not None or args.duration:
         cut_at = parse_time(args.start)
         if cut_at is None or not args.duration:
-            raise SystemExit('Give --candidate N [--candidate M], or --start and --duration (source-file times).')
-        picks.append(dict(cut_at=cut_at, source_time=cut_at, duration=args.duration, preview=None))
+            raise SystemExit('--start and --duration go together (source-file times).')
+        media, url = default_media()
+        picks.append(dict(media=media, url=url, cut_at=cut_at, source_time=cut_at, duration=args.duration))
+    for path, start, duration in args.clip or []:
+        cut_at = parse_time(start)
+        picks.append(
+            dict(
+                media=local_media(path, '--clip'),
+                url=None,
+                cut_at=cut_at,
+                source_time=cut_at,
+                duration=float(duration),
+            )
+        )
+    if not picks:
+        raise SystemExit(
+            'Give --candidate N [--candidate M], --start and --duration, or --clip MEDIA START DURATION (repeatable).'
+        )
     if len(picks) > 4:
         raise SystemExit('At most 4 references.')
-    media = Path(args.media).expanduser().resolve() if args.media else Path(info.get('source', ''))
-    if not media.is_file():
-        raise SystemExit('Source media not found; pass --media.')
-    url = info.get('url') if not args.media else None
     total = sum(p['duration'] for p in picks)
     if total > args.max_total:  # share the budget, ending each clip inside a natural pause
-        for p in picks:
+        work.mkdir(parents=True, exist_ok=True)
+        for n, p in enumerate(picks, 1):
+            if not p.get('preview') or not p['preview'].is_file():  # render the window to find its pauses
+                p['preview'] = work / f'clip-{n}.wav'
+                ffmpeg(
+                    '-ss',
+                    str(p['cut_at']),
+                    '-t',
+                    str(p['duration']),
+                    '-i',
+                    str(p['media']),
+                    '-ac',
+                    '1',
+                    '-ar',
+                    '48000',
+                    '-af',
+                    CLEAN,
+                    str(p['preview']),
+                )
             share = args.max_total * p['duration'] / total
-            p['duration'] = trim_point(p['preview'], share) if p['preview'] else round(share, 2)
+            p['duration'] = trim_point(p['preview'], share)
     d = voice_dir(vid)
     d.mkdir(parents=True, exist_ok=True)
     # A new cut replaces the old references and their review scratch.
@@ -365,7 +419,7 @@ def cmd_cut(args):
             '-t',
             str(p['duration']),
             '-i',
-            str(media),
+            str(p['media']),
             '-ac',
             '1',
             '-ar',
@@ -381,18 +435,20 @@ def cmd_cut(args):
             dict(
                 n=n,
                 file=ref.name,
+                source=p['url'] or str(p['media']),
                 source_start=round(p['source_time'], 2),
                 transcript_reviewed=False,
                 gain_db=gain,
                 **measure(ref),
             )
         )
+    sources = list(dict.fromkeys(r['source'] for r in refs))
     meta = json.loads((d / 'voice.json').read_text(encoding='utf-8')) if (d / 'voice.json').is_file() else {}
     meta.update(
         id=vid,
         status='draft',
         transcript_reviewed=False,
-        source=dict(input=url or str(media)),
+        source=dict(input=sources if len(sources) > 1 else sources[0]),
         references=refs,
         samples=[],
         metrics=dict(
@@ -459,8 +515,9 @@ def cmd_transcribe(args):
     for n, wav, _ in refs_of(vid):
         if args.ref and n != args.ref:
             continue
-        subprocess.run([py, '-m', 'viettts.voices.transcription', str(wav)], check=True, env=env, cwd=ROOT)
-        subprocess.run([py, '-m', 'viettts.voices.reconciliation', str(wav)], check=True, env=env, cwd=ROOT)
+        lang = ['--language', args.language]
+        subprocess.run([py, '-m', 'viettts.voices.transcription', str(wav), *lang], check=True, env=env, cwd=ROOT)
+        subprocess.run([py, '-m', 'viettts.voices.reconciliation', str(wav), *lang], check=True, env=env, cwd=ROOT)
         report = json.loads(wav.with_suffix('.stt.json').read_text(encoding='utf-8'))
         shutil.move(str(wav.with_suffix('.stt.json')), str(work / f'stt-{n}.json'))
         draft = report.get('chosen') or report.get('consensus', '')
@@ -494,7 +551,9 @@ def cmd_set_transcript(args):
     ref.update(transcript_reviewed=True, words_per_s=round(rate, 2))
     meta['transcript_reviewed'] = all(r.get('transcript_reviewed') for r in refs)
     if sum(len(t.read_text(encoding='utf-8')) for _, _, t in refs_of(vid) if t.is_file()) > 1024:
-        print('  warning: transcripts exceed 1024 characters together (Drama-3 MLX limit)')
+        print(
+            '  note: transcripts exceed 1024 characters together (the sglang-omni MLX server limit; our worker has none)'
+        )
     save(meta)
     print(f'reference-{n} transcript saved ({len(text.split())} words, {rate:.1f}/s).')
     if not 2.5 <= rate <= 6.5:
@@ -673,9 +732,16 @@ def main(argv=None):
     s.add_argument('id')
     s.add_argument('--candidate', type=int, action='append', help='Repeatable: 2 clips = multi-reference')
     s.add_argument('--max-total', type=float, default=MAX_TOTAL_S, help='Seconds for all references together')
-    s.add_argument('--start', help='s or mm:ss (instead of --candidate)')
+    s.add_argument('--start', help='s or mm:ss: one manual window of --media')
     s.add_argument('--duration', type=float)
-    s.add_argument('--media', help='Source file (default: the one used by candidates)')
+    s.add_argument('--media', help='Source file for --candidate/--start (default: the one used by candidates)')
+    s.add_argument(
+        '--clip',
+        nargs=3,
+        action='append',
+        metavar=('MEDIA', 'START', 'DURATION'),
+        help='Repeatable: a window of its own local file (START s or mm:ss); clips from different files',
+    )
     s.set_defaults(func=cmd_cut)
     s = sub.add_parser('level', help=f'Match existing references to {TARGET_LUFS:g} LUFS (cut does this already)')
     s.add_argument('ids', nargs='*')
@@ -686,6 +752,7 @@ def main(argv=None):
     s.add_argument('id')
     s.add_argument('--ref', type=int, help='Only this reference')
     s.add_argument('--key-file')
+    s.add_argument('--language', default='vi', help='ISO 639-1 code of the spoken language (default: vi)')
     s.set_defaults(func=cmd_transcribe)
     s = sub.add_parser('set-transcript', help='Save the reviewed, exact transcript of one reference')
     s.add_argument('id')

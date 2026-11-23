@@ -16,7 +16,7 @@ python3 -m viettts voice list
 ```
 
 1. **Candidates:** local media or a URL; for long sources pass `--from` / `--to`. Listen before selecting.
-2. **Cut:** prefer two clean 15–20-second clips from one speaker with consistent tone and little silence. The tool fits references into at most 30 seconds total. Cutting again replaces that voice's previous references.
+2. **Cut:** prefer two clean 15–20-second clips from one speaker with consistent tone and little silence. The tool fits references into at most 40 seconds total (`--max-total`; our cap, not a Drama-3 limit). For clips from different files, use `--clip MEDIA START DURATION` once per clip (e.g. `cut my-voice --clip a.mp4 1:02 16 --clip b.wav 0:40 15`). Cutting again replaces that voice's previous references.
 3. **Transcribe:** NanoGPT STT models and independent judges produce drafts and evidence. Requires credentials; sends audio externally.
 4. **Review:** preserve exact words, fillers, names, and code-switching. Save every reference's transcript. A draft is not approval.
 5. **Samples:** generates five auditions (two of them with Drama-3 tags) in one Drama-3 model load. Listen for similarity, missing words, noise, and long pauses; inspect retries.

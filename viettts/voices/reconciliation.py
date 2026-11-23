@@ -32,6 +32,16 @@ Rules:
 - No annotations such as *cười* or [laughs], no speaker labels, no quotes. Normal punctuation only.
 - Write numbers the way they are spoken if that is clear (e.g. "năm mươi năm mươi" vs "50/50"): prefer words.
 Output ONLY the transcript text."""
+INSTRUCTIONS_OTHER = """You are producing the exact verbatim transcript of a short {language} speech clip (cut from a
+stream, video or recording). It will be the reference transcript for voice cloning, so it must match what is spoken, word for word.
+
+Rules:
+- Write {language} in its normal script; keep fillers and particles exactly as spoken.
+- Drop speech-recognition hallucinations that are not in the audio (subtitle credits, "thanks for watching",
+  repeated phrases).
+- No annotations such as [laughs], no speaker labels, no quotes, no translation. Normal punctuation only.
+Output ONLY the transcript text."""
+LANGUAGES = {'ja': 'Japanese', 'en': 'English', 'zh': 'Chinese', 'ko': 'Korean'}
 PUNCTUATE = """Add Vietnamese punctuation and capitalization to this transcript. Do NOT add, remove, reorder or
 change any word; keep every particle and filler. Capitalize names (Mika, Twitch, YouTube). Output only the text.
 
@@ -66,7 +76,13 @@ def main():
     p.add_argument('--text-judge', default=TEXT_JUDGE)
     p.add_argument('--write', action='store_true')
     p.add_argument('--hint', help='A partial human transcript, if any')
+    p.add_argument('--language', default='vi', help='ISO 639-1 code of the spoken language (default: vi)')
     args = p.parse_args()
+    global INSTRUCTIONS, PUNCTUATE
+    if args.language != 'vi':
+        language = LANGUAGES.get(args.language, args.language)
+        INSTRUCTIONS = INSTRUCTIONS_OTHER.format(language=language)
+        PUNCTUATE = PUNCTUATE.replace('Vietnamese', language)
     key = os.environ.get('NANOGPT_API_KEY') or (args.key_file.read_text().strip() if args.key_file else '')
     if not key:
         sys.exit('Set NANOGPT_API_KEY or pass --key-file.')

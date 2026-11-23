@@ -63,6 +63,24 @@ class OnboardingSmokeTests(unittest.TestCase):
                     self.assertEqual(audio.getnchannels(), 1)
                     self.assertGreater(audio.getnframes(), 0)
 
+    def test_clips_from_two_files_are_cut_and_trimmed_to_the_total(self):
+        first = ROOT / 'references' / 'voices' / 'shirone-mika' / 'reference-1.wav'
+        second = ROOT / 'references' / 'voices' / 'lynasa' / 'reference-1.wav'
+        with tempfile.TemporaryDirectory() as directory, contextlib.redirect_stdout(io.StringIO()):
+            voices = Path(directory) / 'voices'
+            with (
+                patch.object(onboard_voice, 'VOICES', voices),
+                patch.object(onboard_voice, 'WORK', Path(directory) / 'work'),
+            ):
+                onboard_voice.main(
+                    ['cut', 'smoke', '--max-total', '20']
+                    + ['--clip', str(first), '0', '20', '--clip', str(second), '0:00', '20']
+                )
+                saved = onboard_voice.load('smoke')
+        self.assertEqual([r['source'] for r in saved['references']], [str(first), str(second)])
+        self.assertEqual(saved['source']['input'], [str(first), str(second)])
+        self.assertLessEqual(saved['metrics']['duration'], 20.1)
+
     def test_quiet_reference_is_leveled_to_the_target_without_clipping(self):
         source = ROOT / 'references' / 'voices' / 'shirone-mika' / 'reference-1.wav'
         with tempfile.TemporaryDirectory() as directory:
