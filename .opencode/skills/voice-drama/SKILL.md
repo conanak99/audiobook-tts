@@ -21,7 +21,7 @@ Pipeline: **scan → init → you direct (`directed.txt`: review scene breaks, a
 python3 $VD scan /abs/path/script.md
 ```
 
-Chapters can be bare numbers (`1`, `2` …), `## headings` or `Chương N`/`Track N`/`Part N` lines; every other non-empty line is one spoken line. Within a chapter, consecutive lines form a scene and a blank line starts the next one. `scan` prints each chapter's lines, scenes and characters, and the rough Drama-3 time. If it reports `identical to chapter N` (a pasted-twice chapter), ask the user whether to drop it (`--drop`); they usually agree. The script is taken as final: wording, leftovers and pronoun slips are the **translate** skill's review, not this one's.
+Chapters can be `## Chương N: Tên chương` headings (which become the M4B chapter titles in BookPlayer), bare numbers (`1`, `2` …), or `Chương N`/`Track N`/`Part N` lines; an optional `# Tên tác phẩm` line at the very top sets the default work title. Every other non-empty line is one spoken line. Within a chapter, consecutive lines form a scene and a blank line starts the next one. `scan` prints the work title (if present), each chapter's title, lines, scenes and characters, and the rough Drama-3 time. If it reports `identical to chapter N` (a pasted-twice chapter), ask the user whether to drop it (`--drop`); they usually agree. The script is taken as final: wording, leftovers and pronoun slips are the **translate** skill's review, not this one's.
 
 ## 2. Init
 
@@ -32,13 +32,13 @@ python3 $VD init /abs/path/script.md --out outputs/voice-dramas/<slug> \
 ```
 
 - `--voice ID` is the main woman (an onboarded Drama-3 id from `../audiobook/references/voices.md`; check `python3 -m viettts voice list`). If the user names no voice, suggest 2–3 whose `fits` match the script (onee-sama → `pong-kyubi`, `tam-nee`; girlfriend → `lynasa`, `nyan-mikuru`; brat → `shirone-mika`) and let them pick. A second woman is `--voice "Name=id"`.
-- The title is the user's, or a short one from a line that keeps coming back; say which you picked. The cover defaults to the first image next to the source (`.webp` is converted to JPEG at `make`); with none, make a placeholder: `ffmpeg -f lavfi -i "color=c=#2b0f1c:s=1000x1000:d=1" -frames:v 1 <dir>/cover.jpg` and pass `--cover`.
-- A dropped chapter renumbers the rest (`Chương 6` becomes `Chương 5`).
+- The title defaults to the `# Tên tác phẩm` heading in `script.md` if present; otherwise pass `--title` with the user's title or a short one from the script. The cover defaults to the first image next to the source (`.webp` is converted to JPEG at `make`); with none, make a placeholder: `ffmpeg -f lavfi -i "color=c=#2b0f1c:s=1000x1000:d=1" -frames:v 1 <dir>/cover.jpg` and pass `--cover`.
+- A dropped chapter renumbers the rest (`Chương 6: …` becomes `Chương 5: …`).
 - Settings go to `drama.json`, so `make` needs only the folder. `init` won't overwrite `directed.txt` (your tags) without `--force`.
 
 ## 3. Direct `directed.txt` (your job)
 
-`init` wrote every line plain under `## Chương N`, keeping the source's scene breaks: the **translate** skill sets them from the subtitle timestamps. A source with a blank line after every line has no scene information, so its chapters start as one scene. Rewrite the file in place, with the same lines in the same order:
+`init` wrote every line plain under `## Chương N` (keeping each chapter's full title if it has one) and keeping the source's scene breaks: the **translate** skill sets them from the subtitle timestamps. A source with a blank line after every line has no scene information, so its chapters start as one scene. Rewrite the file in place, with the same chapter headings and lines in the same order:
 
 ```text
 ## Chương 1

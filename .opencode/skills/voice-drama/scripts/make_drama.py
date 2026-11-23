@@ -27,18 +27,24 @@ HEADING = re.compile(r'^(?:#{1,3}\s*(.+)|(\d{1,3})|(?:chương|chapter|track|par
 IMAGES = ('.jpg', '.jpeg', '.png', '.webp')
 
 
-def read_scenes(path, drop=()):
-    """[(title, [line, ...], {index of a line that starts a new scene})] from a source with bare-number,
-    "##" or "Chương N" chapter lines. Lines of a scene are consecutive; a blank line starts a new scene.
-    A chapter with a blank line after every line (the plain translation format) has no scene breaks."""
+def parse_source(path, drop=()):
+    """(doc_title, [(title, [line, ...], {index of a line that starts a new scene})]) from a source with
+    optional "# Title", and "##", bare-number, or "Chương N" chapter lines. Lines of a scene are consecutive;
+    a blank line starts a new scene. A chapter with a blank line after every line has no scene breaks."""
     text = Path(path).read_text(encoding='utf-8-sig')
-    chapters, blank = [], False
+    doc_title, chapters, blank = '', [], False
     for line in (raw.strip() for raw in text.splitlines()):
         if not line:
             blank = True
             continue
+        if line.startswith('# ') and not line.startswith('## ') and not chapters and not doc_title:
+            first = line[2:].strip()
+            if not re.fullmatch(r'(?:chương|chapter|track|part|phần)?\s*\d{1,3}', first, re.I):
+                doc_title = first
+                blank = False
+                continue
         m = HEADING.match(line)
-        if m and len(line) < 60:
+        if m and (line.startswith('#') or len(line) < 120):
             chapters.append([m[1] or f'Chương {m[2] or m[3]}', [], set()])
         else:
             if not chapters:
@@ -53,9 +59,12 @@ def read_scenes(path, drop=()):
             chapter[2] = set()
     kept = [c for i, c in enumerate(chapters, 1) if i not in set(drop)]
     for n, chapter in enumerate(kept, 1):  # renumber after a dropped chapter
-        if re.fullmatch(r'Chương \d+', chapter[0]):
-            chapter[0] = f'Chương {n}'
-    return [tuple(c) for c in kept]
+        chapter[0] = re.sub(r'^Chương \d+\b', f'Chương {n}', chapter[0])
+    return doc_title, [tuple(c) for c in kept]
+
+
+def read_scenes(path, drop=()):
+    return parse_source(path, drop)[1]
 
 
 def read_source(path, drop=()):
@@ -64,7 +73,9 @@ def read_source(path, drop=()):
 
 
 def cmd_scan(args):
-    chapters = read_scenes(args.source)
+    doc_title, chapters = parse_source(args.source)
+    if doc_title:
+        print(f'Title: {doc_title}')
     seen = {}
     for n, (title, lines, breaks) in enumerate(chapters, 1):
         chars = sum(len(line) for line in lines)
@@ -83,16 +94,16 @@ def cmd_init(args):
     if directed.exists() and not args.force:
         raise SystemExit(f'{directed} exists (it holds your tags). Use --force to overwrite.')
     source = args.source.resolve()
+    doc_title, chapters = parse_source(source, args.drop)
     cover = args.cover or next((p for p in sorted(source.parent.iterdir()) if p.suffix.lower() in IMAGES), None)
     settings = dict(
         source=str(source),
-        title=args.title or source.parent.name,
+        title=args.title or doc_title or source.parent.name,
         author=args.author or '',
         cover=str(cover.resolve()) if cover else '',
         drop=args.drop,
         voices=dict(v.split('=', 1) if '=' in v else ('narrator', v) for v in args.voice),
     )
-    chapters = read_scenes(source, settings['drop'])
     out.mkdir(parents=True, exist_ok=True)
     parts = []
     for title, lines, breaks in chapters:

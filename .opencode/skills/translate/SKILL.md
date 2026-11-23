@@ -31,10 +31,12 @@ WEBVTT
 
 ## Output
 
-Write `outputs/voice-dramas/<slug>/script_vn.md`. Put each track's number on its own line with a blank line after it, then one line per cue in the same order. The lines of a scene sit on consecutive lines, and **a blank line starts a new scene**:
+Write `outputs/voice-dramas/<slug>/script_vn.md`. If the source has a work title (`# ...`), translate it on the first line as `# <Tên tác phẩm>`. Put each track's heading on its own line (`## Chương N: <Tên chương>` when the track has a title, or `## Chương N` / bare `N` when it only has a number) with a blank line after it, then one line per cue in the same order. The lines of a scene sit on consecutive lines, and **a blank line starts a new scene**:
 
 ```text
-1
+# Chị Gia Sư S Ngọt Ngào
+
+## Chương 1: Đeo khóa trinh tiết
 
 Sắp... em sắp ra rồi...
 Tay mình... nắm chặt lấy nhau nhé...
@@ -44,7 +46,7 @@ A, em ra...
 Ưm, anh rút ra được rồi đó.
 Em cũng... sướng lắm.
 
-2
+## Chương 2: Món quà từ buổi hẹn hò
 
 Em tới trước nhà ga rồi nè.
 ```
@@ -55,8 +57,8 @@ Em tới trước nhà ga rồi nè.
   - **3–8 s**: break only if the content turns (a new beat, a question answered after a pause);
   - **8 s or more**, or a clear change: break. Changes include a phone call starting or ending, a new place or person, foreplay → oral → sex, climax → afterglow, and the story she tells → the present.
   - Never break after every line; that reads like a list.
-- Number the tracks `1, 2, 3 …` with no gaps after a dropped track.
-- No headings, timestamps, notes or brackets. `[ ]` and `< >` are Drama-3 tags, and a stray one gets performed as a stage direction.
+- **Keep and translate titles:** translate the work title (`# ...`) and each track's title (`## 音轨1...` → `## Chương 1: ...`), numbering chapters `1, 2, 3 …` with no gaps after a dropped track. Replace any `【...】` or `[...]` in titles with `(...)`.
+- No timestamps, notes or brackets (`[ ]` and `< >` are Drama-3 tags, and a stray one gets performed as a stage direction).
 - No source script left over: no Hán tự, kana, Hangul or Thai. Machine-translation leftovers like `nhanhจบไป` or `mà塗りđè` appeared in an earlier translation.
 
 ## Steps
