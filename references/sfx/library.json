@@ -200,6 +200,14 @@
      "raw_rms": 0.0301,
      "active": 0.77,
      "passed_gate": true
+    },
+    {
+     "file": "bed/blanket-pull-3.wav",
+     "seconds": 3.0,
+     "seed": 4,
+     "raw_rms": 0.0373,
+     "active": 0.35,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -218,6 +226,22 @@
      "seed": 1,
      "raw_rms": 0.1218,
      "active": 0.6,
+     "passed_gate": false
+    },
+    {
+     "file": "bed/headboard-knock-fast-2.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_rms": 0.2843,
+     "active": 0.96,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/headboard-knock-fast-3.wav",
+     "seconds": 7.5,
+     "seed": 5,
+     "raw_rms": 0.1884,
+     "active": 0.57,
      "passed_gate": false
     }
    ],
@@ -238,6 +262,22 @@
      "raw_rms": 0.0994,
      "active": 0.99,
      "passed_gate": true
+    },
+    {
+     "file": "bed/headboard-knock-slow-2.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_rms": 0.1632,
+     "active": 0.67,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/headboard-knock-slow-3.wav",
+     "seconds": 7.5,
+     "seed": 5,
+     "raw_rms": 0.0755,
+     "active": 0.28,
+     "passed_gate": false
     }
    ],
    "takes": 3
@@ -256,6 +296,22 @@
      "seed": 0,
      "raw_rms": 0.1534,
      "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/sheets-rustle-2.wav",
+     "seconds": 1.8,
+     "seed": 2,
+     "raw_rms": 0.0145,
+     "active": 0.8,
+     "passed_gate": true
+    },
+    {
+     "file": "bed/sheets-rustle-3.wav",
+     "seconds": 4.5,
+     "seed": 3,
+     "raw_rms": 0.0153,
+     "active": 0.83,
      "passed_gate": true
     }
    ],
@@ -278,16 +334,26 @@
     },
     {
      "file": "body/cum-spurt-2.wav",
-     "seed": 1,
-     "raw_rms": 0.2941,
-     "active": 0.4,
+     "seconds": 1.2,
+     "seed": 4,
+     "raw_rms": 0.2956,
+     "active": 0.7,
      "passed_gate": true
     },
     {
      "file": "body/cum-spurt-3.wav",
-     "seed": 3,
-     "raw_rms": 0.2034,
-     "active": 0.44,
+     "seconds": 3.0,
+     "seed": 5,
+     "raw_rms": 0.11,
+     "active": 0.26,
+     "passed_gate": true
+    },
+    {
+     "file": "body/cum-spurt-4.wav",
+     "seconds": 1.6,
+     "seed": 7,
+     "raw_rms": 0.3191,
+     "active": 1.0,
      "passed_gate": true
     }
    ],
@@ -309,6 +375,22 @@
      "raw_rms": 0.3067,
      "active": 1.0,
      "passed_gate": true
+    },
+    {
+     "file": "body/kiss-smack-2.wav",
+     "seconds": 1.2,
+     "seed": 1,
+     "raw_rms": 0.0001,
+     "active": 0.0,
+     "passed_gate": false
+    },
+    {
+     "file": "body/kiss-smack-3.wav",
+     "seconds": 3.0,
+     "seed": 4,
+     "raw_rms": 0.033,
+     "active": 0.35,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -327,6 +409,22 @@
      "seed": 0,
      "raw_rms": 0.3075,
      "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/kisses-wet-2.wav",
+     "seconds": 1.8,
+     "seed": 1,
+     "raw_rms": 0.2161,
+     "active": 0.81,
+     "passed_gate": true
+    },
+    {
+     "file": "body/kisses-wet-3.wav",
+     "seconds": 4.5,
+     "seed": 3,
+     "raw_rms": 0.0142,
+     "active": 0.69,
      "passed_gate": true
     }
    ],
@@ -347,6 +445,22 @@
      "raw_rms": 0.0544,
      "active": 0.69,
      "passed_gate": true
+    },
+    {
+     "file": "body/lick-wet-2.wav",
+     "seconds": 1.8,
+     "seed": 3,
+     "raw_rms": 0.3483,
+     "active": 0.83,
+     "passed_gate": true
+    },
+    {
+     "file": "body/lick-wet-3.wav",
+     "seconds": 4.5,
+     "seed": 5,
+     "raw_rms": 0.0879,
+     "active": 0.46,
+     "passed_gate": false
     }
    ],
    "takes": 3
@@ -366,6 +480,22 @@
      "raw_rms": 0.1252,
      "active": 0.36,
      "passed_gate": false
+    },
+    {
+     "file": "body/lube-rub-hands-2.wav",
+     "seconds": 1.8,
+     "seed": 4,
+     "raw_rms": 0.0593,
+     "active": 0.93,
+     "passed_gate": true
+    },
+    {
+     "file": "body/lube-rub-hands-3.wav",
+     "seconds": 4.5,
+     "seed": 6,
+     "raw_rms": 0.0444,
+     "active": 0.74,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -384,6 +514,22 @@
      "seed": 0,
      "raw_rms": 0.4135,
      "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/lube-squirt-2.wav",
+     "seconds": 1.2,
+     "seed": 3,
+     "raw_rms": 0.078,
+     "active": 0.52,
+     "passed_gate": true
+    },
+    {
+     "file": "body/lube-squirt-3.wav",
+     "seconds": 3.0,
+     "seed": 4,
+     "raw_rms": 0.0084,
+     "active": 0.22,
      "passed_gate": true
     }
    ],
@@ -404,6 +550,22 @@
      "raw_rms": 0.1509,
      "active": 1.0,
      "passed_gate": true
+    },
+    {
+     "file": "body/skin-caress-2.wav",
+     "seconds": 1.8,
+     "seed": 1,
+     "raw_rms": 0.1972,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/skin-caress-3.wav",
+     "seconds": 4.5,
+     "seed": 3,
+     "raw_rms": 0.0137,
+     "active": 0.61,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -423,6 +585,22 @@
      "raw_rms": 0.2926,
      "active": 0.7,
      "passed_gate": true
+    },
+    {
+     "file": "body/skin-slap-fast-2.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_rms": 0.165,
+     "active": 0.87,
+     "passed_gate": true
+    },
+    {
+     "file": "body/skin-slap-fast-3.wav",
+     "seconds": 7.5,
+     "seed": 3,
+     "raw_rms": 0.036,
+     "active": 0.2,
+     "passed_gate": false
     }
    ],
    "takes": 3
@@ -440,6 +618,22 @@
      "file": "body/skin-slap-medium.wav",
      "seed": 1,
      "raw_rms": 0.1395,
+     "active": 0.91,
+     "passed_gate": true
+    },
+    {
+     "file": "body/skin-slap-medium-2.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_rms": 0.1956,
+     "active": 0.87,
+     "passed_gate": true
+    },
+    {
+     "file": "body/skin-slap-medium-3.wav",
+     "seconds": 7.5,
+     "seed": 3,
+     "raw_rms": 0.0495,
      "active": 0.91,
      "passed_gate": true
     }
@@ -461,6 +655,22 @@
      "raw_rms": 0.0812,
      "active": 0.75,
      "passed_gate": true
+    },
+    {
+     "file": "body/skin-slap-slow-2.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_rms": 0.2248,
+     "active": 0.99,
+     "passed_gate": true
+    },
+    {
+     "file": "body/skin-slap-slow-3.wav",
+     "seconds": 7.5,
+     "seed": 3,
+     "raw_rms": 0.0335,
+     "active": 0.86,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -479,6 +689,14 @@
      "seed": 1,
      "raw_rms": 0.038,
      "active": 0.88,
+     "passed_gate": true
+    },
+    {
+     "file": "body/slurp-sloppy-2.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_rms": 0.2864,
+     "active": 0.73,
      "passed_gate": true
     }
    ],
@@ -528,7 +746,19 @@
    "kind": "loop",
    "seconds": 3.0,
    "prompt": "Liquid dripping and trickling onto soaked bed sheets after a splash, slow wet drips, close up, no voice, no music.",
-   "takes": 3
+   "takes": 3,
+   "rendered": [
+    {
+     "file": "body/squirt-drip.wav",
+     "seconds": 3.0,
+     "seed": 0,
+     "raw_rms": 0.2671,
+     "active": 1.0,
+     "passed_gate": true
+    }
+   ],
+   "steps": 100,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
   },
   {
    "id": "squirt-gush",
@@ -536,7 +766,19 @@
    "kind": "oneshot",
    "seconds": 3.0,
    "prompt": "A strong gush of liquid spraying out in bursts and splashing onto bed sheets and skin, wet and messy, close up, no voice, no music.",
-   "takes": 4
+   "takes": 3,
+   "rendered": [
+    {
+     "file": "body/squirt-gush.wav",
+     "seconds": 3.0,
+     "seed": 0,
+     "raw_rms": 0.1631,
+     "active": 0.29,
+     "passed_gate": true
+    }
+   ],
+   "steps": 100,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
   },
   {
    "id": "squirt-splash",

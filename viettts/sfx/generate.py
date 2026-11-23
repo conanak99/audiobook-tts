@@ -64,7 +64,22 @@ def load_pipeline():
     device = 'mps' if torch.backends.mps.is_available() else 'cpu'
     if device == 'mps':
         patch_for_mps()
-    return MossSoundEffectPipeline.from_pretrained(str(MODEL), torch_dtype=torch.bfloat16, device=device)
+    pipe = MossSoundEffectPipeline.from_pretrained(str(MODEL), torch_dtype=torch.bfloat16, device=device)
+    release_memory()  # the loader's CPU copies of the DiT weights, and the GPU blocks loading left cached
+    return pipe
+
+
+def release_memory():
+    """Free what Python no longer references and hand PyTorch's cached GPU blocks back to Metal.
+
+    Only between takes, never inside the denoising loop: within a take the steps reuse cached buffers."""
+    import gc
+
+    import torch
+
+    gc.collect()
+    if torch.backends.mps.is_available():
+        torch.mps.empty_cache()
 
 
 def active_fraction(x, rate, floor_db=-45.0):
@@ -184,6 +199,8 @@ def main(argv=None):
             entry.update(rendered=rendered, steps=args.steps, model=f'{REPO}@{REVISION[:7]}')
             lib.save(library, args.root)
             done += 1
+            del x
+            release_memory()
             flag = '' if passed else f'  <- failed the gate on seeds {tried}; best kept, listen to it'
             print(
                 f'[{done}/{total}] {rel} (take {n}/{lib.takes_wanted(sound)}, {seconds:g}s) seed={seed} rms={rms:.3f} '
