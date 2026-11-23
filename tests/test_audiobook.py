@@ -522,6 +522,44 @@ class VieneuBackendTests(unittest.TestCase):
             commands = [call.args[0] for call in workers.subprocess.Popen.call_args_list]
         self.assertEqual(commands[0][-2:], ['--backend', 'onnx'])
         self.assertNotIn('--backend', commands[1])
+        self.assertTrue(all('--skip-failed' in command for command in commands))
+
+    def test_a_runaway_chunk_falls_back_to_its_words_then_a_neutral_direction(self):
+        from viettts.audiobook.workers import RESCUE_DIRECTION, take_texts
+
+        self.assertEqual(
+            take_texts(dict(id='a', text='chắc hẳn lại mệt rồi đúng không...')),
+            [
+                ('as written', 'chắc hẳn lại mệt rồi đúng không...'),
+                ('neutral direction', f'{RESCUE_DIRECTION} chắc hẳn lại mệt rồi đúng không...'),
+            ],
+        )
+        self.assertEqual(
+            [kind for kind, _ in take_texts(dict(id='b', text='[moaning] Ra rồi...', plain='Ra rồi...'))],
+            ['as written', 'without tags', 'neutral direction'],
+        )
+        self.assertEqual(
+            take_texts(dict(id='b', text='[moaning] Ra rồi...', plain='Ra rồi...'))[2][1],
+            f'{RESCUE_DIRECTION} Ra rồi...',
+        )
+
+    def test_the_build_names_the_lines_whose_chunks_failed(self):
+        import tempfile
+        from pathlib import Path
+        from types import SimpleNamespace
+
+        from viettts.audiobook.build import BookBuild
+
+        with tempfile.TemporaryDirectory() as tmp:
+            out = Path(tmp)
+            (out / 'cache' / 'drama3').mkdir(parents=True)
+            (out / 'cache' / 'drama3' / 'ok.wav').write_bytes(b'')
+            build = SimpleNamespace(
+                out=out,
+                layout=[('Chương 1', [([('drama3', 'ok', 0), ('drama3', 'bad', 0)], 300, 12)])],
+                jobs={'drama3': {'ok': dict(id='ok', text='Một.'), 'bad': dict(id='bad', text='Hai...')}},
+            )
+            self.assertEqual(BookBuild.missing_chunks(build), [('drama3', 12, 'Hai...')])
 
 
 @unittest.skipIf(np is None, 'numpy is only installed in the engine environments')

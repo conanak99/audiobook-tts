@@ -60,6 +60,21 @@ def frame_budget(text):
     return min(600, max(128, len(text) * 3 + pauses))
 
 
+RESCUE_DIRECTION = '[calm, natural]'
+
+
+def take_texts(job):
+    """[(kind, text)] a Drama-3 chunk is tried with, 4 takes each, until one ends: as written, then (tagged
+    chunks) its words alone, then its words under RESCUE_DIRECTION. A plain chunk that runs on (a "...?" question
+    or a title with a colon) ends reliably once it has a direction, so a runaway no longer stops the build."""
+    words = job.get('plain') or job['text']
+    texts = [('as written', job['text'])]
+    if job.get('plain'):
+        texts.append(('without tags', words))
+    texts.append(('neutral direction', f'{RESCUE_DIRECTION} {words}'))
+    return texts
+
+
 def jsonl(jobs):
     return ''.join(json.dumps(j, ensure_ascii=False) + '\n' for j in jobs)
 
@@ -90,8 +105,18 @@ class WorkerPool:
 
     def _start(self, path: Path) -> subprocess.Popen:
         extra = ['--backend', self.backend] if self.engine == 'vieneu' else []
+        # A chunk that fails every take is reported and skipped, so the rest still gets synthesized;
+        # the build lists what is missing afterwards (Build.synthesize).
         command, env = uv_command(
-            self.engine, 'worker', self.engine, str(path), str(self.cache), '--threads', str(self.threads), *extra
+            self.engine,
+            'worker',
+            self.engine,
+            str(path),
+            str(self.cache),
+            '--threads',
+            str(self.threads),
+            '--skip-failed',
+            *extra,
         )
         return subprocess.Popen(
             command, cwd=ROOT, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8'

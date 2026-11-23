@@ -83,7 +83,9 @@ python3 -m viettts audiobook verify <dir>/script.txt
 
 - Start the build as a **background** command and don't poll it. Give the user the `status` and `tail -f <dir>/build.log` commands in `bash` blocks.
 - Drama-3 voices every line: about 4 minutes per 5k characters, plus about 15–30 s for each retried chunk. A few frame-cap retries per 70 chunks is normal.
-- Afterwards, `grep -c "without tags" <dir>/build.log` counts the chunks that fell back to plain words; simplify those entries in `directed.txt` (a shorter direction, one sound fewer), run `make`, and rebuild. Only the changed lines are synthesized again.
+- Afterwards, `grep -cE "without tags|trying with" <dir>/build.log` counts the chunks that fell back to plain words or to the neutral `[calm, natural]` rescue direction; simplify those entries in `directed.txt` (a shorter direction, one sound fewer), run `make`, and rebuild. Only the changed lines are synthesized again.
+- A chunk that fails even the rescue doesn't stop the build mid-way: everything else is synthesized, then the build lists the failed lines (`L<n>: …`) and stops before assembling. Fix those lines in `directed.txt`, `make`, and rerun.
+- Give every line a direction, continuation lines included (copy the previous line's): untagged lines are the ones that run on (`suika-suika`: a plain `…đúng không...` ended on 1 of 3 seeds, with `[soft, caring]` on 3 of 3).
 - A changed cover, title or blank lines re-encodes from the cache in seconds.
 - Report the M4B path, duration, size, voice, the number of tagged lines, the dropped chapters. 
 - Record what you learned about the voice with `python3 -m viettts voice note <id> "…"`.

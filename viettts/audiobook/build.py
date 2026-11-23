@@ -109,7 +109,26 @@ class BookBuild:
             pool = WorkerPool(engine, cache, args.threads, workers, self.log, args.vieneu_backend)
             if not pool.run(list(self.jobs[engine].values())):
                 raise SystemExit(f'{engine} worker failed; finished chunks are cached, rerun build to resume.')
+        missing = self.missing_chunks()
+        if missing:
+            self.log(f'      {len(missing)} chunks failed every take; nothing is assembled until they exist:')
+            for engine, number, text in missing:
+                self.log(f'        L{number if number is not None else "?"} ({engine}): {text[:70]}')
+            raise SystemExit(
+                'Give these lines a direction in enhance.txt (or a simpler one, or reword them), then rerun the '
+                'build; every other chunk is cached.'
+            )
         return time.perf_counter() - started
+
+    def missing_chunks(self):
+        """[(engine, script line number, chunk text)] for planned chunks the workers left uncached."""
+        lines = {cid: number for _, parts in self.layout for refs, _, number in parts for _, cid, _ in refs}
+        return [
+            (engine, lines.get(cid), job['text'])
+            for engine, jobs in self.jobs.items()
+            for cid, job in jobs.items()
+            if not (self.out / 'cache' / engine / f'{cid}.wav').is_file()
+        ]
 
     def assemble(self) -> Assembly:
         """[3/4] chapters/NN.wav with their pauses, and timeline.json for a full build."""

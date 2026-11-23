@@ -14,7 +14,7 @@ from viettts.paths import ROOT
 def cmd_worker(args):
     # The build helpers are stdlib-only; SDKs stay inside this worker.
     from viettts.audiobook.audio import MAX_SILENCE_S, level, longest_silence, squeeze
-    from viettts.audiobook.workers import clock, frame_budget
+    from viettts.audiobook.workers import RESCUE_DIRECTION, clock, frame_budget, take_texts
 
     os.environ['HF_HUB_DISABLE_SYMLINKS'] = '1'
     for name, suffix in [
@@ -89,11 +89,20 @@ def cmd_worker(args):
 
         def synth(job):
             best = None
-            # A tagged chunk whose every take is rejected falls back to its plain words.
-            for fallback, text in enumerate([job['text']] + ([job['plain']] if job.get('plain') else [])):
+            # A chunk whose every take is rejected falls back to its words alone (tagged chunks), then to its
+            # words under a neutral direction (take_texts); both leave a .plain marker for repair --fallbacks.
+            for fallback, (kind, text) in enumerate(take_texts(job)):
                 if fallback:
                     job['fell_back'] = True
-                    print(f'[drama3]   every tagged take was rejected; trying without tags: {text[:60]}', flush=True)
+                    if kind == 'without tags':
+                        print(
+                            f'[drama3]   every tagged take was rejected; trying without tags: {text[:60]}', flush=True
+                        )
+                    else:
+                        print(
+                            f'[drama3]   every take was rejected; trying with {RESCUE_DIRECTION}: {text[:60]}',
+                            flush=True,
+                        )
                 limit = frame_budget(text)
                 for attempt in range(4):
                     mx.random.seed(int(job['id'][:8], 16) + attempt * 1000)
@@ -125,7 +134,7 @@ def cmd_worker(args):
                         print(f'[drama3]   attempt {attempt + 1} rejected ({error}); retrying', flush=True)
                 if best is not None:
                     return best[1], model.sample_rate
-            raise RuntimeError(f'Drama-3 failed 4 times on: {job["text"][:60]}')
+            raise RuntimeError(f'Drama-3 rejected every take, with every fallback, of: {job["text"][:60]}')
 
     total_chars = sum(len(job['text']) for job in jobs)
     print(
