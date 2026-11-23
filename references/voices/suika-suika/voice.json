@@ -1,6 +1,6 @@
 {
   "id": "suika-suika",
-  "status": "draft",
+  "status": "onboarded",
   "transcript_reviewed": true,
   "source": {
     "input": [
@@ -96,8 +96,15 @@
     "duration": 32.24,
     "longest_pause": 0.66
   },
-  "name": "suika-suika",
-  "updated": "2026-11-23T22:12:11",
+  "name": "Suika",
+  "updated": "2026-11-23T22:54:04",
   "sample_retries": 0,
-  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a"
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
+  "gender": "female",
+  "style": "Sweet, polite, high (≈ 310 Hz); gentle keigo with a quietly possessive edge (Japanese reference)",
+  "fits": "devoted healers and priestesses, polite elf maidens, sweet loyal heroines, gently yandere companions",
+  "approved": "2026-11-23T22:54:04",
+  "notes": [
+    "2026-11-23: 2026-11-23: re-cut with both source clips whole (16.47 + 15.77 = 32.24 s) under the new 40 s cap via --clip; transcripts re-reviewed; 0 sample retries. Old 27.6 s cut in outputs/voice-onboarding/suika-suika/backup-27.6s/."
+  ]
 }

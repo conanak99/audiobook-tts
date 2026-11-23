@@ -1,0 +1,110 @@
+{
+  "id": "yomoyama-mikan",
+  "status": "onboarded",
+  "transcript_reviewed": true,
+  "source": {
+    "input": [
+      "/Users/harry.pham/Downloads/Yomoyama Mikan/1.wav",
+      "/Users/harry.pham/Downloads/Yomoyama Mikan/2.wav"
+    ]
+  },
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source": "/Users/harry.pham/Downloads/Yomoyama Mikan/1.wav",
+      "source_start": 0.0,
+      "transcript_reviewed": true,
+      "gain_db": 0.0,
+      "duration": 13.23,
+      "speech_pct": 86.6,
+      "longest_pause": 0.44,
+      "mean_db": -19.9,
+      "lufs": -19.8,
+      "peak_db": -2.4,
+      "words_per_s": 0.08
+    },
+    {
+      "n": 2,
+      "file": "reference-2.wav",
+      "source": "/Users/harry.pham/Downloads/Yomoyama Mikan/2.wav",
+      "source_start": 0.0,
+      "transcript_reviewed": true,
+      "gain_db": -2.1,
+      "duration": 15.5,
+      "speech_pct": 88.5,
+      "longest_pause": 0.4,
+      "mean_db": -21.8,
+      "lufs": -21.4,
+      "peak_db": -2.0,
+      "words_per_s": 0.06
+    }
+  ],
+  "samples": [
+    {
+      "file": "references/voices/yomoyama-mikan/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+      "duration": 7.66,
+      "speech_pct": 87.5,
+      "longest_pause": 0.54,
+      "mean_db": -22.5,
+      "lufs": -22.9,
+      "peak_db": -10.5
+    },
+    {
+      "file": "references/voices/yomoyama-mikan/samples/sample-2.wav",
+      "text": "Đệ lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay tỷ có chuyện vui muốn kể cho đệ nghe!",
+      "duration": 5.85,
+      "speech_pct": 89.7,
+      "longest_pause": 0.32,
+      "mean_db": -21.3,
+      "lufs": -21.1,
+      "peak_db": -6.3
+    },
+    {
+      "file": "references/voices/yomoyama-mikan/samples/sample-3.wav",
+      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+      "duration": 7.2,
+      "speech_pct": 73.1,
+      "longest_pause": 0.88,
+      "mean_db": -23.0,
+      "lufs": -22.6,
+      "peak_db": -10.7
+    },
+    {
+      "file": "references/voices/yomoyama-mikan/samples/sample-4.wav",
+      "text": "[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!",
+      "duration": 5.39,
+      "speech_pct": 92.1,
+      "longest_pause": 0.42,
+      "mean_db": -21.9,
+      "lufs": -21.1,
+      "peak_db": -6.8
+    },
+    {
+      "file": "references/voices/yomoyama-mikan/samples/sample-5.wav",
+      "text": "[low, sultry] Anh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...",
+      "duration": 6.98,
+      "speech_pct": 56.9,
+      "longest_pause": 0.68,
+      "mean_db": -24.6,
+      "lufs": -22.9,
+      "peak_db": -9.4
+    }
+  ],
+  "metrics": {
+    "duration": 28.73,
+    "longest_pause": 0.44
+  },
+  "name": "Yomoyama Mikan",
+  "updated": "2026-11-23T22:53:11",
+  "sample_retries": 0,
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
+  "gender": "female",
+  "style": "youthful, bright high-pitched, genki and playful, teasing with a sweet seductive edge (Japanese reference)",
+  "fits": "genki girls, idols, teasing kouhai, cheerful heroines, seductive little-devil (koakuma) characters",
+  "approved": "2026-11-23T22:53:11",
+  "notes": [
+    "2026-11-23: References are Japanese (character Miruru); Drama-3 clones cross-lingually. Ref-2 sits at -21.4 LUFS (peak-limited). Samples: 0 retries; sample-3 longest pause 0.88s."
+  ]
+}
