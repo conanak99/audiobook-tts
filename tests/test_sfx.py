@@ -68,6 +68,8 @@ class LibraryTests(unittest.TestCase):
                 write_wav(root / 'body' / f'{name}.wav', 0.1)
             sound = lib.set_takes('splash', 4, root)
             self.assertEqual(lib.stale_takes(sound, root), [3, 4])
+            self.assertEqual(lib.stale_takes(sound, root, upto=3), [3])  # generate --takes 3
+            self.assertEqual(lib.missing_takes(sound, root, upto=1), 0)  # take 1 is there: --takes 1 has nothing to do
             self.assertEqual([p.name for p in lib.sound_files(sound, root)], ['splash.wav', 'splash-2.wav'])
             sound = lib.set_takes('splash', 1, root)
             self.assertEqual([p.name for p in lib.sound_files(sound, root)], ['splash.wav'])

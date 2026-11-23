@@ -97,7 +97,7 @@
     "longest_pause": 0.44
   },
   "name": "Yomoyama Mikan",
-  "updated": "2026-11-23T22:53:11",
+  "updated": "2026-11-24T00:14:56",
   "sample_retries": 0,
   "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
   "gender": "female",
@@ -105,6 +105,7 @@
   "fits": "genki girls, idols, teasing kouhai, cheerful heroines, seductive little-devil (koakuma) characters",
   "approved": "2026-11-23T22:53:11",
   "notes": [
-    "2026-11-23: References are Japanese (character Miruru); Drama-3 clones cross-lingually. Ref-2 sits at -21.4 LUFS (peak-limited). Samples: 0 retries; sample-3 longest pause 0.88s."
+    "2026-11-23: References are Japanese (character Miruru); Drama-3 clones cross-lingually. Ref-2 sits at -21.4 LUFS (peak-limited). Samples: 0 retries; sample-3 longest pause 0.88s.",
+    "2026-11-24: em-gai-quoc-dan-nghien-cac (voice drama, 501 lines, 460 tagged, 522 chunks, 35.8 min): extraordinarily stable voice — only 3 single-attempt frame-cap retries across 522 chunks and 0 plain fallbacks."
   ]
 }

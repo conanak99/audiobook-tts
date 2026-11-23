@@ -167,8 +167,13 @@ def main(argv=None):
     parser.add_argument('--force', action='store_true', help='Render every take of the given sounds again')
     parser.add_argument('--seeds', default=','.join(map(str, SEEDS)), help='Seeds to try first, in order')
     parser.add_argument('--steps', type=int, default=STEPS)
+    parser.add_argument(
+        '--takes', type=int, help='Render only the first N takes of each sound (1: fast, for a sound heard once)'
+    )
     parser.add_argument('--root', type=Path, default=lib.LIBRARY_DIR)
     args = parser.parse_args(argv)
+    if args.takes is not None and args.takes < 1:
+        parser.error('--takes must be at least 1')
     library = lib.load(args.root)
     known = lib.sounds(library)
     unknown = [i for i in args.ids if i not in known]
@@ -176,24 +181,29 @@ def main(argv=None):
         raise SystemExit(f'Not in the library: {", ".join(unknown)} (add them with: viettts sfx add)')
     if args.force and args.ids:
         for sound_id in args.ids:
-            for path in lib.sound_files(known[sound_id], args.root):
-                path.unlink()
-            known[sound_id]['rendered'] = []
+            sound = known[sound_id]
+            if args.takes is None:
+                for path in lib.sound_files(sound, args.root):
+                    path.unlink()
+                sound['rendered'] = []
+            else:  # only the takes this run renders again; later takes stay
+                for take in sound.get('rendered', [])[: args.takes]:
+                    (args.root / take['file']).unlink(missing_ok=True)
         lib.save(library, args.root)
     todo = [known[i] for i in args.ids] if args.ids else library['sounds']
-    todo = [s for s in todo if lib.missing_takes(s, args.root)]
+    todo = [s for s in todo if lib.missing_takes(s, args.root, args.takes)]
     if not todo:
-        print('Nothing to render; every sound has all its takes.')
+        print('Nothing to render; every sound has its takes.')
         return
     first_seeds = [int(s) for s in args.seeds.split(',')]
-    total = sum(lib.missing_takes(s, args.root) for s in todo)
+    total = sum(lib.missing_takes(s, args.root, args.takes) for s in todo)
     pipe = load_pipeline()
     done = 0
     for sound in todo:
         rendered = list(sound.get('rendered', []))[: lib.takes_wanted(sound)]
         # A new take never reuses a seed any take was rendered with, so every take differs.
         last = max([t['seed'] for t in rendered], default=-1)
-        for n in lib.stale_takes(sound, args.root):
+        for n in lib.stale_takes(sound, args.root, args.takes):
             started = time.perf_counter()
             seconds = lib.take_seconds(sound, n)
             seeds = first_seeds if last < 0 else next_seeds(last, len(first_seeds))

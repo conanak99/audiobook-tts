@@ -121,13 +121,15 @@ def take_ok(sound: dict[str, Any], n: int, root: Path = LIBRARY_DIR) -> bool:
     return n <= len(rendered) and (root / rendered[n - 1]['file']).is_file()
 
 
-def stale_takes(sound: dict[str, Any], root: Path = LIBRARY_DIR) -> list[int]:
-    """The takes (1-based) generate has to render: the ones not on disk yet."""
-    return [n for n in range(1, takes_wanted(sound) + 1) if not take_ok(sound, n, root)]
+def stale_takes(sound: dict[str, Any], root: Path = LIBRARY_DIR, upto: int | None = None) -> list[int]:
+    """The takes (1-based) generate has to render: the ones not on disk yet, among the first `upto` (default:
+    all the takes the sound wants)."""
+    last = takes_wanted(sound) if upto is None else min(upto, takes_wanted(sound))
+    return [n for n in range(1, last + 1) if not take_ok(sound, n, root)]
 
 
-def missing_takes(sound: dict[str, Any], root: Path = LIBRARY_DIR) -> int:
-    return len(stale_takes(sound, root))
+def missing_takes(sound: dict[str, Any], root: Path = LIBRARY_DIR, upto: int | None = None) -> int:
+    return len(stale_takes(sound, root, upto))
 
 
 def remove(sound_id: str, root: Path = LIBRARY_DIR) -> dict[str, Any]:

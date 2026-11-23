@@ -9,7 +9,7 @@ Adds a layer of sound effects under a **finished** build from the **audiobook** 
 
 Run everything from the repository root with the system `python3`. The book folder is the one with `script.txt`, `chapters/` and the `.m4b` (`outputs/voice-dramas/<slug>/` or `outputs/audiobooks/<slug>/`).
 
-Pipeline: **timeline → you pick the cues (`sfx.txt`) → add and generate any missing sounds → check → mix → the user listens.**
+Pipeline: **timeline → you pick the cues (`sfx.txt`) → list the new sounds needed → the user picks library (3 takes) or one-time (1 take) for each → add them and render one take each → check → mix the SFX version → render the library sounds' remaining takes and remix → the user listens.**
 
 ## 1. Timeline
 
@@ -57,20 +57,52 @@ L291: door-knock-soft at=end clear    # plays alone; L293 waits for it
 
 ## 3. Missing sounds
 
-If a scene needs a sound the library lacks, add it, render it, and listen before using it:
+When the cues need sounds the library lacks, go in this order:
+
+1. **List the new sounds.** In your reply, one Card per sound: its proposed id, category, kind, seconds, the English prompt, and the `sfx.txt` rows that use it. Write those cues into `sfx.txt` already.
+
+2. **The user picks, per sound,** with buttons on each Card. Render nothing until every sound has an answer:
+   - **Library (3 takes):** a sound other books will reuse, or one heard several times.
+   - **One-time (1 take):** a sound only this scene needs.
+   - **Skip:** leave it out; delete its cues from `sfx.txt`.
+
+   They may also reword a prompt or rename an id; use their version.
+
+3. **Add, render one take each, and build the SFX version.** Add every kept sound with the takes the user chose, render take 1 of all of them in one command (the model loads once; about 45 s per sound, in the background for more than a few), then check and mix (section 4):
+
+   ```sh
+   python3 -m viettts sfx add phone-ringtone --category props --kind loop --seconds 10 --takes 3 \
+     --prompt "A smartphone ringing with a classic electronic ringtone on a table, no voice."
+   python3 -m viettts sfx add door-slam --category scene --kind oneshot --seconds 2 --takes 1 \
+     --prompt "A wooden front door slammed shut hard, a loud bang and a rattle."
+   python3 -m viettts sfx generate phone-ringtone door-slam --takes 1
+   ```
+
+   Tell the user the `(SFX)` book is ready, and name any take that came out `weak` (`sfx list`). Always pass `--takes 1` in this step: the extra takes come after the book is built.
+
+4. **After the SFX version is built, render the remaining takes** of the library sounds (takes 2–3), in the background, then remix so the book gets the variety:
+
+   ```sh
+   python3 -m viettts sfx generate phone-ringtone     # renders only what's missing: takes 2-3
+   python3 -m viettts sfx mix <dir>/script.txt
+   ```
+
+   One-time sounds want 1 take, so they have nothing left to render.
+
+If a new sound sounds wrong when the user listens: reword its prompt in `references/sfx/library.json` or try new seeds (`sfx generate <id> --force --takes 1 --seeds 3,4,5`), then remix. A sound can still change status later: `python3 -m viettts sfx takes <id> 3` moves a one-time sound into the library (run `generate` for its new takes), and `sfx takes <id> 1` makes a library sound one-time.
+
+Other commands:
 
 ```sh
-python3 -m viettts sfx add phone-ringtone --category props --kind loop --seconds 10 \
-  --prompt "A smartphone ringing with a classic electronic ringtone on a table, no voice."
-python3 -m viettts sfx generate                 # renders every take still missing
+python3 -m viettts sfx generate                 # every take still missing, in the whole library
 python3 -m viettts sfx takes squirt-splash 4    # more variants of a sound heard often; generate renders them
 python3 -m viettts sfx generate phone-ringtone --force --seeds 3,4,5   # every take again, from new seeds
 ```
 
-- **takes** (`--takes`, default 3): the take as listed plus two variants, each with its own seed and its own length (take 2 is 0.6×, take 3 is 1.5× the listed seconds), so no sound plays the same twice in a row. Use 4–5 for a sound that repeats a lot in one book. Every take is gated on its own. Remove a sound with `python3 -m viettts sfx remove <id>`.
+- **takes** (`sfx add --takes`, default 3) is how many takes a sound **wants**; `sfx generate --takes N` only limits how many a run **renders**. Take 1 is as listed; take 2 is 0.6× and take 3 1.5× the listed seconds, each with its own seed, so no sound plays the same twice in a row. Use 4–5 for a sound that repeats a lot in one book. Every take is gated on its own. Remove a sound with `python3 -m viettts sfx remove <id>`.
 - **kind:** `loop` for a steady texture that can be cut anywhere (creaking, slapping, rain, a ringtone). `oneshot` for one event (a knock, a zipper, a slap, a beep).
 - **Length:** 2 s for one-shots (half of all Drama-3 lines are under 2 s). **10 s for loops**, so their takes are 10/6/15 s: long scenes then need few seams.
-- **Prompt:** one concrete English sentence (what, how, where, close or far), ending in `no voice, no music.` (drop "no music" only for a ringtone or a melody). English prompts came out about 16× louder and more on-topic than the same prompt in Chinese.
+- **Prompt:** one concrete English sentence (what, how, where, close or far). English prompts came out about 16× louder and more on-topic than the same prompt in Chinese.
 - `generate` runs MOSS-SoundEffect v2 in `engines/sfx` on the Apple GPU. It takes about 45 s per take (50 steps), whatever its length up to 30 s, plus the first-time model load. MOSS always denoises a 30 s window; never shrink it with `max_inference_seconds` to go faster, because a smaller window gives loud, broken audio. Takes are at least 2 s, since MOSS mostly renders silence for shorter lengths. A try passes the gate when its peak is at least −30 dBFS and enough of it has sound (loops 30%, one-shots 5%). When no seed passes, the best try is kept and marked weak: for a loop the steadiest (most sound), for a one-shot the loudest hit. The first run downloads about 10 GB to `models/moss-soundeffect-v2/`.
 - Each take must have enough level and sound in most of it (a near-silent take is common). Otherwise the next seed is tried. A take that fails on all three seeds is kept but listed as `weak <n>` (`sfx list`): listen to it, try `--seeds 3,4,5`, or reword the prompt (`--force`).
 - Start `generate` as a **background** command when it renders more than a few sounds, and don't poll it.

@@ -71,6 +71,8 @@ def cmd_generate(args):
     extra = [*args.ids, *(['--force'] if args.force else []), '--seeds', args.seeds]
     if args.steps is not None:
         extra += ['--steps', str(args.steps)]
+    if args.takes is not None:
+        extra += ['--takes', str(args.takes)]
     command, env = uv_command('sfx', '-m', 'viettts.sfx.generate', *extra)
     sys.exit(subprocess.run(command, env=env).returncode)
 
@@ -274,7 +276,7 @@ def main(argv=None):
     s.add_argument('--category', required=True, help='bed, undress, body, props, scene, ... (or a new one)')
     s.add_argument('--kind', required=True, choices=lib.KINDS)
     s.add_argument('--seconds', type=float, required=True, help='2 for one-shots, 3 or 5 for loops')
-    s.add_argument('--prompt', required=True, help='English description ending in "no voice, no music."')
+    s.add_argument('--prompt', required=True, help='English description"')
     s.add_argument('--takes', type=int, default=1, help='Variants (seeds) to render, for a sound heard often (3-4)')
     s.set_defaults(func=cmd_add)
     s = sub.add_parser('remove', help='Drop sounds from the library, with their files')
@@ -289,6 +291,9 @@ def main(argv=None):
     s.add_argument('--force', action='store_true', help='Render every take of the given ids again')
     s.add_argument('--seeds', default='0,1,2', help='Seeds to try in order, e.g. 3,4,5 for a fresh take')
     s.add_argument('--steps', type=int, help='Denoising steps (default: viettts.sfx.generate.STEPS)')
+    s.add_argument(
+        '--takes', type=int, help='Render only the first N takes of each sound (1: fast, for a sound heard once)'
+    )
     s.set_defaults(func=cmd_generate)
     for name, func, text in (
         ('timeline', cmd_timeline, 'Write timeline.json (line start/end times) for a built book'),
