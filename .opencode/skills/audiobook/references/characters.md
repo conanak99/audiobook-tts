@@ -75,8 +75,9 @@ In his own series the MC's id is `ta`; elsewhere use the name in the Id column.
 | Id | Also called | Canon | Fallback | Who | Books |
 |---|---|---|---|---|---|
 | Liễu lão thư lại | Liễu, họ Liễu, Liễu tiên sinh, Liễu chưởng quỹ | `adam-bua-drama` | Thái Sơn (zhuye_v3, where `adam-bua-drama` is the MC) | Vain, theatrical scribe of Thiên Mặc Đường who writes popular romance books; auctioneer at Huyền Nguyệt Các | keke_v3, keke_v5, meimei_v4, maomao_v1–v2, lulu_v2, lulu_v4, chunmei_v2, chunmei_v5, zhuye_v3 |
+| Yến Vô Cực | Khai Quốc Đế Quân, the voice of the stone tablet in Tổ Hoàng Mật Quật; `hoàng đế` in the parse | `adam-bua-drama` (user's choice: he is Thẩm Hòe's ancestor, so he shares the MC's voice on purpose) | — | Gleeful, playful ancestor emperor; author of the Thái Cổ Phủ Linh Chân Kinh | zhuye_v4 |
 | Kiếm Vô Ngân | Các chủ, Kiếm Các chủ, Vô Ngân | `thien-minh-drama` | — | Austere, joyless sect master of Vô Vân Kiếm Các | chunmei_v2–v5 |
-| Ngao Côn | Ngạo Côn (id in the older books), Chân Long, Thanh Long, Phụ thân, `phụ thân nàng` / `Kiều` in parses | `duc-tri-drama` (Drama-3 clone of Đức Trí, from 2026-11-23; roars, grumbles and sulks with tags) | Đức Trí (VieNeu) | Vain, boisterous dragon who counts his gold piles and "meditates" (snores); Hỏa Linh's husband, Diệp Nhi's father | shuangyue_v3, shuangyue_v5, meimei_v4, chunchun_v5, zhuye_v1–v2, zhuye_v5 |
+| Ngao Côn | Ngạo Côn (id in the older books), Chân Long, Thanh Long, Phụ thân, `phụ thân nàng` / `Kiều` in parses | `duc-tri-drama` | — | Vain, boisterous dragon who counts his gold piles and "meditates" (snores); Hỏa Linh's husband, Diệp Nhi's father. Tag him booming, roaring, grumbling, sulking; his "ta đang tọa thiền" excuses are a running joke (defensive, grumbling) | shuangyue_v3, shuangyue_v5, meimei_v4, chunchun_v5, zhuye_v1–v2, zhuye_v5 |
 | Vu thúc | Vu thúc | Đức Trí | — | Tiểu Xuân's father, Ma Hoa's husband; huge, gentle, resigned | chunchun_v2–v4, chunchun_v6 |
 | Ngưu Mãnh | Ngưu Mãnh | Đức Trí | — | Bạch Thanh Thanh's huge, gentle husband | lulu_v5–v6 |
 | Mạc Tà | Mạc lão, lão phu | Thiện Minh | — | Lazy, theatrical Huyết Liên Giáo elder; Hồng Tiểu Muội's husband | lulu_v1–v6 |
@@ -85,4 +86,4 @@ In his own series the MC's id is `ta`; elsewhere use the name in the Id column.
 | Bách Vị Tiên Nhân | gương mặt đá, vị tiên nhân | Hải Đăng | — | Deceased trial creator, voice of Bách Vị Bia | mahua_v3 |
 | Trận Linh | trận linh Cửu Yên Luyện Cảnh, lão giữ cửa | Thùy Dung (VieNeu) | — | Dry, weary trial spirit who keeps Khả Khả's sect memories | keke_v5 |
 
-Đức Trí and Thiện Minh each cover several men. When one of them is the book's `male` role or narrator, the listed man keeps it and the other men move to another `male` voice.
+Đức Trí and Thiện Minh each cover several men. When one of them is the book's `male` role or narrator, the listed man keeps it and the other men move to another `male` voice. `duc-tri-drama` is the Drama-3 clone of Đức Trí, so it counts as the same timbre: Vu thúc and Ngưu Mãnh (VieNeu Đức Trí) should not share a scene with Ngao Côn; if they do, move them to Thái Sơn.
