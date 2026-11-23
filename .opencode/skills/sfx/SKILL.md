@@ -71,7 +71,7 @@ python3 -m viettts sfx generate phone-ringtone --force --seeds 3,4,5   # every t
 - **kind:** `loop` for a steady texture that can be cut anywhere (creaking, slapping, rain, a ringtone). `oneshot` for one event (a knock, a zipper, a slap, a beep).
 - **Length:** 2 s for one-shots (half of all Drama-3 lines are under 2 s). **10 s for loops**, so their takes are 10/6/15 s: long scenes then need few seams.
 - **Prompt:** one concrete English sentence (what, how, where, close or far), ending in `no voice, no music.` (drop "no music" only for a ringtone or a melody). English prompts came out about 16× louder and more on-topic than the same prompt in Chinese.
-- `generate` runs MOSS-SoundEffect v2 in `engines/sfx` on the Apple GPU. It takes about 15 s per one-shot and 35 s per loop, plus the first-time model load. The first run downloads about 10 GB to `models/moss-soundeffect-v2/`.
+- `generate` runs MOSS-SoundEffect v2 in `engines/sfx` on the Apple GPU. It takes about 45 s per take (50 steps), whatever its length up to 30 s, plus the first-time model load. MOSS always denoises a 30 s window; never shrink it with `max_inference_seconds` to go faster, because a smaller window gives loud, broken audio. Takes are at least 2 s, since MOSS mostly renders silence for shorter lengths. The first run downloads about 10 GB to `models/moss-soundeffect-v2/`.
 - Each take must have enough level and sound in most of it (a near-silent take is common). Otherwise the next seed is tried. A take that fails on all three seeds is kept but listed as `weak <n>` (`sfx list`): listen to it, try `--seeds 3,4,5`, or reword the prompt (`--force`).
 - Start `generate` as a **background** command when it renders more than a few sounds, and don't poll it.
 

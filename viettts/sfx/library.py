@@ -3,7 +3,7 @@
 A sound is listed first (id, category, kind, seconds, prompt, takes) and rendered later by
 viettts.sfx.generate. Each take is the same prompt with its own seed and its own length (take 1 is
 `seconds` long, the others shorter or longer by LENGTH_FACTORS), so a sound heard several times in a book
-never plays the same twice in a row: rendered holds one {file, seconds, seed, raw_rms, active, passed_gate}
+never plays the same twice in a row: rendered holds one {file, seconds, seed, raw_peak_db, active, passed_gate}
 per take, the first take as <category>/<id>.wav and the others as <category>/<id>-<n>.wav.
 """
 
@@ -20,7 +20,7 @@ MAX_SECONDS = 30.0
 MAX_TAKES = 8
 DEFAULT_TAKES = 3  # the take as listed plus two variants
 LENGTH_FACTORS = (1.0, 0.6, 1.5, 0.8, 1.25, 0.7, 1.35, 0.9)  # take n is seconds * LENGTH_FACTORS[n - 1] long
-MIN_TAKE_SECONDS = 0.8
+MIN_TAKE_SECONDS = 2.0  # MOSS mostly renders silence for shorter lengths
 SAMPLE_RATE = 44100  # Drama-3's rate, so a mix under Drama-3 voices needs no resampling
 LEVEL_DBFS = -20.0  # RMS of the audible part of every sound
 

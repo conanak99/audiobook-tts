@@ -1,13 +1,13 @@
 """Render library sounds with MOSS-SoundEffect v2 (runs in engines/sfx: python -m viettts.sfx.generate).
 
-The pipeline always denoises max_inference_seconds (30 s) of latents and crops; a window just over the
-sound's length is about 4x faster. Each take is gated on level and activity (a near-silent take is common)
-and retried with the next seed; the best take is resampled to 44.1 kHz, levelled to LEVEL_DBFS and faded.
+Called as the MOSS demo does (50 steps, CFG 4.0, sigma_shift 5.0): the pipeline denoises its full 30 s
+window and crops. Never shrink that window (max_inference_seconds): the model is trained on 30 s and a
+smaller one gives loud, broken audio. A take that is near silence (common) is retried with the next seed;
+the best take is resampled to 44.1 kHz, levelled to LEVEL_DBFS (measured against its own peak) and faded.
 """
 
 import argparse
 import json
-import math
 import os
 import sys
 import time
@@ -22,11 +22,12 @@ from viettts.sfx import library as lib  # noqa: E402
 REPO = 'OpenMOSS-Team/MOSS-SoundEffect-v2.0'
 REVISION = 'e35df4d82fbe87fcd5d14e5d100e349c0c3c076d'
 MODEL = ROOT / 'models' / 'moss-soundeffect-v2'
-STEPS = 100
+STEPS = 50  # the demo default; 100 (the model card) sounds no better and takes twice as long
 CFG = 4.0
 SEEDS = (0, 1, 2)
-MIN_RMS = 0.004
-MIN_ACTIVE = {'loop': 0.6, 'oneshot': 0.15}  # share of 20 ms frames above -45 dBFS
+MIN_PEAK_DBFS = -30.0  # quieter than this is the model's near-silence, not a sound
+MIN_ACTIVE = {'loop': 0.3, 'oneshot': 0.05}  # share of 20 ms frames within RANGE_DB of the take's peak
+RANGE_DB = 40.0
 PEAK_DBFS = -1.0
 
 
@@ -82,15 +83,24 @@ def release_memory():
         torch.mps.empty_cache()
 
 
-def active_fraction(x, rate, floor_db=-45.0):
+def frame_rms(x, rate):
     import numpy as np
 
     hop = rate // 50
     frames = len(x) // hop
-    if not frames:
-        return 0.0
-    rms = np.sqrt((x[: frames * hop].reshape(frames, hop) ** 2).mean(axis=1))
-    return float((20 * np.log10(rms + 1e-9) > floor_db).mean())
+    return np.sqrt((x[: frames * hop].reshape(frames, hop) ** 2).mean(axis=1))
+
+
+def measure(x, rate):
+    """(peak dBFS, share of 20 ms frames within RANGE_DB of the peak). Relative, because a real sound is
+    often a short event in silence (a kiss, a knock), and the model's level varies a lot between takes."""
+    import numpy as np
+
+    peak = float(np.abs(x).max()) if len(x) else 0.0
+    rms = frame_rms(x, rate)
+    if not peak or not len(rms):
+        return -120.0, 0.0
+    return 20 * float(np.log10(peak)), float((rms > peak * 10 ** (-RANGE_DB / 20)).mean())
 
 
 def finish(x, rate, kind):
@@ -100,8 +110,9 @@ def finish(x, rate, kind):
     import torchaudio.functional as F
 
     x = F.resample(torch.from_numpy(x).unsqueeze(0), rate, lib.SAMPLE_RATE)[0].numpy()
-    audible = x[np.abs(x) > 10 ** (-45 / 20)]
-    rms = float(np.sqrt((audible**2).mean())) if len(audible) else 1e-9
+    env = frame_rms(x, lib.SAMPLE_RATE)
+    loud = env[env > float(np.abs(x).max()) * 10 ** (-RANGE_DB / 20)]
+    rms = float(np.sqrt((loud**2).mean())) if len(loud) else 1e-9
     x = x * (10 ** (lib.LEVEL_DBFS / 20) / rms)
     peak = float(np.abs(x).max())
     if peak > 10 ** (PEAK_DBFS / 20):
@@ -114,10 +125,8 @@ def finish(x, rate, kind):
 
 
 def render(pipe, sound, seconds, seeds, steps):
-    """The first take that passes the gate, else the best one: (passed, seed, rms, active, samples), and the
-    seeds it tried."""
-    import numpy as np
-
+    """The first take that passes the gate, else the loudest: (passed, seed, peak_db, active, samples), and
+    the seeds it tried."""
     best, tried = None, []
     for seed in seeds:
         tried.append(seed)
@@ -127,13 +136,12 @@ def render(pipe, sound, seconds, seeds, steps):
             num_inference_steps=steps,
             cfg_scale=CFG,
             seed=seed,
-            max_inference_seconds=math.ceil(seconds) + 2,
         )
         x = audio[0, 0].detach().float().cpu().numpy()
-        rms, active = float(np.sqrt((x**2).mean())), active_fraction(x, pipe.sample_rate)
-        passed = rms >= MIN_RMS and active >= MIN_ACTIVE[sound['kind']]
-        if best is None or (passed, active * rms) > (best[0], best[3] * best[2]):
-            best = (passed, seed, rms, active, x)
+        peak_db, active = measure(x, pipe.sample_rate)
+        passed = peak_db >= MIN_PEAK_DBFS and active >= MIN_ACTIVE[sound['kind']]
+        if best is None or (passed, peak_db) > (best[0], best[2]):
+            best = (passed, seed, peak_db, active, x)
         if passed:
             break
     assert best is not None
@@ -182,13 +190,18 @@ def main(argv=None):
             started = time.perf_counter()
             seconds = lib.take_seconds(sound, n)
             seeds = first_seeds if last < 0 else next_seeds(last, len(first_seeds))
-            (passed, seed, rms, active, x), tried = render(pipe, sound, seconds, seeds, args.steps)
+            (passed, seed, peak_db, active, x), tried = render(pipe, sound, seconds, seeds, args.steps)
             last = max(last, *tried)
             rel = lib.take_file(sound, n)
             (args.root / sound['category']).mkdir(parents=True, exist_ok=True)
             sf.write(args.root / rel, finish(x, pipe.sample_rate, sound['kind']), lib.SAMPLE_RATE, subtype='PCM_16')
             take = dict(
-                file=rel, seconds=seconds, seed=seed, raw_rms=round(rms, 4), active=round(active, 2), passed_gate=passed
+                file=rel,
+                seconds=seconds,
+                seed=seed,
+                raw_peak_db=round(peak_db, 1),
+                active=round(active, 2),
+                passed_gate=passed,
             )
             if n <= len(rendered):
                 rendered[n - 1] = take
@@ -203,7 +216,7 @@ def main(argv=None):
             release_memory()
             flag = '' if passed else f'  <- failed the gate on seeds {tried}; best kept, listen to it'
             print(
-                f'[{done}/{total}] {rel} (take {n}/{lib.takes_wanted(sound)}, {seconds:g}s) seed={seed} rms={rms:.3f} '
+                f'[{done}/{total}] {rel} (take {n}/{lib.takes_wanted(sound)}, {seconds:g}s) seed={seed} peak={peak_db:.1f}dB '
                 f'active={active:.2f} {time.perf_counter() - started:.0f}s{flag}',
                 flush=True,
             )
