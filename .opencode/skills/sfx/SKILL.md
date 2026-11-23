@@ -48,7 +48,7 @@ L291: door-knock-soft at=end clear    # plays alone; L293 waits for it
 - **Only sounds that happen now.** When she *tells* what happened ("em bị ép phải liếm…", a report to the boyfriend), add nothing. In her own scene, follow the text: `nhóp nhép`, `bạch bạch`, `phụt`, a phone ringing, a door, tea, a kiss.
 - **Follow the pace the text gives.** "nhấp rất chậm" is a slow loop, "dập nhanh", "mãnh liệt quá" a fast one. Change the loop at the line where the pace changes, rather than running one loop through a whole scene.
 - **Place.** Add a bed only where there is one (a bed, "lên giường", a bedroom). Standing against a wall gets skin sounds and no creak. Use at most two loops at the same moment: one texture (the bed) and one contact sound (skin or wet).
-- **Spans:** one loop rarely runs longer than about 40 s, so break a long scene into its phases (slow → medium → fast → afterglow). A loop's lines must hold at least 0.25 s of sound.
+- **Spans:** a loop can run as long as the scene needs. The mixer builds it from its takes in shuffled order, cuts every seam in a quiet moment (between two slaps or creaks), and adds a slow ±1.5 dB drift, so a minute of the same loop doesn't sound repeated. Still break a scene where the text changes pace (slow → medium → fast → afterglow), since a bed doesn't speed up by itself. A loop's lines must hold at least 0.25 s of sound.
 - **Doubling Drama-3 sounds.** Lines with `[slurp]`, `[wet kiss]` or `[moans]` already carry the voice's own sound. A quiet loop under them (`gain=-18`) is fine, but don't add a one-shot of the same thing at the same moment.
 - **Before a line, not after it.** A sound the line reacts to ("Tự dưng anh làm gì thế…" after a kiss) starts just before it: `at=-0.6`. A one-shot never starts before 0 in its chapter.
 - **No voices in the library.** Moans, panting and groans come from the Drama-3 voice tags (`[moans]`, `[pants]` …), not from sound effects; the men in a voice drama stay silent. Don't add vocal sounds to the library.
@@ -60,7 +60,7 @@ L291: door-knock-soft at=end clear    # plays alone; L293 waits for it
 If a scene needs a sound the library lacks, add it, render it, and listen before using it:
 
 ```sh
-python3 -m viettts sfx add phone-ringtone --category props --kind loop --seconds 3 \
+python3 -m viettts sfx add phone-ringtone --category props --kind loop --seconds 10 \
   --prompt "A smartphone ringing with a classic electronic ringtone on a table, no voice."
 python3 -m viettts sfx generate                 # renders every take still missing
 python3 -m viettts sfx takes squirt-splash 4    # more variants of a sound heard often; generate renders them
@@ -69,7 +69,7 @@ python3 -m viettts sfx generate phone-ringtone --force --seeds 3,4,5   # every t
 
 - **takes** (`--takes`, default 3): the take as listed plus two variants, each with its own seed and its own length (take 2 is 0.6×, take 3 is 1.5× the listed seconds), so no sound plays the same twice in a row. Use 4–5 for a sound that repeats a lot in one book. Every take is gated on its own. Remove a sound with `python3 -m viettts sfx remove <id>`.
 - **kind:** `loop` for a steady texture that can be cut anywhere (creaking, slapping, rain, a ringtone). `oneshot` for one event (a knock, a zipper, a slap, a beep).
-- **Length:** 2 s for one-shots, 3 s for short loops, 5 s for steady loops. Half of all Drama-3 lines are under 2 s, and 97% are under 5 s.
+- **Length:** 2 s for one-shots (half of all Drama-3 lines are under 2 s). **10 s for loops**, so their takes are 10/6/15 s: long scenes then need few seams.
 - **Prompt:** one concrete English sentence (what, how, where, close or far), ending in `no voice, no music.` (drop "no music" only for a ringtone or a melody). English prompts came out about 16× louder and more on-topic than the same prompt in Chinese.
 - `generate` runs MOSS-SoundEffect v2 in `engines/sfx` on the Apple GPU. It takes about 15 s per one-shot and 35 s per loop, plus the first-time model load. The first run downloads about 10 GB to `models/moss-soundeffect-v2/`.
 - Each take must have enough level and sound in most of it (a near-silent take is common). Otherwise the next seed is tried. A take that fails on all three seeds is kept but listed as `weak <n>` (`sfx list`): listen to it, try `--seeds 3,4,5`, or reword the prompt (`--force`).

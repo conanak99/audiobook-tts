@@ -114,16 +114,15 @@ def set_takes(sound_id: str, takes: int, root: Path = LIBRARY_DIR) -> dict[str, 
 
 
 def take_ok(sound: dict[str, Any], n: int, root: Path = LIBRARY_DIR) -> bool:
-    """Take n is rendered, on disk and as long as it should be (a take from before per-take lengths counts
-    as take 1's length)."""
+    """Take n is rendered and on disk. Its length doesn't matter: take_seconds() only sets the length of a
+    take rendered from now on, so changing a sound's seconds never throws good takes away (use
+    generate --force to redo them)."""
     rendered = sound.get('rendered', [])
-    if n > len(rendered) or not (root / rendered[n - 1]['file']).is_file():
-        return False
-    return rendered[n - 1].get('seconds', float(sound['seconds'])) == take_seconds(sound, n)
+    return n <= len(rendered) and (root / rendered[n - 1]['file']).is_file()
 
 
 def stale_takes(sound: dict[str, Any], root: Path = LIBRARY_DIR) -> list[int]:
-    """The takes (1-based) generate has to render: missing, or of another length than they should be."""
+    """The takes (1-based) generate has to render: the ones not on disk yet."""
     return [n for n in range(1, takes_wanted(sound) + 1) if not take_ok(sound, n, root)]
 
 

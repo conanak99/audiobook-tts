@@ -61,14 +61,14 @@ class LibraryTests(unittest.TestCase):
             library = lib.load(root)
             library['sounds'][0]['rendered'] = [
                 dict(file='body/splash.wav', seconds=2.0, seed=0),
-                dict(file='body/splash-2.wav', seconds=2.0, seed=1),  # from before per-take lengths: 1.2 s now
+                dict(file='body/splash-2.wav', seconds=2.0, seed=1),  # another length than take 2 gets now: kept
             ]
             lib.save(library, root)
             for name in ('splash', 'splash-2'):
                 write_wav(root / 'body' / f'{name}.wav', 0.1)
             sound = lib.set_takes('splash', 4, root)
-            self.assertEqual(lib.stale_takes(sound, root), [2, 3, 4])
-            self.assertEqual([p.name for p in lib.sound_files(sound, root)], ['splash.wav'])
+            self.assertEqual(lib.stale_takes(sound, root), [3, 4])
+            self.assertEqual([p.name for p in lib.sound_files(sound, root)], ['splash.wav', 'splash-2.wav'])
             sound = lib.set_takes('splash', 1, root)
             self.assertEqual([p.name for p in lib.sound_files(sound, root)], ['splash.wav'])
             self.assertFalse((root / 'body' / 'splash-2.wav').exists())  # a dropped take's file goes too

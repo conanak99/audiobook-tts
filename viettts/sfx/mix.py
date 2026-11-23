@@ -2,8 +2,8 @@
 
 plan.json: {"chapters": [{"voice": in.wav, "out": out.wav, "inserts": [[at_s, seconds], ...], "cues": [...]}]}
 with placements from viettts.sfx.cues.place. inserts (from clear cues) are silences spliced into the voice at
-voice-only times; the cues are already timed for the longer chapter. A loop strings its takes together (take after take, then round again) with a short
-crossfade at each seam; the sum goes through a soft limiter so the voice never clips. Prints one JSON summary line per chapter.
+voice-only times; the cues are already timed for the longer chapter. A loop becomes a bed of its takes
+(viettts.sfx.loops); the sum goes through a soft limiter so the voice never clips. Prints one JSON summary line per chapter.
 """
 
 import json
@@ -12,7 +12,8 @@ import sys
 import numpy as np
 import soundfile as sf
 
-CROSSFADE_S = 0.08
+from viettts.sfx import loops
+
 LIMIT = 0.89  # about -1 dBFS: samples above it are bent softly towards 1.0
 
 
@@ -21,27 +22,6 @@ def resample(x, rate, target):
         return x
     n = round(len(x) * target / rate)
     return np.interp(np.linspace(0, len(x) - 1, n), np.arange(len(x)), x).astype(np.float32)
-
-
-def repeat(takes, frames, crossfade):
-    """The takes played one after another (round again as needed) to `frames` samples, each seam
-    crossfaded over `crossfade` samples."""
-    if len(takes[0]) >= frames:
-        return takes[0][:frames].copy()  # a copy: the fades must not reach the cached take
-    crossfade = min([crossfade, *(len(x) // 4 for x in takes)])
-    longest = max(len(x) for x in takes)
-    out = np.zeros(frames + longest, dtype=np.float32)
-    ramp_in, ramp_out = np.linspace(0, 1, crossfade, dtype=np.float32), np.linspace(1, 0, crossfade, dtype=np.float32)
-    position, n = 0, 0
-    while position < frames:
-        piece = takes[n % len(takes)].copy()
-        if position:
-            piece[:crossfade] *= ramp_in
-        piece[-crossfade:] *= ramp_out
-        out[position : position + len(piece)] += piece
-        position += len(piece) - crossfade
-        n += 1
-    return out[:frames]
 
 
 def soft_limit(x):
@@ -81,7 +61,10 @@ def mix_chapter(chapter, clips):
         frames = min(round(cue['seconds'] * rate), len(bed) - start)
         if frames <= 0:
             continue
-        x = repeat(takes, frames, round(CROSSFADE_S * rate)) if cue['kind'] == 'loop' else takes[0][:frames].copy()
+        if cue['kind'] == 'loop':
+            x = loops.bed(takes, frames, rate, loops.cue_seed(cue['sound'], cue['chapter'], cue['start_s']))
+        else:
+            x = takes[0][:frames].copy()
         fade_in, fade_out = round(cue['fade_in_s'] * rate), round(cue['fade_out_s'] * rate)
         if fade_in:
             x[:fade_in] *= np.linspace(0, 1, fade_in, dtype=np.float32)

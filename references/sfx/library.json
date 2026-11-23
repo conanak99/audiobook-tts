@@ -6,25 +6,26 @@
    "id": "bed-creak-fast",
    "category": "bed",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "A bed creaking fast and hard, mattress springs squeaking rapidly in a frantic rhythm, close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
    "rendered": [
     {
      "file": "bed/bed-creak-fast.wav",
-     "seed": 1,
-     "raw_rms": 0.0879,
-     "active": 0.98,
+     "seconds": 10.0,
+     "seed": 6,
+     "raw_rms": 0.2687,
+     "active": 1.0,
      "passed_gate": true
     },
     {
      "file": "bed/bed-creak-fast-2.wav",
-     "seconds": 3.0,
-     "seed": 2,
-     "raw_rms": 0.3983,
-     "active": 0.77,
-     "passed_gate": true
+     "seconds": 6.0,
+     "seed": 9,
+     "raw_rms": 0.1502,
+     "active": 0.53,
+     "passed_gate": false
     },
     {
      "file": "bed/bed-creak-fast-3.wav",
@@ -41,7 +42,7 @@
    "id": "bed-creak-medium",
    "category": "bed",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "A bed creaking at a steady medium rhythm, mattress springs squeaking with every push, close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -51,7 +52,8 @@
      "seed": 1,
      "raw_rms": 0.0682,
      "active": 0.95,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     },
     {
      "file": "bed/bed-creak-medium-2.wav",
@@ -76,7 +78,7 @@
    "id": "bed-creak-slow",
    "category": "bed",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "An old wooden bed creaking slowly and rhythmically, mattress springs squeaking, in a quiet bedroom, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -86,7 +88,8 @@
      "seed": 1,
      "raw_rms": 0.0656,
      "active": 0.98,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     },
     {
      "file": "bed/bed-creak-slow-2.wav",
@@ -121,7 +124,8 @@
      "seed": 0,
      "raw_rms": 0.3463,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     },
     {
      "file": "bed/bed-fall-onto-2.wav",
@@ -156,7 +160,8 @@
      "seed": 0,
      "raw_rms": 0.3748,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     },
     {
      "file": "bed/bed-sit-down-2.wav",
@@ -191,7 +196,8 @@
      "seed": 0,
      "raw_rms": 0.158,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     },
     {
      "file": "bed/blanket-pull-2.wav",
@@ -216,7 +222,7 @@
    "id": "headboard-knock-fast",
    "category": "bed",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "A wooden headboard banging fast against the wall, bed frame rattling and creaking hard, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -226,7 +232,8 @@
      "seed": 1,
      "raw_rms": 0.1218,
      "active": 0.6,
-     "passed_gate": false
+     "passed_gate": false,
+     "seconds": 5.0
     },
     {
      "file": "bed/headboard-knock-fast-2.wav",
@@ -251,7 +258,7 @@
    "id": "headboard-knock-slow",
    "category": "bed",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "A wooden headboard slowly knocking against a bedroom wall in a steady rhythm, bed frame creaking, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -261,7 +268,8 @@
      "seed": 1,
      "raw_rms": 0.0994,
      "active": 0.99,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     },
     {
      "file": "bed/headboard-knock-slow-2.wav",
@@ -286,7 +294,7 @@
    "id": "sheets-rustle",
    "category": "bed",
    "kind": "loop",
-   "seconds": 3,
+   "seconds": 10,
    "prompt": "Bed sheets and a thick blanket rustling as bodies shift on a soft mattress, close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -296,7 +304,8 @@
      "seed": 0,
      "raw_rms": 0.1534,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 3.0
     },
     {
      "file": "bed/sheets-rustle-2.wav",
@@ -330,7 +339,8 @@
      "seed": 0,
      "raw_rms": 0.4776,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     },
     {
      "file": "body/cum-spurt-2.wav",
@@ -374,7 +384,8 @@
      "seed": 0,
      "raw_rms": 0.3067,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     },
     {
      "file": "body/kiss-smack-2.wav",
@@ -399,7 +410,7 @@
    "id": "kisses-wet",
    "category": "body",
    "kind": "loop",
-   "seconds": 3,
+   "seconds": 10,
    "prompt": "Several slow wet kisses, lips smacking and parting softly, very close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -409,7 +420,8 @@
      "seed": 0,
      "raw_rms": 0.3075,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 3.0
     },
     {
      "file": "body/kisses-wet-2.wav",
@@ -434,7 +446,7 @@
    "id": "lick-wet",
    "category": "body",
    "kind": "loop",
-   "seconds": 3,
+   "seconds": 10,
    "prompt": "Slow wet licking sounds of a tongue on skin, very close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -444,7 +456,8 @@
      "seed": 2,
      "raw_rms": 0.0544,
      "active": 0.69,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 3.0
     },
     {
      "file": "body/lick-wet-2.wav",
@@ -469,7 +482,7 @@
    "id": "lube-rub-hands",
    "category": "body",
    "kind": "loop",
-   "seconds": 3,
+   "seconds": 10,
    "prompt": "Slippery lotion being rubbed between two hands, wet slick friction, close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -479,7 +492,8 @@
      "seed": 2,
      "raw_rms": 0.1252,
      "active": 0.36,
-     "passed_gate": false
+     "passed_gate": false,
+     "seconds": 3.0
     },
     {
      "file": "body/lube-rub-hands-2.wav",
@@ -514,7 +528,8 @@
      "seed": 0,
      "raw_rms": 0.4135,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     },
     {
      "file": "body/lube-squirt-2.wav",
@@ -539,7 +554,7 @@
    "id": "skin-caress",
    "category": "body",
    "kind": "loop",
-   "seconds": 3,
+   "seconds": 10,
    "prompt": "A hand slowly caressing and rubbing bare skin, soft gentle friction, very close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -549,7 +564,8 @@
      "seed": 0,
      "raw_rms": 0.1509,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 3.0
     },
     {
      "file": "body/skin-caress-2.wav",
@@ -574,7 +590,7 @@
    "id": "skin-slap-fast",
    "category": "body",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "Fast hard skin-on-skin slapping, bodies colliding rapidly, intense rhythm, intimate close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -584,7 +600,8 @@
      "seed": 1,
      "raw_rms": 0.2926,
      "active": 0.7,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     },
     {
      "file": "body/skin-slap-fast-2.wav",
@@ -609,7 +626,7 @@
    "id": "skin-slap-medium",
    "category": "body",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "Rhythmic skin-on-skin slapping at a steady medium pace, bodies colliding on a bed, intimate close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -619,7 +636,8 @@
      "seed": 1,
      "raw_rms": 0.1395,
      "active": 0.91,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     },
     {
      "file": "body/skin-slap-medium-2.wav",
@@ -644,7 +662,7 @@
    "id": "skin-slap-slow",
    "category": "body",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "Slow rhythmic skin-on-skin slapping, two bodies meeting in a steady slow rhythm, intimate close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -654,7 +672,8 @@
      "seed": 0,
      "raw_rms": 0.0812,
      "active": 0.75,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     },
     {
      "file": "body/skin-slap-slow-2.wav",
@@ -679,7 +698,7 @@
    "id": "slurp-sloppy",
    "category": "body",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "Wet sloppy slurping and sucking sounds in a slow rhythm, very close up, intimate, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -689,7 +708,8 @@
      "seed": 1,
      "raw_rms": 0.038,
      "active": 0.88,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     },
     {
      "file": "body/slurp-sloppy-2.wav",
@@ -698,6 +718,14 @@
      "raw_rms": 0.2864,
      "active": 0.73,
      "passed_gate": true
+    },
+    {
+     "file": "body/slurp-sloppy-3.wav",
+     "seconds": 7.5,
+     "seed": 5,
+     "raw_rms": 0.0562,
+     "active": 0.31,
+     "passed_gate": false
     }
    ],
    "takes": 3
@@ -706,7 +734,7 @@
    "id": "spank-series",
    "category": "body",
    "kind": "loop",
-   "seconds": 3,
+   "seconds": 10,
    "prompt": "A hand spanking bare skin, several sharp loud slaps with short pauses between them, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -716,7 +744,24 @@
      "seed": 2,
      "raw_rms": 0.18,
      "active": 0.47,
-     "passed_gate": false
+     "passed_gate": false,
+     "seconds": 3.0
+    },
+    {
+     "file": "body/spank-series-2.wav",
+     "seconds": 1.8,
+     "seed": 5,
+     "raw_rms": 0.2016,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/spank-series-3.wav",
+     "seconds": 4.5,
+     "seed": 7,
+     "raw_rms": 0.0414,
+     "active": 0.61,
+     "passed_gate": true
     }
    ],
    "takes": 3
@@ -735,6 +780,23 @@
      "seed": 0,
      "raw_rms": 0.2575,
      "active": 1.0,
+     "passed_gate": true,
+     "seconds": 2.0
+    },
+    {
+     "file": "body/spank-single-2.wav",
+     "seconds": 1.2,
+     "seed": 1,
+     "raw_rms": 0.035,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/spank-single-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_rms": 0.0894,
+     "active": 0.43,
      "passed_gate": true
     }
    ],
@@ -744,7 +806,7 @@
    "id": "squirt-drip",
    "category": "body",
    "kind": "loop",
-   "seconds": 3.0,
+   "seconds": 10,
    "prompt": "Liquid dripping and trickling onto soaked bed sheets after a splash, slow wet drips, close up, no voice, no music.",
    "takes": 3,
    "rendered": [
@@ -753,6 +815,22 @@
      "seconds": 3.0,
      "seed": 0,
      "raw_rms": 0.2671,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/squirt-drip-2.wav",
+     "seconds": 1.8,
+     "seed": 1,
+     "raw_rms": 0.1386,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/squirt-drip-3.wav",
+     "seconds": 4.5,
+     "seed": 3,
+     "raw_rms": 0.0576,
      "active": 1.0,
      "passed_gate": true
     }
@@ -775,6 +853,14 @@
      "raw_rms": 0.1631,
      "active": 0.29,
      "passed_gate": true
+    },
+    {
+     "file": "body/squirt-gush-2.wav",
+     "seconds": 1.8,
+     "seed": 1,
+     "raw_rms": 0.2979,
+     "active": 0.59,
+     "passed_gate": true
     }
    ],
    "steps": 100,
@@ -794,7 +880,8 @@
      "seed": 0,
      "raw_rms": 0.3184,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 4
@@ -813,7 +900,8 @@
      "seed": 0,
      "raw_rms": 0.5378,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -822,7 +910,7 @@
    "id": "wet-fingering",
    "category": "body",
    "kind": "loop",
-   "seconds": 3,
+   "seconds": 10,
    "prompt": "Soft wet slick clicking and squishing sounds of fingers moving in something wet, close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -832,7 +920,8 @@
      "seed": 2,
      "raw_rms": 0.0712,
      "active": 0.69,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 3.0
     }
    ],
    "takes": 3
@@ -841,7 +930,7 @@
    "id": "wet-squelch-fast",
    "category": "body",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "Fast rhythmic wet squelching, slick sticky sounds in a quick rhythm, very close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -851,7 +940,8 @@
      "seed": 1,
      "raw_rms": 0.2368,
      "active": 0.65,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     }
    ],
    "takes": 3
@@ -860,7 +950,7 @@
    "id": "wet-squelch-slow",
    "category": "body",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "Slow rhythmic wet squelching sounds, slick and sticky, very close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -870,7 +960,8 @@
      "seed": 1,
      "raw_rms": 0.1457,
      "active": 0.94,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     }
    ],
    "takes": 3
@@ -889,7 +980,8 @@
      "seed": 0,
      "raw_rms": 0.4985,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -908,7 +1000,8 @@
      "seed": 0,
      "raw_rms": 0.4446,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -927,7 +1020,8 @@
      "seed": 0,
      "raw_rms": 0.13,
      "active": 0.96,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -946,7 +1040,8 @@
      "seed": 0,
      "raw_rms": 0.1776,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -965,7 +1060,8 @@
      "seed": 0,
      "raw_rms": 0.5194,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -974,7 +1070,7 @@
    "id": "phone-buzz-nightstand",
    "category": "props",
    "kind": "loop",
-   "seconds": 3,
+   "seconds": 10,
    "prompt": "A smartphone vibrating on a wooden nightstand, rattling buzz pattern, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -984,7 +1080,8 @@
      "seed": 0,
      "raw_rms": 0.7151,
      "active": 0.86,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 3.0
     }
    ],
    "takes": 3
@@ -993,7 +1090,7 @@
    "id": "phone-ringtone",
    "category": "props",
    "kind": "loop",
-   "seconds": 3.0,
+   "seconds": 10,
    "prompt": "A smartphone ringing on a table with a classic electronic ringtone, repeating, no voice.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -1003,7 +1100,8 @@
      "seed": 0,
      "raw_rms": 0.369,
      "active": 0.9,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 3.0
     }
    ],
    "takes": 3
@@ -1022,7 +1120,8 @@
      "seed": 0,
      "raw_rms": 0.1804,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -1041,7 +1140,8 @@
      "seed": 0,
      "raw_rms": 0.2344,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -1060,7 +1160,8 @@
      "seed": 0,
      "raw_rms": 0.3786,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -1069,7 +1170,7 @@
    "id": "vibrator-low",
    "category": "props",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "A small vibrator humming at a low steady speed, close up, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -1079,7 +1180,8 @@
      "seed": 0,
      "raw_rms": 0.5533,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     }
    ],
    "takes": 3
@@ -1088,7 +1190,7 @@
    "id": "vibrator-under-sheets",
    "category": "props",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "A vibrator buzzing strongly under bed sheets, muffled by fabric, intensity rising and falling, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -1098,7 +1200,8 @@
      "seed": 0,
      "raw_rms": 0.6749,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     }
    ],
    "takes": 3
@@ -1117,7 +1220,8 @@
      "seed": 2,
      "raw_rms": 0.04,
      "active": 0.13,
-     "passed_gate": false
+     "passed_gate": false,
+     "seconds": 3.0
     }
    ],
    "takes": 3
@@ -1136,7 +1240,8 @@
      "seed": 2,
      "raw_rms": 0.0954,
      "active": 0.9,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 3.0
     }
    ],
    "takes": 3
@@ -1155,7 +1260,8 @@
      "seed": 0,
      "raw_rms": 0.2658,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -1164,7 +1270,7 @@
    "id": "footsteps-hallway",
    "category": "scene",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "Footsteps slowly approaching down a wooden hallway in a quiet house, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -1174,7 +1280,8 @@
      "seed": 1,
      "raw_rms": 0.0675,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     }
    ],
    "takes": 3
@@ -1183,7 +1290,7 @@
    "id": "rain-window-night",
    "category": "scene",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "Gentle rain pattering on a bedroom window at night, calm and steady, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -1193,7 +1300,8 @@
      "seed": 0,
      "raw_rms": 0.0183,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     }
    ],
    "takes": 3
@@ -1202,7 +1310,7 @@
    "id": "room-tone-bedroom-night",
    "category": "scene",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "Quiet bedroom at night, faint air conditioner hum, distant city traffic through a closed window, calm room tone, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -1212,7 +1320,8 @@
      "seed": 0,
      "raw_rms": 0.0106,
      "active": 0.91,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     }
    ],
    "takes": 3
@@ -1221,7 +1330,7 @@
    "id": "shower-running",
    "category": "scene",
    "kind": "loop",
-   "seconds": 5,
+   "seconds": 10,
    "prompt": "A shower running in a small tiled bathroom, water splashing on the floor and glass, steamy, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -1231,7 +1340,8 @@
      "seed": 0,
      "raw_rms": 0.1138,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     }
    ],
    "takes": 3
@@ -1240,7 +1350,7 @@
    "id": "station-plaza",
    "category": "scene",
    "kind": "loop",
-   "seconds": 5.0,
+   "seconds": 10,
    "prompt": "An outdoor plaza in front of a train station, a fountain splashing, distant footsteps and city traffic, no clear speech, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -1250,7 +1360,8 @@
      "seed": 0,
      "raw_rms": 0.0707,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 5.0
     }
    ],
    "takes": 3
@@ -1269,7 +1380,8 @@
      "seed": 0,
      "raw_rms": 0.2714,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -1288,6 +1400,23 @@
      "seed": 0,
      "raw_rms": 0.1453,
      "active": 1.0,
+     "passed_gate": true,
+     "seconds": 2.0
+    },
+    {
+     "file": "undress/belt-unbuckle-2.wav",
+     "seconds": 1.2,
+     "seed": 1,
+     "raw_rms": 0.1554,
+     "active": 0.22,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/belt-unbuckle-3.wav",
+     "seconds": 3.0,
+     "seed": 4,
+     "raw_rms": 0.0152,
+     "active": 0.28,
      "passed_gate": true
     }
    ],
@@ -1307,7 +1436,8 @@
      "seed": 0,
      "raw_rms": 0.1364,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -1326,7 +1456,8 @@
      "seed": 0,
      "raw_rms": 0.32,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -1335,7 +1466,7 @@
    "id": "clothes-rustle",
    "category": "undress",
    "kind": "loop",
-   "seconds": 3.0,
+   "seconds": 10,
    "prompt": "Clothing rustling as a hand moves under a skirt and underwear, close fabric friction, no voice, no music.",
    "steps": 100,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
@@ -1345,7 +1476,8 @@
      "seed": 0,
      "raw_rms": 0.1118,
      "active": 0.79,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 3.0
     }
    ],
    "takes": 3
@@ -1364,7 +1496,8 @@
      "seed": 0,
      "raw_rms": 0.0124,
      "active": 0.42,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 3.0
     }
    ],
    "takes": 3
@@ -1383,7 +1516,8 @@
      "seed": 1,
      "raw_rms": 0.0384,
      "active": 0.5,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 3.0
     }
    ],
    "takes": 3
@@ -1402,7 +1536,8 @@
      "seed": 0,
      "raw_rms": 0.5222,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -1421,7 +1556,8 @@
      "seed": 0,
      "raw_rms": 0.0108,
      "active": 0.4,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 3.0
     }
    ],
    "takes": 3
@@ -1440,7 +1576,8 @@
      "seed": 0,
      "raw_rms": 0.2903,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -1459,7 +1596,8 @@
      "seed": 0,
      "raw_rms": 0.1256,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
@@ -1478,7 +1616,8 @@
      "seed": 0,
      "raw_rms": 0.1407,
      "active": 1.0,
-     "passed_gate": true
+     "passed_gate": true,
+     "seconds": 2.0
     }
    ],
    "takes": 3
