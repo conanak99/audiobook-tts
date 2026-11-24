@@ -291,6 +291,42 @@
    "takes": 3
   },
   {
+   "id": "creampie-throb-wet",
+   "category": "body",
+   "kind": "oneshot",
+   "seconds": 3.0,
+   "prompt": "Thick warm liquid pulsing and gushing deeply in several heavy wet throbs, sticky internal squelch, very close up, no voice.",
+   "takes": 3,
+   "rendered": [
+    {
+     "file": "body/creampie-throb-wet.wav",
+     "seconds": 3.0,
+     "seed": 0,
+     "raw_peak_db": -0.5,
+     "active": 0.65,
+     "passed_gate": true
+    },
+    {
+     "file": "body/creampie-throb-wet-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -0.4,
+     "active": 0.6,
+     "passed_gate": true
+    },
+    {
+     "file": "body/creampie-throb-wet-3.wav",
+     "seconds": 4.5,
+     "seed": 2,
+     "raw_peak_db": -1.0,
+     "active": 0.55,
+     "passed_gate": true
+    }
+   ],
+   "steps": 50,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
+  },
+  {
    "id": "cum-spurt",
    "category": "body",
    "kind": "oneshot",
@@ -320,6 +356,78 @@
      "seed": 2,
      "raw_peak_db": -0.1,
      "active": 0.39,
+     "passed_gate": true
+    }
+   ],
+   "steps": 50,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
+  },
+  {
+   "id": "deepthroat-plunge-wet",
+   "category": "body",
+   "kind": "oneshot",
+   "seconds": 2.0,
+   "prompt": "A deep wet sloppy suction plunge and thick wet swallow sound, very close up, no human voice or gagging.",
+   "takes": 3,
+   "rendered": [
+    {
+     "file": "body/deepthroat-plunge-wet.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -0.2,
+     "active": 0.65,
+     "passed_gate": true
+    },
+    {
+     "file": "body/deepthroat-plunge-wet-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": 0.0,
+     "active": 0.71,
+     "passed_gate": true
+    },
+    {
+     "file": "body/deepthroat-plunge-wet-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -0.4,
+     "active": 0.55,
+     "passed_gate": true
+    }
+   ],
+   "steps": 50,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
+  },
+  {
+   "id": "fingernail-scratch-skin",
+   "category": "body",
+   "kind": "loop",
+   "seconds": 10.0,
+   "prompt": "Fingernails lightly scratching and tickling bare skin in a fast playful rhythm, soft dry skin friction, very close up, no voice.",
+   "takes": 3,
+   "rendered": [
+    {
+     "file": "body/fingernail-scratch-skin.wav",
+     "seconds": 10.0,
+     "seed": 2,
+     "raw_peak_db": -14.4,
+     "active": 0.99,
+     "passed_gate": true
+    },
+    {
+     "file": "body/fingernail-scratch-skin-2.wav",
+     "seconds": 6.0,
+     "seed": 4,
+     "raw_peak_db": -28.7,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/fingernail-scratch-skin-3.wav",
+     "seconds": 15.0,
+     "seed": 5,
+     "raw_peak_db": -15.5,
+     "active": 0.43,
      "passed_gate": true
     }
    ],
@@ -1489,6 +1597,42 @@
     }
    ],
    "takes": 3
+  },
+  {
+   "id": "rope-tie-strain",
+   "category": "props",
+   "kind": "oneshot",
+   "seconds": 2.0,
+   "prompt": "Thick hemp rope bindings tightening and creaking under tension as someone struggles, close up friction.",
+   "takes": 3,
+   "rendered": [
+    {
+     "file": "props/rope-tie-strain.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -17.9,
+     "active": 0.81,
+     "passed_gate": true
+    },
+    {
+     "file": "props/rope-tie-strain-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -2.2,
+     "active": 0.66,
+     "passed_gate": true
+    },
+    {
+     "file": "props/rope-tie-strain-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -12.6,
+     "active": 0.57,
+     "passed_gate": true
+    }
+   ],
+   "steps": 50,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
   },
   {
    "id": "tea-cup-saucer",
