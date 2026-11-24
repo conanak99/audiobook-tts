@@ -109,7 +109,7 @@ set -a; . ./.env; set +a; python3 -m viettts voice transcribe <id> [--language j
 
 `--language` is the ISO 639-1 code of the reference's spoken language (default `vi`). For a non-Vietnamese reference, ignore the words/s warning from `set-transcript`: it counts space-separated words, so Japanese or Chinese text reads as "1 word".
 
-For each reference, this runs three STT models (Whisper-Large-V3, gpt-4o-mini-transcribe, Wizper). Then audio-listening judges (Qwen omni plus/flash, Perceptron) and a text judge (Claude) each produce a transcript, and Claude adds punctuation without changing any words. The report and draft are scratch files in `outputs/voice-onboarding/<id>/` (`stt-N.json`, `reference-N.draft.txt`, ignored by git). The voice folder keeps only the WAV and its final `.txt`. A draft is printed for each reference.
+For each reference, this runs four STT models (Whisper-Large-V3, gpt-4o-mini-transcribe, Wizper, and Elevenlabs-STT, which is an asynchronous job that is polled until done, up to 10 minutes). Then audio-listening judges (Qwen Omni Plus/Flash, Perceptron, Gemini 4 Argon, MiMo V2.6 Pro) and a text judge (Claude) each produce a transcript, and Claude adds punctuation without changing any words. The report and draft are scratch files in `outputs/voice-onboarding/<id>/` (`stt-N.json`, `reference-N.draft.txt`, ignored by git). The voice folder keeps only the WAV and its final `.txt`. A draft is printed for each reference.
 
 **Review each draft yourself against all versions in `outputs/voice-onboarding/<id>/stt-N.json`, then save each final text:**
 - **Hallucinations:** Whisper often invents "Hãy subscribe cho kênh Ghiền Mì Gõ…" or subtitle credits. Remove them.

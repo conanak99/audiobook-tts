@@ -1,7 +1,7 @@
 {
   "id": "asato",
-  "status": "draft",
-  "transcript_reviewed": false,
+  "status": "onboarded",
+  "transcript_reviewed": true,
   "source": {
     "input": [
       "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/asato-1.wav",
@@ -14,35 +14,97 @@
       "file": "reference-1.wav",
       "source": "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/asato-1.wav",
       "source_start": 0.0,
-      "transcript_reviewed": false,
+      "transcript_reviewed": true,
       "gain_db": 1.6,
       "duration": 14.37,
       "speech_pct": 70.2,
       "longest_pause": 0.7,
       "mean_db": -20.4,
       "lufs": -20.0,
-      "peak_db": -3.5
+      "peak_db": -3.5,
+      "words_per_s": 0.07
     },
     {
       "n": 2,
       "file": "reference-2.wav",
       "source": "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/asato-2.wav",
       "source_start": 0.0,
-      "transcript_reviewed": false,
+      "transcript_reviewed": true,
       "gain_db": 1.9,
       "duration": 18.83,
       "speech_pct": 78.4,
       "longest_pause": 0.89,
       "mean_db": -20.0,
       "lufs": -20.0,
-      "peak_db": -3.4
+      "peak_db": -3.4,
+      "words_per_s": 0.05
     }
   ],
-  "samples": [],
+  "samples": [
+    {
+      "file": "references/voices/asato/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+      "duration": 7.56,
+      "speech_pct": 68.5,
+      "longest_pause": 0.85,
+      "mean_db": -23.3,
+      "lufs": -23.3,
+      "peak_db": -7.3
+    },
+    {
+      "file": "references/voices/asato/samples/sample-2.wav",
+      "text": "Đệ lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay tỷ có chuyện vui muốn kể cho đệ nghe!",
+      "duration": 5.34,
+      "speech_pct": 77.1,
+      "longest_pause": 0.63,
+      "mean_db": -22.2,
+      "lufs": -22.6,
+      "peak_db": -9.6
+    },
+    {
+      "file": "references/voices/asato/samples/sample-3.wav",
+      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+      "duration": 5.72,
+      "speech_pct": 66.6,
+      "longest_pause": 0.62,
+      "mean_db": -23.8,
+      "lufs": -23.4,
+      "peak_db": -9.7
+    },
+    {
+      "file": "references/voices/asato/samples/sample-4.wav",
+      "text": "[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!",
+      "duration": 5.57,
+      "speech_pct": 81.4,
+      "longest_pause": 0.56,
+      "mean_db": -22.7,
+      "lufs": -22.5,
+      "peak_db": -5.4
+    },
+    {
+      "file": "references/voices/asato/samples/sample-5.wav",
+      "text": "[low, sultry] Anh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...",
+      "duration": 7.34,
+      "speech_pct": 43.4,
+      "longest_pause": 1.95,
+      "mean_db": -25.4,
+      "lufs": -23.6,
+      "peak_db": -8.6
+    }
+  ],
   "metrics": {
     "duration": 33.2,
     "longest_pause": 0.89
   },
-  "name": "asato",
-  "updated": "2026-11-24T23:02:25"
+  "name": "Asato",
+  "updated": "2026-11-24T23:14:48",
+  "sample_retries": 0,
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
+  "gender": "female",
+  "style": "mature, low-mid, slow and sultry; seductive onee-sama / milf tone (Chinese source)",
+  "fits": "seductive onee-samas, mature women, milf characters, teasing temptresses",
+  "approved": "2026-11-24T23:14:48",
+  "notes": [
+    "2026-11-24: Sample 5 (intimate) had a 1.95 s pause; ref 2 has a 0.89 s pause. Watch for long pauses in tagged lines."
+  ]
 }

@@ -20,10 +20,12 @@ The table below is regenerated from `voice.json`; don't edit it by hand.
 | id | Name | Gender | Style / accent | Fits | Reference |
 | --- | --- | --- | --- | --- | --- |
 | `adam-bua-drama` | Adam bựa (Drama-3) | male | playful, cheeky male; lively, a bit roguish | comic or roguish men, smug villains, cheeky side characters | 2 × (14.09s, 14.82s) = 28.91s |
+| `asato` | Asato | female | mature, low-mid, slow and sultry; seductive onee-sama / milf tone (Chinese source) | seductive onee-samas, mature women, milf characters, teasing temptresses | 2 × (14.37s, 18.83s) = 33.2s |
 | `azu-livyatan` | Azu Livyatan | female | Soft, breathy, teasing young voice (≈ 225 Hz) | Teasing or seductive heroine | 1 × (14.82s) = 14.82s |
 | `duc-tri-drama` | Đức Trí (Drama-3) | male | deep, slow, booming older male; heavy and deliberate | big blustering elders, dragon fathers, gentle giants (Ngao Côn, Vu thúc, Ngưu Mãnh) | 2 × (14.83s, 12.96s) = 27.79s |
 | `fuyuki-inari` | Fuyuki Inari | female | Calm, a bit sassy; Southern | Calm or a bit sassy heroines | 2 × (14.52s, 13.91s) = 28.43s |
 | `hai-dang-drama` | Hải Đăng (Drama-3) | male | clear, mid-low male; steady, neutral | other men, MC when Hải Đăng narrates, elders, rivals | 2 × (11.61s, 12.31s) = 23.92s |
+| `hazuki` | Hazuki | female | soft, gentle, quiet young voice; shy, reserved, soft-spoken (Chinese source) | shy heroines, reserved or timid girls, gentle maidens, soft-spoken kouhai | 2 × (18.1s, 19.73s) = 37.83s |
 | `hoai-thanh-awai` | Hoài Thanh (Awai) | female | Young, bright, mid-high pitch; cute-genki, cheerful, energetic streamer tone | Cute genki girls, cheerful heroines, playful younger sisters, energetic schoolgirls, idol/streamer characters | 2 × (11.9s, 13.7s) = 25.6s |
 | `lynasa` | Lynasa | female | Sweet, melodic (≈ 265 Hz); Southern | Southern characters, girlfriend roleplay | 1 × (17.5s) = 17.5s |
 | `miuzxc` | Miuzxc | female | Young, teasing, whiny, impatient | Young, spoiled or impatient girls; teasing little sisters; playful, whiny love interests; cheeky assistants | 2 × (15.36s, 11.23s) = 26.59s |

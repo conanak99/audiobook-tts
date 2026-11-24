@@ -1,7 +1,7 @@
 {
   "id": "hazuki",
-  "status": "draft",
-  "transcript_reviewed": false,
+  "status": "onboarded",
+  "transcript_reviewed": true,
   "source": {
     "input": [
       "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/hazuki-1.wav",
@@ -14,7 +14,7 @@
       "file": "reference-1.wav",
       "source": "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/hazuki-1.wav",
       "source_start": 0.0,
-      "transcript_reviewed": false,
+      "transcript_reviewed": true,
       "gain_db": 4.9,
       "duration": 18.1,
       "speech_pct": 90.8,
@@ -24,14 +24,15 @@
       "peak_db": -5.0,
       "cleaned": [
         "dereverb_mel_band_roformer_mono_anvuew.ckpt"
-      ]
+      ],
+      "words_per_s": 0.06
     },
     {
       "n": 2,
       "file": "reference-2.wav",
       "source": "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/hazuki-2.wav",
       "source_start": 0.0,
-      "transcript_reviewed": false,
+      "transcript_reviewed": true,
       "gain_db": 7.9,
       "duration": 19.73,
       "speech_pct": 86.7,
@@ -41,14 +42,72 @@
       "peak_db": -2.0,
       "cleaned": [
         "dereverb_mel_band_roformer_mono_anvuew.ckpt"
-      ]
+      ],
+      "words_per_s": 0.05
     }
   ],
-  "samples": [],
+  "samples": [
+    {
+      "file": "references/voices/hazuki/samples/sample-1.wav",
+      "text": "Sương sớm phủ kín sân viện, nàng khẽ đẩy cửa bước vào, mỉm cười nhìn ta như đã đợi từ rất lâu.",
+      "duration": 7.71,
+      "speech_pct": 82.0,
+      "longest_pause": 0.58,
+      "mean_db": -22.2,
+      "lufs": -22.5,
+      "peak_db": -8.7
+    },
+    {
+      "file": "references/voices/hazuki/samples/sample-2.wav",
+      "text": "Đệ lại ngồi ngẩn người ra đấy à? Mau dậy đi, hôm nay tỷ có chuyện vui muốn kể cho đệ nghe!",
+      "duration": 6.27,
+      "speech_pct": 84.1,
+      "longest_pause": 0.53,
+      "mean_db": -21.4,
+      "lufs": -21.0,
+      "peak_db": -8.7
+    },
+    {
+      "file": "references/voices/hazuki/samples/sample-3.wav",
+      "text": "Anh đừng đi mà... em xin lỗi. Ở lại với em thêm một chút nữa thôi, được không?",
+      "duration": 8.41,
+      "speech_pct": 76.4,
+      "longest_pause": 0.47,
+      "mean_db": -22.6,
+      "lufs": -22.0,
+      "peak_db": -8.6
+    },
+    {
+      "file": "references/voices/hazuki/samples/sample-4.wav",
+      "text": "[bright, surprised] Thật hả? [laughs] Vậy mà em cứ tưởng anh quên <emphasis>sinh nhật</emphasis> em rồi chứ!",
+      "duration": 5.94,
+      "speech_pct": 82.3,
+      "longest_pause": 0.27,
+      "mean_db": -22.0,
+      "lufs": -22.0,
+      "peak_db": -8.6
+    },
+    {
+      "file": "references/voices/hazuki/samples/sample-5.wav",
+      "text": "[low, sultry] Anh nhìn đủ chưa? [small laugh] <soft>Lại gần đây.</soft> [breathless] Đừng dừng lại mà...",
+      "duration": 7.9,
+      "speech_pct": 57.9,
+      "longest_pause": 0.86,
+      "mean_db": -23.8,
+      "lufs": -21.4,
+      "peak_db": -8.8
+    }
+  ],
   "metrics": {
     "duration": 37.83,
     "longest_pause": 0.39
   },
-  "name": "hazuki",
-  "updated": "2026-11-24T23:01:13"
+  "name": "Hazuki",
+  "updated": "2026-11-24T23:14:48",
+  "sample_retries": 1,
+  "samples_model": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
+  "gender": "female",
+  "style": "soft, gentle, quiet young voice; shy, reserved, soft-spoken (Chinese source)",
+  "fits": "shy heroines, reserved or timid girls, gentle maidens, soft-spoken kouhai",
+  "approved": "2026-11-24T23:14:48"
 }

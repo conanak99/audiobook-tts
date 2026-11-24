@@ -748,7 +748,7 @@ def main(argv=None):
     s.add_argument('--all', action='store_true', help='Every voice in references/voices')
     s.add_argument('--dry-run', action='store_true', help='Only measure and print the gain')
     s.set_defaults(func=cmd_level)
-    s = sub.add_parser('transcribe', help='Transcribe each reference with 3 NanoGPT STT models + judges -> drafts')
+    s = sub.add_parser('transcribe', help='Transcribe each reference with 4 NanoGPT STT models + judges -> drafts')
     s.add_argument('id')
     s.add_argument('--ref', type=int, help='Only this reference')
     s.add_argument('--key-file')

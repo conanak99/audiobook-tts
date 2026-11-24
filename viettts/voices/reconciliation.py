@@ -19,7 +19,13 @@ from pathlib import Path
 from .transcription import agreement, words
 
 CHAT = 'https://nano-gpt.com/api/v1/chat/completions'
-AUDIO_JUDGES = ['qwen/qwen3.5-omni-plus', 'qwen/qwen3.8-omni-flash', 'perceptron/perceptron-mk1.5', 'gemini-2.5-flash']
+AUDIO_JUDGES = [
+    'qwen/qwen3.5-omni-plus',
+    'qwen/qwen3.8-omni-flash',
+    'perceptron/perceptron-mk1.5',
+    'google/gemini-4-argon',
+    'xiaomi/mimo-v2.6-pro',
+]
 TEXT_JUDGE = 'anthropic/claude-opus-5.5'
 INSTRUCTIONS = """You are producing the exact verbatim transcript of a short Vietnamese speech clip (cut from a
 stream, video or recording). It will be the reference transcript for voice cloning, so it must match what is spoken, word for word.

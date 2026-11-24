@@ -20,7 +20,36 @@ import uuid
 from pathlib import Path
 
 API = 'https://api.nano-gpt.com/api/v1/audio/transcriptions'
-MODELS = ['Whisper-Large-V3', 'gpt-4o-mini-transcribe', 'Wizper']
+STATUS = 'https://api.nano-gpt.com/api/transcribe/status'
+MODELS = ['Whisper-Large-V3', 'gpt-4o-mini-transcribe', 'Wizper', 'Elevenlabs-STT']
+POLL_TIMEOUT = 600
+
+
+def poll(run_id, model, key):
+    """Wait for an asynchronous job (Elevenlabs-STT answers 202 with a run_id). Never resubmits the audio."""
+    body = json.dumps({'runId': run_id}).encode()
+    headers = {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'}
+    deadline = time.monotonic() + POLL_TIMEOUT
+    while time.monotonic() < deadline:
+        wait = 3.0
+        try:
+            with urllib.request.urlopen(urllib.request.Request(STATUS, body, headers), timeout=60) as response:
+                data = json.load(response)
+                wait = float(response.headers.get('X-Poll-After') or wait)
+        except urllib.error.HTTPError as error:
+            if error.code != 503:
+                raise RuntimeError(f'{model}: status HTTP {error.code} {error.read().decode("utf-8", "replace")[:200]}') from None
+            wait = float(error.headers.get('Retry-After') or wait)
+        except urllib.error.URLError:
+            data = {}
+        else:
+            if data.get('status') == 'completed':
+                return (data.get('transcription') or data.get('text') or '').strip()
+            state = data.get('data') or data
+            if str(state.get('status', '')).lower() == 'failed':
+                raise RuntimeError(f'{model}: job failed: {state.get("error")}')
+        time.sleep(max(wait, 3.0))
+    raise RuntimeError(f'{model}: job {run_id} still running after {POLL_TIMEOUT}s')
 
 
 def transcribe(path, model, key, language='vi', retries=2):
@@ -44,7 +73,7 @@ def transcribe(path, model, key, language='vi', retries=2):
         try:
             with urllib.request.urlopen(request, timeout=180) as response:
                 data = json.load(response)
-            return (data.get('text') or data.get('transcription') or '').strip()
+                accepted = response.status == 202
         except urllib.error.HTTPError as error:
             detail = error.read().decode('utf-8', 'replace')[:200]
             if attempt == retries or error.code in (400, 401, 402, 413):
@@ -52,11 +81,21 @@ def transcribe(path, model, key, language='vi', retries=2):
         except urllib.error.URLError as error:
             if attempt == retries:
                 raise RuntimeError(f'{model}: {error}') from None
+        else:
+            run_id = data.get('run_id') or data.get('runId')
+            if accepted or (run_id and not (data.get('text') or data.get('transcription'))):
+                return poll(run_id, model, key)
+            return (data.get('text') or data.get('transcription') or '').strip()
         time.sleep(2 * (attempt + 1))
 
 
+# Chinese and Japanese are written without spaces: compare them character by character.
+CJK = '\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff'
+WORD = re.compile(f'[{CJK}]|[^\\W{CJK}]+')
+
+
 def words(text):
-    return re.findall(r'\w+', unicodedata.normalize('NFC', text).lower())
+    return WORD.findall(unicodedata.normalize('NFC', text).lower())
 
 
 def agreement(a, b):
