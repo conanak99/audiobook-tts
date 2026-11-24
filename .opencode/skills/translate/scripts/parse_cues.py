@@ -22,6 +22,7 @@ TS_RE = re.compile(
 )
 TRACK_RE = re.compile(r"^(?:#\s*\d+|##\s+.+)$")
 HTML_TAG_RE = re.compile(r"<[^>]+>")
+VOICE_RE = re.compile(r"<v(?:\.[^\s>]*)?\s+([^>]+)>")  # WebVTT speaker span, e.g. <v S2> from `subs transcribe`
 LEFTOVER_RE = re.compile(
     r"[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uac00-\ud7af\u0e00-\u0e7f\[\]<>]"
 )
@@ -81,7 +82,7 @@ def _parse_cues_from_lines(lines: list[str]) -> list[dict]:
         i += 1
         text_lines = []
         while i < n and lines[i].strip() != "" and not TS_RE.match(lines[i]):
-            text_lines.append(HTML_TAG_RE.sub("", lines[i].strip()))
+            text_lines.append(HTML_TAG_RE.sub("", VOICE_RE.sub(r"\1: ", lines[i].strip())))
             i += 1
         cue_text = " ".join(t for t in text_lines if t)
         gap = 0.0 if prev_end is None else max(0.0, start_s - prev_end)

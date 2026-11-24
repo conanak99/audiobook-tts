@@ -49,6 +49,24 @@ Standalone story mode splits ordinary Markdown into at most 120-character chunks
 
 Standalone outputs include `drama3.wav`, numbered chunks, `text.txt`, `performance.jsonl`, and `summary.json`. A failed run can resume with `--resume-dir outputs/<failed-run>` using the same text, model, seed, and reference. Generation at the frame cap is rejected; listening is still needed to detect missing or incorrect words.
 
+## Subtitles
+
+`python3 -m viettts subs transcribe` runs `viettts.subs.worker` in `engines/drama3/` (`mlx-audio==0.6.5`, nothing extra to install). Models are downloaded to the Hugging Face cache on first use, at the revisions pinned in `model-revisions.json`:
+
+- **1 speaker (default):** `mlx-community/silero-vad` cuts speech spans (threshold 0.3, 300 ms padding, gaps under 0.25 s merged up to 12 s), then `litagin/anime-whisper` (3 GB, MIT, kotoba-whisper fine-tuned on 5,300 h of galgame voices) transcribes each span. Never feed it a whole track: its long-form output was gibberish. Never give it a prompt either (its model card says prompts cause hallucinations). Cues that are only punctuation (`…`) are dropped; moans and laughs stay.
+- **`--speakers 2`:** `OpenMOSS-Team/MOSS-Transcribe-Diarize` (0.9B, Apache-2.0) gives the turns and speaker labels, and anime-whisper re-transcribes each turn. MOSS's own text is the fallback when anime-whisper returns nothing or loops.
+
+Measured on an M5 Pro with two DLsite tracks (Nov 2026):
+
+| Model | Result |
+| --- | --- |
+| anime-whisper + VAD | Best text: 道場, 不埒者, 視姦, ご奉仕, and keeps ふふっ. Names drift (ミーナ came out as 美奈). 3 min of audio in 7 s |
+| Whisper large-v3-turbo | Clean, but 道場 became 同情, it skips moans, and timestamps slip over SFX |
+| Qwen3-ASR 1.7B | Good text, timestamps only per 30 s chunk |
+| MOSS-Transcribe-Diarize | 2 women: correct turns, best names, 5 min in 13 s. 1 woman: split her into two speakers when her tone turned cold |
+| VibeVoice-ASR 7B | Correct speakers on both tracks and tags `[Human Sounds]`, but weaker text, 17 GB, 106 s for 5 min |
+| Sortformer 4spk v2.1 | Heard both women as one speaker |
+
 ## Troubleshooting
 
 - **MLX/Metal unavailable:** use an Apple Silicon terminal with GPU access. This repository does not implement the NVIDIA runtime.

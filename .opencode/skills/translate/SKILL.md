@@ -1,6 +1,6 @@
 ---
 name: Vietnamese voice drama translator
-description: Use when the user gives a Chinese, Japanese or English voice drama script (subtitles in VTT or SRT, "# N" tracks, 音声作品, ボイスドラマ, ASMR or audio roleplay, usually explicit) and wants it translated (dịch) into natural spoken Vietnamese, ready for the voice-drama skill to voice.
+description: Use when the user gives a Chinese, Japanese or English voice drama script, or Japanese voice drama audio to transcribe first (subtitles in VTT or SRT, "# N" tracks, 音声作品, ボイスドラマ, ASMR or audio roleplay, usually explicit) and wants it translated (dịch) into natural spoken Vietnamese, ready for the voice-drama skill to voice.
 ---
 
 # Vietnamese voice drama translator
@@ -20,6 +20,16 @@ WEBVTT
 00:00:03.504 --> 00:00:05.125
 要…要高潮了…
 ```
+
+**Japanese audio with no subtitles:** make them first. Pass `--speakers 2` only when two women talk (one is the usual case):
+
+```sh
+python3 -m viettts subs transcribe /abs/path/track01.mp3 [/abs/path/folder ...] [--speakers 2]
+```
+
+Pass the whole folder when a work comes as several files: it writes one `outputs/subtitles/<folder name>/source.md`, one chapter per file in natural name order, titled with the file name without its track number (`track01_プロローグ.mp3` → `## プロローグ`), plus one `.vtt` per file. Use `source.md` as the source below, and those titles as the chapter titles. The text is machine-made: names come out unevenly (ミーナ as 美奈 or みんな), so settle each name from the context before translating. A cue that is only a moan or a laugh (`ふふっ`) is a real line, so keep it.
+
+**Two speakers:** cues then start with `S1: ` or `S2: ` (labels in order of first appearance, from WebVTT `<v S1>`). Before translating, show the user a few lines of each and ask which one is the main woman and the other one's name. In the output, start each of the other woman's lines with `{Name} ` (the **voice-drama** format) and leave the main woman's lines unprefixed. Diarization can be wrong when one woman changes her tone, so a single line that switches speaker for no reason is probably the main voice.
 
 **Ignore:** `WEBVTT` and `NOTE`/`STYLE` blocks, cue numbers and HTML tags such as `<i>`. A cue whose text spans several lines is **one** spoken line.
 

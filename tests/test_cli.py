@@ -31,6 +31,8 @@ class PackageTests(unittest.TestCase):
             (),
             ('audiobook',),
             ('voice',),
+            ('subs',),
+            ('subs', 'transcribe'),
             ('speak',),
             ('speak', '--engine', 'vieneu'),
             ('speak', '--engine', 'drama3'),
@@ -45,7 +47,7 @@ class PackageTests(unittest.TestCase):
             [
                 sys.executable,
                 '-c',
-                'import viettts.cli, viettts.audiobook.cli, viettts.sfx.cli, viettts.voices.onboarding; '
+                'import viettts.cli, viettts.audiobook.cli, viettts.sfx.cli, viettts.subs.cli, viettts.voices.onboarding; '
                 'import sys; assert not '
                 '({"numpy", "soundfile", "torch", "vieneu", "mlx", "mlx_audio"} & sys.modules.keys())',
             ],
