@@ -2,6 +2,7 @@
 
 import re
 import subprocess
+import tempfile
 from pathlib import Path
 
 
@@ -46,11 +47,24 @@ def write_listing(path: Path, wavs) -> Path:
     return path
 
 
+def book_cover(book: Path, picture: Path) -> Path | None:
+    """The attached picture of an .m4b/.m4a written to picture (None if the book has no cover)."""
+    result = subprocess.run(
+        ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', str(book), '-map', '0:v:0?', '-c', 'copy']
+        + ['-frames:v', '1', str(picture)],
+        capture_output=True,
+        text=True,
+    )
+    return picture if result.returncode == 0 and picture.is_file() and picture.stat().st_size else None
+
+
 class M4bEncoder:
     """Chapter WAVs (an ffmpeg concat list) -> mono AAC in an .m4b (or a plain .m4a preview).
 
     Tags and chapter marks come from an ffmetadata file. The cover is an image, re-encoded as JPEG at most
-    1400 px wide, or another .m4b/.m4a whose attached picture is copied (the SFX mix reuses the book's)."""
+    1400 px wide, or another .m4b/.m4a whose attached picture is used (the SFX mix reuses the book's). That
+    picture is extracted to a JPEG first: mapping it straight from the .m4b made ffmpeg write the chapter marks
+    in a 1/4410000 timebase that overflows after ~8 minutes (zero-length and repeated chapters)."""
 
     def __init__(self, bitrate='64k'):
         self.bitrate = bitrate
@@ -69,9 +83,7 @@ class M4bEncoder:
         command += ['-map', '0:a']
         if ffmeta:
             command += ['-map_metadata', str(meta), '-map_chapters', str(meta)]
-        if cover and cover.suffix.lower() in ('.m4b', '.m4a'):
-            command += ['-map', f'{inputs}:v?', '-c:v', 'copy', '-disposition:v:0', 'attached_pic']
-        elif cover:
+        if cover:
             command += ['-map', f'{inputs}:v', '-c:v', 'mjpeg', '-q:v', '3', '-vf', 'scale=min(1400\\,iw):-2']
             command += ['-disposition:v:0', 'attached_pic']
         command += ['-c:a', self.codec, '-b:a', self.bitrate, '-ac', '1', '-movflags', '+faststart']
@@ -81,6 +93,10 @@ class M4bEncoder:
 
     def encode(self, listing, target, ffmeta=None, cover=None, seconds=None, log=None):
         """Encode; with the audio's length in seconds and a log, report progress every 20%."""
+        if cover and Path(cover).suffix.lower() in ('.m4b', '.m4a'):
+            with tempfile.TemporaryDirectory() as scratch:
+                picture = book_cover(Path(cover), Path(scratch) / 'cover.jpg')
+                return self.encode(listing, target, ffmeta, picture, seconds, log)
         process = subprocess.Popen(self.command(listing, target, ffmeta, cover), stdout=subprocess.PIPE, text=True)
         shown = 0
         assert process.stdout is not None

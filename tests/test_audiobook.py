@@ -524,6 +524,52 @@ class VieneuBackendTests(unittest.TestCase):
         self.assertNotIn('--backend', commands[1])
         self.assertTrue(all('--skip-failed' in command for command in commands))
 
+    @unittest.skipIf(not __import__('shutil').which('ffmpeg'), 'needs ffmpeg')
+    def test_a_book_used_as_cover_keeps_the_new_chapter_marks(self):
+        import json
+        import subprocess
+        import tempfile
+        from pathlib import Path
+
+        from viettts.audiobook.m4b import M4bEncoder, ffmetadata, write_listing
+
+        def chapters(path):
+            probe = subprocess.run(
+                ['ffprobe', '-v', 'error', '-show_chapters', '-show_streams', '-of', 'json', str(path)],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            data = json.loads(probe.stdout)
+            pictures = [s for s in data['streams'] if s.get('disposition', {}).get('attached_pic')]
+            return [(round(float(c['start_time'])), round(float(c['end_time']))) for c in data['chapters']], pictures
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            run = dict(check=True, capture_output=True)
+            for name, seconds in (('voice', 600), ('sfx', 650)):  # clear cues make the SFX book longer
+                subprocess.run(
+                    ['ffmpeg', '-y', '-f', 'lavfi', '-i', 'anullsrc=r=44100:cl=mono', '-t', str(seconds)]
+                    + [str(tmp / f'{name}.wav')],
+                    **run,
+                )
+            subprocess.run(
+                ['ffmpeg', '-y', '-f', 'lavfi', '-i', 'color=c=red:s=64x64:d=1', '-frames:v', '1', tmp / 'c.jpg'], **run
+            )
+            meta = tmp / 'meta'
+            encoder = M4bEncoder('32k')
+            meta.write_text(ffmetadata({'title': 'T'}, [('Một', 0, 300000), ('Hai', 300000, 600000)]), encoding='utf-8')
+            book = encoder.encode(
+                write_listing(tmp / 'list', [tmp / 'voice.wav']), tmp / 'book.m4b', meta, tmp / 'c.jpg'
+            )
+            # a chapter over ~487 s overflowed 32 bits of the 1/4410000 timebase (44100 Hz audio, 1/90000 picture)
+            marks = [('Một', 0, 50000), ('Hai', 50000, 600000), ('Ba', 600000, 650000)]
+            meta.write_text(ffmetadata({'title': 'T'}, marks), encoding='utf-8')
+            listing = write_listing(tmp / 'list', [tmp / 'sfx.wav'])
+            sfx, pictures = chapters(encoder.encode(listing, tmp / 'sfx.m4b', meta, book))
+        self.assertEqual(sfx, [(0, 50), (50, 600), (600, 650)])
+        self.assertEqual(len(pictures), 1)
+
     def test_a_runaway_chunk_falls_back_to_its_words_then_a_neutral_direction(self):
         from viettts.audiobook.workers import RESCUE_DIRECTION, take_texts
 

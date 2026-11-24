@@ -3,42 +3,6 @@
  "level_dbfs": -20.0,
  "sounds": [
   {
-   "id": "bed-creak-fast",
-   "category": "bed",
-   "kind": "loop",
-   "seconds": 10,
-   "prompt": "A bed creaking fast and hard, mattress springs squeaking rapidly in a frantic rhythm, close up",
-   "steps": 50,
-   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [
-    {
-     "file": "bed/bed-creak-fast.wav",
-     "seconds": 10.0,
-     "seed": 0,
-     "raw_peak_db": -0.2,
-     "active": 0.68,
-     "passed_gate": true
-    },
-    {
-     "file": "bed/bed-creak-fast-2.wav",
-     "seconds": 6.0,
-     "seed": 1,
-     "raw_peak_db": -2.6,
-     "active": 0.59,
-     "passed_gate": true
-    },
-    {
-     "file": "bed/bed-creak-fast-3.wav",
-     "seconds": 15.0,
-     "seed": 2,
-     "raw_peak_db": -0.7,
-     "active": 0.68,
-     "passed_gate": true
-    }
-   ],
-   "takes": 3
-  },
-  {
    "id": "bed-creak-medium",
    "category": "bed",
    "kind": "loop",
@@ -774,6 +738,22 @@
      "raw_peak_db": 0.0,
      "active": 0.05,
      "passed_gate": true
+    },
+    {
+     "file": "body/spank-single-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -0.7,
+     "active": 0.05,
+     "passed_gate": true
+    },
+    {
+     "file": "body/spank-single-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -0.1,
+     "active": 0.02,
+     "passed_gate": false
     }
    ],
    "takes": 3
@@ -1300,9 +1280,34 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "A smartphone camera shutter click, taking a photo",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "props/camera-shutter.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -0.0,
+     "active": 0.06,
+     "passed_gate": true
+    },
+    {
+     "file": "props/camera-shutter-2.wav",
+     "seconds": 2.0,
+     "seed": 2,
+     "raw_peak_db": -3.2,
+     "active": 0.05,
+     "passed_gate": true
+    },
+    {
+     "file": "props/camera-shutter-3.wav",
+     "seconds": 3.0,
+     "seed": 5,
+     "raw_peak_db": -0.0,
+     "active": 0.01,
+     "passed_gate": false
+    }
+   ],
    "takes": 3
   },
   {
@@ -1311,9 +1316,34 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "A foil packet being torn open, crinkly foil wrapper rip, close up",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "props/condom-wrapper.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -7.2,
+     "active": 0.45,
+     "passed_gate": true
+    },
+    {
+     "file": "props/condom-wrapper-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -10.7,
+     "active": 0.57,
+     "passed_gate": true
+    },
+    {
+     "file": "props/condom-wrapper-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -2.4,
+     "active": 0.46,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1322,9 +1352,34 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "Metal handcuffs clinking and locking with a ratchet click",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "props/handcuffs-clink.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -2.6,
+     "active": 0.13,
+     "passed_gate": true
+    },
+    {
+     "file": "props/handcuffs-clink-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -5.8,
+     "active": 0.13,
+     "passed_gate": true
+    },
+    {
+     "file": "props/handcuffs-clink-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -8.4,
+     "active": 0.15,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1333,9 +1388,34 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "A short smartphone message notification chime",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "props/message-notification.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -1.0,
+     "active": 0.35,
+     "passed_gate": true
+    },
+    {
+     "file": "props/message-notification-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -2.4,
+     "active": 0.68,
+     "passed_gate": true
+    },
+    {
+     "file": "props/message-notification-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -0.7,
+     "active": 0.41,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1344,9 +1424,34 @@
    "kind": "loop",
    "seconds": 10,
    "prompt": "A smartphone vibrating on a wooden nightstand, rattling buzz pattern",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "props/phone-buzz-nightstand.wav",
+     "seconds": 10.0,
+     "seed": 0,
+     "raw_peak_db": -7.9,
+     "active": 0.67,
+     "passed_gate": true
+    },
+    {
+     "file": "props/phone-buzz-nightstand-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -3.8,
+     "active": 0.77,
+     "passed_gate": true
+    },
+    {
+     "file": "props/phone-buzz-nightstand-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -8.2,
+     "active": 0.82,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1463,9 +1568,34 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "A small plastic button clicked and a vibrator starting to buzz, close up",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "props/vibrator-click-on.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -0.0,
+     "active": 0.1,
+     "passed_gate": true
+    },
+    {
+     "file": "props/vibrator-click-on-2.wav",
+     "seconds": 2.0,
+     "seed": 2,
+     "raw_peak_db": -3.5,
+     "active": 0.06,
+     "passed_gate": true
+    },
+    {
+     "file": "props/vibrator-click-on-3.wav",
+     "seconds": 3.0,
+     "seed": 3,
+     "raw_peak_db": -20.9,
+     "active": 0.11,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1474,9 +1604,34 @@
    "kind": "loop",
    "seconds": 10,
    "prompt": "A small vibrator humming at a low steady speed, close up",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "props/vibrator-low.wav",
+     "seconds": 10.0,
+     "seed": 0,
+     "raw_peak_db": -5.4,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "props/vibrator-low-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -0.3,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "props/vibrator-low-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -0.3,
+     "active": 1.0,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1485,9 +1640,34 @@
    "kind": "loop",
    "seconds": 10,
    "prompt": "A vibrator buzzing strongly under bed sheets, muffled by fabric, intensity rising and falling",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "props/vibrator-under-sheets.wav",
+     "seconds": 10.0,
+     "seed": 0,
+     "raw_peak_db": 0.0,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "props/vibrator-under-sheets-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": 0.0,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "props/vibrator-under-sheets-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": 0.0,
+     "active": 1.0,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1532,9 +1712,34 @@
    "kind": "oneshot",
    "seconds": 3,
    "prompt": "A wooden door slowly creaking open in a quiet house at night",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "scene/door-creak-open.wav",
+     "seconds": 3.0,
+     "seed": 1,
+     "raw_peak_db": -24.8,
+     "active": 0.99,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/door-creak-open-2.wav",
+     "seconds": 2.0,
+     "seed": 3,
+     "raw_peak_db": -22.8,
+     "active": 0.38,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/door-creak-open-3.wav",
+     "seconds": 4.5,
+     "seed": 4,
+     "raw_peak_db": -29.4,
+     "active": 1.0,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1687,9 +1892,34 @@
    "kind": "loop",
    "seconds": 10,
    "prompt": "Gentle rain pattering on a bedroom window at night, calm and steady",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "scene/rain-window-night.wav",
+     "seconds": 10.0,
+     "seed": 0,
+     "raw_peak_db": -29.3,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/rain-window-night-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -30.8,
+     "active": 1.0,
+     "passed_gate": false
+    },
+    {
+     "file": "scene/rain-window-night-3.wav",
+     "seconds": 15.0,
+     "seed": 6,
+     "raw_peak_db": -24.8,
+     "active": 1.0,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1698,9 +1928,34 @@
    "kind": "loop",
    "seconds": 10,
    "prompt": "Quiet bedroom at night, faint air conditioner hum, distant city traffic through a closed window, calm room tone",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "scene/room-tone-bedroom-night.wav",
+     "seconds": 10.0,
+     "seed": 1,
+     "raw_peak_db": -31.1,
+     "active": 1.0,
+     "passed_gate": false
+    },
+    {
+     "file": "scene/room-tone-bedroom-night-2.wav",
+     "seconds": 6.0,
+     "seed": 5,
+     "raw_peak_db": -32.9,
+     "active": 1.0,
+     "passed_gate": false
+    },
+    {
+     "file": "scene/room-tone-bedroom-night-3.wav",
+     "seconds": 15.0,
+     "seed": 6,
+     "raw_peak_db": -33.8,
+     "active": 1.0,
+     "passed_gate": false
+    }
+   ],
    "takes": 3
   },
   {
@@ -1709,9 +1964,34 @@
    "kind": "loop",
    "seconds": 10,
    "prompt": "A shower running in a small tiled bathroom, water splashing on the floor and glass, steamy",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "scene/shower-running.wav",
+     "seconds": 10.0,
+     "seed": 0,
+     "raw_peak_db": -0.1,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/shower-running-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -1.6,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/shower-running-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -0.0,
+     "active": 1.0,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1756,9 +2036,34 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "A leather belt with a metal buckle dropped onto a wooden floor, clink and thud",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "undress/belt-drop.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -0.0,
+     "active": 0.24,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/belt-drop-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -4.1,
+     "active": 0.33,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/belt-drop-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -0.6,
+     "active": 0.17,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1803,9 +2108,34 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "A bra clasp being unhooked with a tiny click and the elastic straps loosening, close up",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "undress/bra-unhook.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -1.8,
+     "active": 0.07,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/bra-unhook-2.wav",
+     "seconds": 2.0,
+     "seed": 2,
+     "raw_peak_db": -0.1,
+     "active": 0.05,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/bra-unhook-3.wav",
+     "seconds": 3.0,
+     "seed": 5,
+     "raw_peak_db": -0.0,
+     "active": 0.08,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1814,9 +2144,34 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "A pile of clothes dropped onto a wooden floor, soft fabric flop",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "undress/clothes-drop-floor.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -17.7,
+     "active": 0.09,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/clothes-drop-floor-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -8.5,
+     "active": 0.19,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/clothes-drop-floor-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -1.7,
+     "active": 0.08,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1897,9 +2252,34 @@
    "kind": "oneshot",
    "seconds": 3,
    "prompt": "Shirt buttons being undone one by one, soft cotton fabric rustling, close up",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "undress/shirt-buttons.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -29.6,
+     "active": 0.89,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/shirt-buttons-2.wav",
+     "seconds": 2.0,
+     "seed": 3,
+     "raw_peak_db": -14.6,
+     "active": 0.05,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/shirt-buttons-3.wav",
+     "seconds": 4.5,
+     "seed": 6,
+     "raw_peak_db": -17.7,
+     "active": 0.12,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1908,9 +2288,34 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "Two high heel shoes kicked off and clattering onto a wooden floor",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "undress/shoes-kicked-off.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -4.6,
+     "active": 0.24,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/shoes-kicked-off-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": 0.0,
+     "active": 0.45,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/shoes-kicked-off-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -0.1,
+     "active": 0.25,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1919,9 +2324,34 @@
    "kind": "oneshot",
    "seconds": 3,
    "prompt": "Nylon stockings being slowly rolled down a leg, smooth sheer fabric sliding on skin, close up",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "undress/stockings-roll.wav",
+     "seconds": 3.0,
+     "seed": 1,
+     "raw_peak_db": -26.8,
+     "active": 0.99,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/stockings-roll-2.wav",
+     "seconds": 2.0,
+     "seed": 4,
+     "raw_peak_db": -23.7,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/stockings-roll-3.wav",
+     "seconds": 4.5,
+     "seed": 6,
+     "raw_peak_db": -27.2,
+     "active": 0.9,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
@@ -1966,9 +2396,34 @@
    "kind": "oneshot",
    "seconds": 2,
    "prompt": "A long zipper on the back of a dress being slowly unzipped, close up",
-   "steps": 100,
+   "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
-   "rendered": [],
+   "rendered": [
+    {
+     "file": "undress/zipper-dress.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -13.4,
+     "active": 0.5,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/zipper-dress-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -0.0,
+     "active": 0.7,
+     "passed_gate": true
+    },
+    {
+     "file": "undress/zipper-dress-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -12.5,
+     "active": 0.95,
+     "passed_gate": true
+    }
+   ],
    "takes": 3
   },
   {
