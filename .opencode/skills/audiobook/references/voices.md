@@ -33,7 +33,6 @@ The table below is regenerated from `voice.json`; don't edit it by hand.
 | `nyan-mikuru` | Nyan Mikuru | female | soft-spoken, young, sweet light timbre; casual streamer delivery | young girlfriend / GFE heroines, sweet tender romance, intimate scenes | 2 × (13.28s, 13.24s) = 26.52s |
 | `pong-kyubi` | Pong Kyubi | female | Sassy, seductive onee-sama | Sassy, seductive older sisters; femme fatales; flirty, teasing mature women | 2 × (14.0s, 12.36s) = 26.36s |
 | `shirone-mika` | Shirone Mika | female | High, sweet, gentle, soft-healing (F0 ≈ 330 Hz) | Innocent, playful heroine, mesugaki, brat | 1 × (15.68s) = 15.68s |
-| `suzuki-ryo` | Suzuki Ryo | female | deep, low, calm, commanding onee-sama/milf voice | dominant onee-sama, mature seductress, cool kunoichi, milf | 2 × (18.53s, 14.43s) = 32.96s |
 | `tam-nee` | Tam-nee | female | mature, warm, gently sultry; mid-low pitch, calm conversational tone; Southern | onee-sama, older-sister characters, flirty mentors, gentle narration | 2 × (15.38s, 13.99s) = 29.37s |
 | `thien-minh-drama` | Thiện Minh (Drama-3) | male | calm, deep male narrator; measured, dry | first-person male MC, stoic sư tôn / master, dry-humoured elder | 2 × (12.87s, 14.21s) = 27.08s |
 | `yomoyama-mikan` | Yomoyama Mikan | female | youthful, bright high-pitched, genki and playful, teasing with a sweet seductive edge (Japanese reference) | genki girls, idols, teasing kouhai, cheerful heroines, seductive little-devil (koakuma) characters | 2 × (13.23s, 15.5s) = 28.73s |
