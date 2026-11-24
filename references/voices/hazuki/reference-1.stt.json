@@ -1,0 +1,16 @@
+{
+  "clip": "reference-1.wav",
+  "models": {
+    "Whisper-Large-V3": "Xin chào, chào mừng quay trở lại, ông Yung Chí. Sau khi các em gặp nhau, tôi, Lunalia, sẽ cùng các em ngủ. Như hôm nay tôi đã nói với các em, từ nay đến giờ, tôi mời các em để tôi trở thành con người.",
+    "gpt-4o-mini-transcribe": "您好,欢迎回来,英卓大人,我们姐妹商量过后,今天由我,诺娜利亚来陪您共度夜晚。如同昨天向您说明过的,从今天开始要请您确实在我体内播种,让我怀孕。",
+    "Wizper": "Xin chào, chào mừng quay về, ông Yung Chia. Sau khi các em em đã xử lý, hôm nay tôi, Lunalia, sẽ cùng anh ngồi ngủ. Như hôm nay, tôi đã cho anh biết, từ nay đến giờ, tôi sẽ hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy"
+  },
+  "errors": {},
+  "agreement": {
+    "Whisper-Large-V3 vs gpt-4o-mini-transcribe": 0.0,
+    "Whisper-Large-V3 vs Wizper": 0.188,
+    "gpt-4o-mini-transcribe vs Wizper": 0.0
+  },
+  "consensus_model": "Wizper",
+  "consensus": "Xin chào, chào mừng quay về, ông Yung Chia. Sau khi các em em đã xử lý, hôm nay tôi, Lunalia, sẽ cùng anh ngồi ngủ. Như hôm nay, tôi đã cho anh biết, từ nay đến giờ, tôi sẽ hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy hãy"
+}

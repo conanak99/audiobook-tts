@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT))
 from viettts.audiobook.tags import spoken, untagged  # noqa: E402
 
+SPEAKER = re.compile(r'^\{([^{}]+)\}\s*(.*)$')
 HEADING = re.compile(r'^(?:#{1,3}\s*(.+)|(\d{1,3})|(?:chương|chapter|track|part|phần)\s*(\d{1,3})\b.*)$', re.I)
 IMAGES = ('.jpg', '.jpeg', '.png', '.webp')
 
@@ -169,12 +170,20 @@ def cmd_make(args):
                     lines_out.append('')
                 continue
             speaker = 'narrator'
-            m = re.match(r'^\{([^{}]+)\}\s*(.*)$', item)
+            m = re.match(SPEAKER, item)
             if m:
                 speaker, item = m[1].strip(), m[2]
                 if speaker not in voices:
                     errors.append(f'{title} line {k + 1}: speaker "{speaker}" has no voice in drama.json')
             plain = source_lines[k] if k < len(source_lines) else ''
+            m = re.match(SPEAKER, plain)  # the translate skill writes {Name} into the source too
+            if m:
+                plain = m[2]
+                if m[1].strip() != speaker:
+                    errors.append(
+                        f'{title} line {k + 1}: speaker is "{speaker}" in directed.txt but "{m[1].strip()}" in the '
+                        'source; change both'
+                    )
             if untagged(spoken(item)) != untagged(spoken(plain)):
                 errors.append(f'{title} line {k + 1}: words differ\n    directed: {untagged(spoken(item))}'
                               f'\n    source:   {untagged(spoken(plain))}')

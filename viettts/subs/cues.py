@@ -2,24 +2,41 @@
 
 import re
 
-MERGE_GAP = 0.25  # VAD spans closer than this are one line
-MAX_CUE = 12.0  # stop merging past this; anime-whisper is trained on short clips
+MERGE_GAP = 0.6  # turns closer than this are one line
+MAX_CUE = 8.0  # stop merging past this: short lines read and voice well
 MAX_CLIP = 28.0  # hard cap per clip, inside whisper's 30 s window
-CLIP_PAD = 0.2  # audio kept around a diarized turn when re-transcribing it
+CLIP_PAD = 0.2  # audio kept around a line when transcribing it
 
 _BLANK = re.compile(r'^[\s…・.。、,，!！?？~〜ー―-]*$')
 _LOOP = re.compile(r'(.{1,4}?)\1{7,}')
+_KANA = re.compile(r'[\u3041-\u3096\u30a1-\u30fa]')
+_HAN = re.compile(r'[\u4e00-\u9fff]')
+
+
+def detect_language(texts: list[str]) -> str:
+    """'ja' or 'zh' from MOSS's own transcript: Japanese is full of kana, Chinese has none (moans like あっ count)."""
+    joined = ''.join(texts)
+    kana, han = len(_KANA.findall(joined)), len(_HAN.findall(joined))
+    return 'zh' if han and kana < 0.02 * (kana + han) else 'ja'
 
 
 def merge_spans(spans: list[tuple[float, float]], gap: float = MERGE_GAP, longest: float = MAX_CUE):
     """Join speech spans split by short breaths, keeping each line short enough to transcribe well."""
-    merged: list[list[float]] = []
-    for start, end in sorted(spans):
-        if merged and start - merged[-1][1] < gap and end - merged[-1][0] <= longest:
-            merged[-1][1] = max(merged[-1][1], end)
+    return [(a, b) for a, b, _ in merge_turns([(a, b, None) for a, b in spans], gap, longest)]
+
+
+def merge_turns(
+    turns: list[tuple[float, float, str | None]], gap: float = MERGE_GAP, longest: float = MAX_CUE
+) -> list[tuple[float, float, str | None]]:
+    """Join a speaker's consecutive turns (MOSS cuts at every phrase) into lines; a speaker change always cuts."""
+    merged: list[list] = []
+    for start, end, speaker in sorted(turns, key=lambda t: t[0]):
+        last = merged[-1] if merged else None
+        if last and last[2] == speaker and start - last[1] < gap and end - last[0] <= longest:
+            last[1] = max(last[1], end)
         else:
-            merged.append([start, end])
-    return [(a, b) for a, b in merged]
+            merged.append([start, end, speaker])
+    return [(a, b, s) for a, b, s in merged]
 
 
 def split_long(spans: list[tuple[float, float]], longest: float = MAX_CLIP):

@@ -1,0 +1,48 @@
+{
+  "id": "asato",
+  "status": "draft",
+  "transcript_reviewed": false,
+  "source": {
+    "input": [
+      "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/asato-1.wav",
+      "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/asato-2.wav"
+    ]
+  },
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source": "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/asato-1.wav",
+      "source_start": 0.0,
+      "transcript_reviewed": false,
+      "gain_db": 1.6,
+      "duration": 14.37,
+      "speech_pct": 70.2,
+      "longest_pause": 0.7,
+      "mean_db": -20.4,
+      "lufs": -20.0,
+      "peak_db": -3.5
+    },
+    {
+      "n": 2,
+      "file": "reference-2.wav",
+      "source": "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/asato-2.wav",
+      "source_start": 0.0,
+      "transcript_reviewed": false,
+      "gain_db": 1.9,
+      "duration": 18.83,
+      "speech_pct": 78.4,
+      "longest_pause": 0.89,
+      "mean_db": -20.0,
+      "lufs": -20.0,
+      "peak_db": -3.4
+    }
+  ],
+  "samples": [],
+  "metrics": {
+    "duration": 33.2,
+    "longest_pause": 0.89
+  },
+  "name": "asato",
+  "updated": "2026-11-24T23:02:25"
+}

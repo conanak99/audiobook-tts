@@ -1,4 +1,4 @@
-"""python3 -m viettts subs: Japanese subtitles (WebVTT) from voice-drama audio, ready for the translate skill."""
+"""python3 -m viettts subs: Japanese or Chinese subtitles (WebVTT) from voice-drama audio, for the translate skill."""
 
 import argparse
 import json
@@ -13,6 +13,7 @@ from viettts.text import slugify
 
 from . import cues as plan
 
+LANGUAGES = {'ja': 'Japanese (anime-whisper)', 'zh': "Chinese (MOSS's text)"}
 AUDIO = {'.mp3', '.wav', '.flac', '.m4a', '.aac', '.ogg', '.opus', '.mp4', '.m4b'}
 
 
@@ -56,7 +57,7 @@ def cmd_transcribe(args):
     out = args.out or default_out(args.inputs)
     out.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
-        request = {'speakers': args.speakers, 'tracks': []}
+        request = {'speakers': args.speakers, 'language': args.lang, 'tracks': []}
         for i, track in enumerate(tracks):
             wav = Path(tmp) / f'{i:03}.wav'
             to_wav(track, wav)
@@ -66,13 +67,16 @@ def cmd_transcribe(args):
         command, env = uv_command('drama3', '-m', 'viettts.subs.worker', str(Path(tmp) / 'request.json'))
         worker = subprocess.Popen(command, env=env, stdout=subprocess.PIPE, text=True)
         assert worker.stdout is not None
-        done = 0
+        done, languages = 0, set()
         for line in worker.stdout:
             row = json.loads(line)
-            print(f'  {tracks[done].name}: {row["cues"]} cues in {row["seconds"]}s')
+            languages.add(row['language'])
+            print(f'  {tracks[done].name}: {row["cues"]} cues, {LANGUAGES[row["language"]]}, in {row["seconds"]}s')
             done += 1
         if worker.wait():
             raise SystemExit(f'transcription failed (exit {worker.returncode})')
+        if len(languages) > 1:
+            print('WARNING: the tracks were heard as different languages; rerun with --lang ja or --lang zh')
         results = [json.loads(Path(t['out']).read_text(encoding='utf-8')) for t in request['tracks']]
 
     for track, cues in zip(tracks, results):
@@ -90,12 +94,15 @@ def main(argv: list[str] | None = None) -> None:
     p = sub.add_parser(
         'transcribe',
         help='Write one .vtt per track and a combined source.md',
-        description='Transcribe Japanese voice-drama tracks (files or folders, in natural name order). Runs '
-        'Silero VAD + anime-whisper in the drama3 environment; --speakers 2 uses MOSS-Transcribe-Diarize for '
-        'speaker turns and labels each cue <v S1>/<v S2>.',
+        description='Transcribe Japanese or Chinese voice-drama tracks (files or folders, in natural name order) '
+        'in the drama3 environment. MOSS-Transcribe-Diarize finds the lines; Japanese lines are re-transcribed by '
+        'anime-whisper, Chinese ones keep MOSS text. --speakers 2 labels each cue <v S1>/<v S2>.',
     )
     p.add_argument('inputs', nargs='+', type=Path, help='audio files and/or folders of tracks')
     p.add_argument('--speakers', type=int, choices=[1, 2], default=1, help='voices in the drama (default: 1)')
+    p.add_argument(
+        '--lang', choices=['auto', 'ja', 'zh'], default='auto', help='spoken language (default: read from each track)'
+    )
     p.add_argument('--out', type=Path, help='output folder (default: outputs/subtitles/<name>)')
     p.set_defaults(func=cmd_transcribe)
     args = parser.parse_args(argv)

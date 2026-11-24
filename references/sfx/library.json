@@ -399,6 +399,42 @@
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
   },
   {
+   "id": "ear-lick-close",
+   "category": "body",
+   "kind": "loop",
+   "seconds": 10.0,
+   "prompt": "Slow wet tongue licking inside and around a human ear, binaural ASMR, very close and muffled, soft wet clicks, no voice.",
+   "takes": 3,
+   "rendered": [
+    {
+     "file": "body/ear-lick-close.wav",
+     "seconds": 10.0,
+     "seed": 0,
+     "raw_peak_db": -22.3,
+     "active": 0.88,
+     "passed_gate": true
+    },
+    {
+     "file": "body/ear-lick-close-2.wav",
+     "seconds": 6.0,
+     "seed": 2,
+     "raw_peak_db": -24.4,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "body/ear-lick-close-3.wav",
+     "seconds": 15.0,
+     "seed": 3,
+     "raw_peak_db": -24.5,
+     "active": 1.0,
+     "passed_gate": true
+    }
+   ],
+   "steps": 50,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
+  },
+  {
    "id": "fingernail-scratch-skin",
    "category": "body",
    "kind": "loop",
@@ -613,6 +649,42 @@
     }
    ],
    "takes": 3
+  },
+  {
+   "id": "milk-spray",
+   "category": "body",
+   "kind": "oneshot",
+   "seconds": 2.0,
+   "prompt": "Thin streams of warm liquid squirting in short spurts from a nipple onto skin, small wet sprays, very close up, no voice.",
+   "takes": 3,
+   "rendered": [
+    {
+     "file": "body/milk-spray.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -0.1,
+     "active": 0.15,
+     "passed_gate": true
+    },
+    {
+     "file": "body/milk-spray-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -3.3,
+     "active": 0.3,
+     "passed_gate": true
+    },
+    {
+     "file": "body/milk-spray-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -14.1,
+     "active": 0.27,
+     "passed_gate": true
+    }
+   ],
+   "steps": 50,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
   },
   {
    "id": "skin-caress",
@@ -1251,6 +1323,26 @@
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
   },
   {
+   "id": "angel-appear",
+   "category": "magic",
+   "kind": "oneshot",
+   "seconds": 3.0,
+   "prompt": "Two angels appearing in a dark bedroom, a soft shimmering harp glissando, a gentle whoosh of feathered wings, a warm sparkle, calm.",
+   "takes": 1,
+   "rendered": [
+    {
+     "file": "magic/angel-appear.wav",
+     "seconds": 3.0,
+     "seed": 0,
+     "raw_peak_db": -3.2,
+     "active": 0.63,
+     "passed_gate": true
+    }
+   ],
+   "steps": 50,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
+  },
+  {
    "id": "magic-debuff",
    "category": "magic",
    "kind": "oneshot",
@@ -1815,6 +1907,26 @@
    "takes": 3
   },
   {
+   "id": "dojo-practice",
+   "category": "scene",
+   "kind": "loop",
+   "seconds": 10.0,
+   "prompt": "A large wooden karate dojo hall, bare feet shuffling and stamping on wooden floorboards, punches and kicks thudding on training pads, no voices, no shouting.",
+   "takes": 1,
+   "rendered": [
+    {
+     "file": "scene/dojo-practice.wav",
+     "seconds": 10.0,
+     "seed": 0,
+     "raw_peak_db": -0.0,
+     "active": 0.53,
+     "passed_gate": true
+    }
+   ],
+   "steps": 50,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
+  },
+  {
    "id": "door-close-lock",
    "category": "scene",
    "kind": "oneshot",
@@ -1921,6 +2033,42 @@
     }
    ],
    "takes": 3
+  },
+  {
+   "id": "fall-wooden-floor",
+   "category": "scene",
+   "kind": "oneshot",
+   "seconds": 2.0,
+   "prompt": "Two people falling onto old wooden veranda floorboards, a heavy body thud and a creak of the boards.",
+   "takes": 3,
+   "rendered": [
+    {
+     "file": "scene/fall-wooden-floor.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -3.3,
+     "active": 0.31,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/fall-wooden-floor-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -1.3,
+     "active": 0.5,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/fall-wooden-floor-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -4.5,
+     "active": 0.44,
+     "passed_gate": true
+    }
+   ],
+   "steps": 50,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
   },
   {
    "id": "footsteps-hallway",
@@ -2031,6 +2179,34 @@
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
   },
   {
+   "id": "night-garden-crickets",
+   "category": "scene",
+   "kind": "loop",
+   "seconds": 10.0,
+   "prompt": "A quiet Japanese garden at night heard from inside a wooden house, crickets chirping softly, a faint breeze, calm, no voices.",
+   "takes": 2,
+   "rendered": [
+    {
+     "file": "scene/night-garden-crickets.wav",
+     "seconds": 10.0,
+     "seed": 1,
+     "raw_peak_db": -23.7,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/night-garden-crickets-2.wav",
+     "seconds": 6.0,
+     "seed": 2,
+     "raw_peak_db": -28.5,
+     "active": 1.0,
+     "passed_gate": true
+    }
+   ],
+   "steps": 50,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
+  },
+  {
    "id": "rain-window-night",
    "category": "scene",
    "kind": "loop",
@@ -2071,36 +2247,72 @@
    "category": "scene",
    "kind": "loop",
    "seconds": 10,
-   "prompt": "Quiet bedroom at night, faint air conditioner hum, distant city traffic through a closed window, calm room tone",
+   "prompt": "A bedroom at night, the steady soft whoosh of an air conditioner blowing, a low constant hum, now and then a car passing outside a closed window, calm, no voices.",
    "steps": 50,
    "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d",
    "rendered": [
     {
      "file": "scene/room-tone-bedroom-night.wav",
      "seconds": 10.0,
-     "seed": 1,
-     "raw_peak_db": -31.1,
+     "seed": 0,
+     "raw_peak_db": -22.9,
      "active": 1.0,
-     "passed_gate": false
+     "passed_gate": true
     },
     {
      "file": "scene/room-tone-bedroom-night-2.wav",
      "seconds": 6.0,
-     "seed": 5,
-     "raw_peak_db": -32.9,
+     "seed": 1,
+     "raw_peak_db": -18.8,
      "active": 1.0,
-     "passed_gate": false
+     "passed_gate": true
     },
     {
      "file": "scene/room-tone-bedroom-night-3.wav",
      "seconds": 15.0,
-     "seed": 6,
-     "raw_peak_db": -33.8,
+     "seed": 4,
+     "raw_peak_db": -29.3,
      "active": 1.0,
-     "passed_gate": false
+     "passed_gate": true
     }
    ],
    "takes": 3
+  },
+  {
+   "id": "shoji-slide",
+   "category": "scene",
+   "kind": "oneshot",
+   "seconds": 2.0,
+   "prompt": "A Japanese wooden sliding paper door (shoji) sliding open along its wooden track, a soft rumble and a light tap, close, no voice.",
+   "takes": 3,
+   "rendered": [
+    {
+     "file": "scene/shoji-slide.wav",
+     "seconds": 2.0,
+     "seed": 0,
+     "raw_peak_db": -12.5,
+     "active": 0.77,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/shoji-slide-2.wav",
+     "seconds": 2.0,
+     "seed": 1,
+     "raw_peak_db": -6.7,
+     "active": 0.95,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/shoji-slide-3.wav",
+     "seconds": 3.0,
+     "seed": 2,
+     "raw_peak_db": -14.4,
+     "active": 0.99,
+     "passed_gate": true
+    }
+   ],
+   "steps": 50,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
   },
   {
    "id": "shower-running",
@@ -2173,6 +2385,42 @@
     }
    ],
    "takes": 3
+  },
+  {
+   "id": "veranda-evening-cicadas",
+   "category": "scene",
+   "kind": "loop",
+   "seconds": 10.0,
+   "prompt": "Early evening on a wooden veranda of a Japanese house, higurashi cicadas calling softly in the distance, a light breeze in the garden, no voices.",
+   "takes": 3,
+   "rendered": [
+    {
+     "file": "scene/veranda-evening-cicadas.wav",
+     "seconds": 10.0,
+     "seed": 0,
+     "raw_peak_db": -19.9,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/veranda-evening-cicadas-2.wav",
+     "seconds": 6.0,
+     "seed": 1,
+     "raw_peak_db": -21.0,
+     "active": 1.0,
+     "passed_gate": true
+    },
+    {
+     "file": "scene/veranda-evening-cicadas-3.wav",
+     "seconds": 15.0,
+     "seed": 2,
+     "raw_peak_db": -7.4,
+     "active": 1.0,
+     "passed_gate": true
+    }
+   ],
+   "steps": 50,
+   "model": "OpenMOSS-Team/MOSS-SoundEffect-v2.0@e35df4d"
   },
   {
    "id": "belt-drop",

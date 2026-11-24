@@ -45,7 +45,7 @@ def parse_source(path: Path):
     tracks: list[tuple[str, list[dict]]] = []
     cur_title = "Track 1"
     cur_lines: list[str] = []
-    has_track_headers = any(TRACK_RE.match(l.strip()) for l in lines)
+    has_track_headers = any(TRACK_RE.match(line.strip()) for line in lines)
 
     if has_track_headers:
         in_track = False

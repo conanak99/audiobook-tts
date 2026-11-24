@@ -1,0 +1,54 @@
+{
+  "id": "hazuki",
+  "status": "draft",
+  "transcript_reviewed": false,
+  "source": {
+    "input": [
+      "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/hazuki-1.wav",
+      "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/hazuki-2.wav"
+    ]
+  },
+  "references": [
+    {
+      "n": 1,
+      "file": "reference-1.wav",
+      "source": "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/hazuki-1.wav",
+      "source_start": 0.0,
+      "transcript_reviewed": false,
+      "gain_db": 4.9,
+      "duration": 18.1,
+      "speech_pct": 90.8,
+      "longest_pause": 0.36,
+      "mean_db": -19.5,
+      "lufs": -19.9,
+      "peak_db": -5.0,
+      "cleaned": [
+        "dereverb_mel_band_roformer_mono_anvuew.ckpt"
+      ]
+    },
+    {
+      "n": 2,
+      "file": "reference-2.wav",
+      "source": "/private/var/folders/s1/9syw5rfd03j54tf3y4__xgsc0000gn/T/opencode/asato_hayuki/asato and hayuki/hazuki-2.wav",
+      "source_start": 0.0,
+      "transcript_reviewed": false,
+      "gain_db": 7.9,
+      "duration": 19.73,
+      "speech_pct": 86.7,
+      "longest_pause": 0.39,
+      "mean_db": -20.3,
+      "lufs": -20.0,
+      "peak_db": -2.0,
+      "cleaned": [
+        "dereverb_mel_band_roformer_mono_anvuew.ckpt"
+      ]
+    }
+  ],
+  "samples": [],
+  "metrics": {
+    "duration": 37.83,
+    "longest_pause": 0.39
+  },
+  "name": "hazuki",
+  "updated": "2026-11-24T23:01:13"
+}

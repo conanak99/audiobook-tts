@@ -53,8 +53,15 @@ Standalone outputs include `drama3.wav`, numbered chunks, `text.txt`, `performan
 
 `python3 -m viettts subs transcribe` runs `viettts.subs.worker` in `engines/drama3/` (`mlx-audio==0.6.5`, nothing extra to install). Models are downloaded to the Hugging Face cache on first use, at the revisions pinned in `model-revisions.json`:
 
-- **1 speaker (default):** `mlx-community/silero-vad` cuts speech spans (threshold 0.3, 300 ms padding, gaps under 0.25 s merged up to 12 s), then `litagin/anime-whisper` (3 GB, MIT, kotoba-whisper fine-tuned on 5,300 h of galgame voices) transcribes each span. Never feed it a whole track: its long-form output was gibberish. Never give it a prompt either (its model card says prompts cause hallucinations). Cues that are only punctuation (`…`) are dropped; moans and laughs stay.
-- **`--speakers 2`:** `OpenMOSS-Team/MOSS-Transcribe-Diarize` (0.9B, Apache-2.0) gives the turns and speaker labels, and anime-whisper re-transcribes each turn. MOSS's own text is the fallback when anime-whisper returns nothing or loops.
+1. **Turns:** `OpenMOSS-Team/MOSS-Transcribe-Diarize` (0.9B, Apache-2.0) finds every phrase in one pass, with speaker labels.
+2. **Pauses:** its turns run end to end, so each is trimmed to the frames louder than 35% of the way from the track's quiet floor to its loud speech. That brings back the pauses the translate skill reads as scene breaks.
+3. **Lines:** one speaker's phrases less than 0.6 s apart are merged, up to 8 s per line. A speaker change always starts a new line; with the default `--speakers 1` the labels are ignored.
+4. **Text:** `litagin/anime-whisper` (3 GB, MIT, kotoba-whisper fine-tuned on 5,300 h of galgame voices) transcribes each line. Never feed it a whole track: its long-form output was gibberish. Never give it a prompt either (its model card says prompts cause hallucinations). MOSS's text is the fallback when it returns nothing or loops. Cues that are only punctuation (`…`) are dropped; moans and laughs stay.
+5. **Chinese:** anime-whisper only knows Japanese, so a track whose MOSS transcript has (almost) no kana keeps MOSS's own text (simplified characters). `--lang ja|zh` overrides the detection.
+
+On a Mandarin two-angel drama (Nov 2026), MOSS split the two women correctly and its text was the best: in whispered ear-licking lines Qwen3-ASR 1.7B made up whole sentences (我也要舔了 → 我也要点歌, 要稍微加快速度哦 → 要成为家庭主妇了), and Whisper large-v3-turbo misheard 小雅, 双马尾 and 肉棒. MOSS's own slips are sound-alikes for the translator to fix from context: 射箭 for 射精, 小牙 for 小雅, 搜索 for 色色, 肉包 for 肉棒. 48 min of audio took 2 min.
+
+Silero VAD was the first line cutter and was dropped. It treats moaning and breathy speech as silence: in a 15-minute 手マン track it found 20 lines and left 10 minutes empty, where MOSS found 134 lines.
 
 Measured on an M5 Pro with two DLsite tracks (Nov 2026):
 

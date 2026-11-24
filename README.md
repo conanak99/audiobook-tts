@@ -62,14 +62,14 @@ python3 -m viettts sfx mix outputs/voice-dramas/<slug>/script.txt
 
 The mix is a second book, `<Title> (SFX).m4b`; the voice-only one is kept. Sounds come from `references/sfx/` (`python3 -m viettts sfx list`); add one with `sfx add` and render it with `sfx generate` (MOSS-SoundEffect v2 on the Apple GPU).
 
-## Transcribe Japanese voice dramas
+## Transcribe Japanese or Chinese voice dramas
 
 ```sh
 python3 -m viettts subs transcribe /absolute/path/track01.mp3            # or a folder of tracks
 python3 -m viettts subs transcribe /absolute/path/folder --speakers 2    # two voices: cues get <v S1>/<v S2>
 ```
 
-A folder (or several files) becomes one book: `outputs/subtitles/<folder name>/source.md` has one chapter per file, in natural name order (`2` before `10`), titled with the file name without its track number (`track01_プロローグ.mp3` → `## プロローグ`). It is the input of the translate skill; one `.vtt` per file is written beside it. It runs locally on MLX in the Drama-3 environment: Silero VAD cuts the lines and [anime-whisper](https://huggingface.co/litagin/anime-whisper) transcribes them, keeping moans and laughs; `--speakers 2` takes the speaker turns from MOSS-Transcribe-Diarize instead. Names come out unevenly, so check them before translating. See [engines](docs/engines.md#subtitles).
+A folder (or several files) becomes one book: `outputs/subtitles/<folder name>/source.md` has one chapter per file, in natural name order (`2` before `10`), titled with the file name without its track number (`track01_プロローグ.mp3` → `## プロローグ`). It is the input of the translate skill; one `.vtt` per file is written beside it. It runs locally on MLX in the Drama-3 environment: MOSS-Transcribe-Diarize finds every phrase (moaned ones included) and who says it, and [anime-whisper](https://huggingface.co/litagin/anime-whisper) transcribes each line, keeping moans and laughs. Chinese tracks (detected per track, or `--lang zh`) keep MOSS's own text, since anime-whisper only knows Japanese. `--speakers 2` also labels the cues. Names come out unevenly, so check them before translating. See [engines](docs/engines.md#subtitles).
 
 ## Test speech
 

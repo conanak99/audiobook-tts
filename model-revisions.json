@@ -2,7 +2,6 @@
   "pnnbao-ump/VieNeu-TTS-v3-Turbo": "61b85e3d937fbbacb387714180e8182823512523",
   "OpenMOSS-Team/MOSS-Audio-Tokenizer-Nano-ONNX": "ceff0d0749bfb3fa2d61149794ec6feef0d1e1ae",
   "mlx-community/fish-audio-drama-3-4bit": "2b0c8028998533972e77359cce56b8bf1c5d6d4a",
-  "mlx-community/silero-vad": "7bc17f22d3c0451bd3a6cd71e759b009271ff49a",
   "litagin/anime-whisper": "22e2008a8182b357da3922a6308d095008f72973",
   "OpenMOSS-Team/MOSS-Transcribe-Diarize": "10304d926740cf5a5cee05a268086e3265197910"
 }

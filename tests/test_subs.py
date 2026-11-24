@@ -23,6 +23,14 @@ class PlanTests(unittest.TestCase):
         spans = [(0.0, 1.0), (1.1, 2.0), (3.0, 4.0), (4.1, 15.5)]
         self.assertEqual(plan.merge_spans(spans), [(0.0, 2.0), (3.0, 4.0), (4.1, 15.5)])
 
+    def test_merge_turns_cuts_at_a_speaker_change(self):
+        turns = [(0.0, 1.0, 'S01'), (1.2, 2.0, 'S01'), (2.1, 3.0, 'S02'), (3.1, 4.0, 'S01'), (4.2, 5.0, None)]
+        self.assertEqual(
+            plan.merge_turns(turns),
+            [(0.0, 2.0, 'S01'), (2.1, 3.0, 'S02'), (3.1, 4.0, 'S01'), (4.2, 5.0, None)],
+        )
+        self.assertEqual(plan.merge_turns([(0.0, 1.0, None), (1.2, 2.0, None)]), [(0.0, 2.0, None)])
+
     def test_split_long_keeps_clips_inside_the_whisper_window(self):
         self.assertEqual(plan.split_long([(0.0, 10.0)]), [(0.0, 10.0)])
         parts = plan.split_long([(10.0, 70.0)])
@@ -40,6 +48,12 @@ class PlanTests(unittest.TestCase):
         self.assertTrue(plan.is_loop('決起羅羅羅羅羅羅羅羅羅羅'))
         self.assertTrue(plan.is_loop('ちょっと' * 8))
         self.assertFalse(plan.is_loop('もっともっと強くなってもらおうか'))
+
+    def test_language_comes_from_kana_in_the_transcript(self):
+        self.assertEqual(plan.detect_language(['我们是来帮助你睡眠的天使哦', '舒服吗？']), 'zh')
+        self.assertEqual(plan.detect_language(['道場を破りに来たのか', 'ふふっ']), 'ja')
+        self.assertEqual(plan.detect_language(['入るぞ', '任せた']), 'ja')
+        self.assertEqual(plan.detect_language([]), 'ja')
 
     def test_speakers_are_numbered_by_first_appearance(self):
         self.assertEqual(plan.label_speakers(['S02', 'S01', 'S02', None]), ['S1', 'S2', 'S1', None])
