@@ -63,7 +63,7 @@ def cmd_transcribe(args):
             to_wav(track, wav)
             request['tracks'].append({'wav': str(wav), 'out': str(Path(tmp) / f'{i:03}.json')})
         (Path(tmp) / 'request.json').write_text(json.dumps(request), encoding='utf-8')
-        print(f'transcribing {len(tracks)} track(s), {"2 speakers" if args.speakers == 2 else "1 speaker"} ...')
+        print(f'transcribing {len(tracks)} track(s), {"2 speakers" if args.speakers == 2 else "1 speaker"} ...', flush=True)
         command, env = uv_command('drama3', '-m', 'viettts.subs.worker', str(Path(tmp) / 'request.json'))
         worker = subprocess.Popen(command, env=env, stdout=subprocess.PIPE, text=True)
         assert worker.stdout is not None
@@ -71,7 +71,11 @@ def cmd_transcribe(args):
         for line in worker.stdout:
             row = json.loads(line)
             languages.add(row['language'])
-            print(f'  {tracks[done].name}: {row["cues"]} cues, {LANGUAGES[row["language"]]}, in {row["seconds"]}s')
+            print(
+                f'  [{done + 1}/{len(tracks)}] {tracks[done].name}: {row["cues"]} cues, '
+                f'{LANGUAGES[row["language"]]}, in {row["seconds"]}s',
+                flush=True,
+            )
             done += 1
         if worker.wait():
             raise SystemExit(f'transcription failed (exit {worker.returncode})')
