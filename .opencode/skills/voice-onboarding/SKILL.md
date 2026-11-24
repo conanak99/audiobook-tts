@@ -101,11 +101,13 @@ Candidate times are then relative to `--from`. CPU separation takes roughly 1–
 
 ## 3. Transcribe and review (your job)
 
-The NanoGPT key comes from `NANOGPT_API_KEY` or `--key-file`. If neither is available, ask the user for the key with the secret tool, never in chat, and pass the saved file with `--key-file`. Never print the key.
+The NanoGPT key is in `.env` at the repository root (`NANOGPT_API_KEY=...`, ignored by git). Load it into the command's environment by sourcing the file in the same shell call. Never print it, `cat` it or echo it. Only if `.env` has no key (and `NANOGPT_API_KEY` isn't set either), ask the user for it with the secret tool, never in chat, and pass the saved file with `--key-file`.
 
 ```sh
-python3 -m viettts voice transcribe <id> [--key-file <file>] [--ref N]
+set -a; . ./.env; set +a; python3 -m viettts voice transcribe <id> [--language ja] [--ref N]
 ```
+
+`--language` is the ISO 639-1 code of the reference's spoken language (default `vi`). For a non-Vietnamese reference, ignore the words/s warning from `set-transcript`: it counts space-separated words, so Japanese or Chinese text reads as "1 word".
 
 For each reference, this runs three STT models (Whisper-Large-V3, gpt-4o-mini-transcribe, Wizper). Then audio-listening judges (Qwen omni plus/flash, Perceptron) and a text judge (Claude) each produce a transcript, and Claude adds punctuation without changing any words. The report and draft are scratch files in `outputs/voice-onboarding/<id>/` (`stt-N.json`, `reference-N.draft.txt`, ignored by git). The voice folder keeps only the WAV and its final `.txt`. A draft is printed for each reference.
 
